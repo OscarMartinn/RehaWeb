@@ -1,5 +1,9 @@
 from gettext import gettext
+from multiprocessing import context
+from operator import index
 import os
+from posixpath import split
+from webbrowser import get
 from django.urls import resolve
 import re
 from django.db.models.fields.related import ManyToManyField
@@ -18,6 +22,7 @@ from englishAccess.models import Ages, AssessmentPatiens, Exercices, ExercisesDo
 from englishAccess.forms import EnglishPacienteForm, EnglishEditarPacienteForm, EnglishEjercicioForm, EnglishEditarEjercicioForm, EnglishSesionEjerciciosForm, EnglishSesionForm, EnglishSubirVideoForm
 from django_xhtml2pdf.utils import generate_pdf as gen_pdf, render_to_pdf_response
 from rehaWeb import settings
+from rehaWeb.settings import workingOnServer
 
 
 # Create your views here.
@@ -1399,8 +1404,10 @@ def sesionEnviada(request, sesionId):
     print(sEj)
     pacienteId = s.paciente.id
     #Ruta para almacenar el fichero con la sesion
-    ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
-    #ruta = '/Users/oscarmartincasares/Desktop/rehaweb/admin/rehabilitacion/sesionesProgramadas/'
+    if workingOnServer:
+        ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
+    else:
+        ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaweb/rehaweb/datosEnviados/sesiones/'
     nombre = ruta + str(s.paciente.usuario) + ".txt"
     
     
@@ -1490,13 +1497,25 @@ def ocultarSesion(request, idSesion):
 
 
 
+
+
+
 ########################################################################################## 
 #-------------------------------------- INFORMES ----------------------------------------#
 ########################################################################################## 
-@login_required
-def informes(request, sesionId):
+def getDays(sesionId,paciente):
 
-    
+    days = []
+    valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, sesion = sesionId)
+    for valoracion in valoraciones:
+        if valoracion.fecha not in days:
+            days.append(valoracion.fecha)
+
+    return days
+
+@login_required
+def informes(request, sesionId,showFilters=False):
+    print(sesionId)
     terapeuta = Terapeutas.objects.get(usuario = request.user)
     if terapeuta.idioma.code == 'en':
         s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
@@ -1506,9 +1525,148 @@ def informes(request, sesionId):
         idioma = 'es'
 
     try:
+        if workingOnServer:
+            #aws s3 sync s3:://ficherosrehabot2/sesiones
+            pass
         pacienteId = s.paciente.id
-        ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
-        #ruta = '/Users/oscarmartincasares/Desktop/Informes/rehaweb/datosRecibidos/valoracionIndividual/'
+        if workingOnServer == True:
+            ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
+        else:
+            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
+        nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + "_" + str(sesionId) + ".csv"  
+
+        import csv
+        with open(nombre) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=';')
+            ejs = []
+            val1 = []
+            val2 = []
+            val3 = []
+            val4 = []
+            val5 = []
+            fecha = []
+            sesionId = []
+
+            for row in csv_reader:
+                ejs.append(row[2])
+                val1.append(row[3])
+                val2.append(row[4])
+                val3.append(row[5])
+                val4.append(row[6])
+                val5.append(row[7])
+                fecha.append(row[8].split(" ")[0])
+                sesionId.append(row[9])
+        
+            ejercicios_readed = len(ejs)
+
+        if terapeuta.idioma.code == 'en':
+            exist = AssessmentPatiens.objects.filter(sesion = sesionId[1])
+            paciente = Patients.objects.get(id = pacienteId)
+            if len(exist) == 0:
+                for i in range(len(ejs)):
+                    v = AssessmentPatiens()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i]
+                    v.valoracion1 = val1[i]
+                    v.valoracion2 = val2[i]
+                    v.valoracion3 = val3[i]
+                    v.valoracion4 = val4[i]
+                    v.valoracion5 = val5[i]
+                    v.fecha = fecha[i]
+                    v.sesion = sesionId[i]
+                    v.save()
+            elif len(exist) > 0:
+                initial = len(exist)
+                for i in range(ejercicios_readed - initial):
+                    v = AssessmentPatiens()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i+initial]
+                    v.valoracion1 = val1[i+initial]
+                    v.valoracion2 = val2[i+initial]
+                    v.valoracion3 = val3[i+initial]
+                    v.valoracion4 = val4[i+initial]
+                    v.valoracion5 = val5[i+initial]
+                    v.fecha = fecha[i+initial]
+                    v.sesion = sesionId[i+initial]
+                    v.save()
+
+            valoracion = AssessmentPatiens.objects.filter(sesion = sesionId[1])  
+        else:
+            exist = ValoracionPacientes.objects.filter(sesion = sesionId[1])
+            paciente = Pacientes.objects.get(id = pacienteId)
+            if len(exist) == 0:
+                for i in range(len(ejs)):
+                    v = ValoracionPacientes()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i]
+                    v.valoracion1 = val1[i]
+                    v.valoracion2 = val2[i]
+                    v.valoracion3 = val3[i]
+                    v.valoracion4 = val4[i]
+                    v.valoracion5 = val5[i]
+                    v.fecha = fecha[i]
+                    v.sesion = sesionId[i]
+                    v.save()
+            elif len(exist) > 0:
+                initial = len(exist)
+                for i in range(ejercicios_readed - initial):
+                    v = ValoracionPacientes()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i+initial]
+                    v.valoracion1 = val1[i+initial]
+                    v.valoracion2 = val2[i+initial]
+                    v.valoracion3 = val3[i+initial]
+                    v.valoracion4 = val4[i+initial]
+                    v.valoracion5 = val5[i+initial]
+                    v.fecha = fecha[i+initial]
+                    v.sesion = sesionId[i+initial]
+                    v.save()
+
+            valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
+
+        days = getDays(sesionId[1],paciente)
+
+        notinform = False
+        context = {
+            "valoracion": valoracion, 
+            "idioma":idioma, 
+            "notinform":notinform,
+            "sesion":s, 
+            "paciente":paciente,
+            "dias":days,
+            "showFilters": showFilters,
+        }
+        
+        return render(request, "accesoTerapeutas/informes.html", context)
+    except:
+        notinform = True
+        return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
+
+
+
+''' 
+@login_required
+def informes(request, sesionId, showFilters=False):
+    print(sesionId)
+
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+        idioma = 'en'
+    else:
+        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+        idioma = 'es'
+
+    if workingOnServer:
+        #aws s3 sync s3:://ficherosrehabot2/sesiones
+        pass
+
+    try:
+        pacienteId = s.paciente.id
+        if workingOnServer == True:
+            ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
+        else:
+            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
         nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + ".csv"
 
 
@@ -1533,6 +1691,8 @@ def informes(request, sesionId):
                 val5.append(row[7])
                 fecha.append(row[8].split(" ")[0])
                 sesionId.append(row[9])
+        
+            ejercicios_readed = len(ejs)
 
         if terapeuta.idioma.code == 'en':
             exist = AssessmentPatiens.objects.filter(sesion = sesionId[1])
@@ -1550,11 +1710,25 @@ def informes(request, sesionId):
                     v.fecha = fecha[i]
                     v.sesion = sesionId[i]
                     v.save()
+            elif len(exist) > 0:
+                initial = len(exist)
+                for i in range(ejercicios_readed - initial):
+                    v = AssessmentPatiens()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i+initial]
+                    v.valoracion1 = val1[i+initial]
+                    v.valoracion2 = val2[i+initial]
+                    v.valoracion3 = val3[i+initial]
+                    v.valoracion4 = val4[i+initial]
+                    v.valoracion5 = val5[i+initial]
+                    v.fecha = fecha[i+initial]
+                    v.sesion = sesionId[i+initial]
+                    v.save()
 
             valoracion = AssessmentPatiens.objects.filter(sesion = sesionId[1])  
         else:
             exist = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-            paciente = Pacientes.objects.get(id = pacienteId)   
+            paciente = Pacientes.objects.get(id = pacienteId)
             if len(exist) == 0:
                 for i in range(len(ejs)):
                     v = ValoracionPacientes()
@@ -1568,14 +1742,112 @@ def informes(request, sesionId):
                     v.fecha = fecha[i]
                     v.sesion = sesionId[i]
                     v.save()
+            elif len(exist) > 0:
+                initial = len(exist)
+                for i in range(ejercicios_readed - initial):
+                    v = ValoracionPacientes()
+                    v.usuario = paciente
+                    v.ejercicio = ejs[i+initial]
+                    v.valoracion1 = val1[i+initial]
+                    v.valoracion2 = val2[i+initial]
+                    v.valoracion3 = val3[i+initial]
+                    v.valoracion4 = val4[i+initial]
+                    v.valoracion5 = val5[i+initial]
+                    v.fecha = fecha[i+initial]
+                    v.sesion = sesionId[i+initial]
+                    v.save()
 
             valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-        notinform = False
 
-        return render(request, "accesoTerapeutas/informes.html", {"valoracion": valoracion, "idioma":idioma, "notinform":notinform, "sesion":s, "paciente":paciente})
+        days = getDays(sesionId[1],paciente)
+
+        notinform = False
+        context = {
+            "valoracion": valoracion, 
+            "idioma":idioma, 
+            "notinform":notinform,
+            "sesion":s, 
+            "paciente":paciente,
+            "dias":days,
+            "showFilters": showFilters,
+        }
+        
+        return render(request, "accesoTerapeutas/informes.html", context)
     except:
         notinform = True
         return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
+'''
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def filtrarInforme(request, idPaciente, sesionId):
+
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+        idioma = 'en'
+    else:
+        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+        idioma = 'es'
+
+    dolores = request.GET.getlist('dolor')
+    fechas = request.GET.getlist('fechas')
+
+    kwargs_dolor = []
+    for sel in dolores:
+        if sel == 'Menor a 3':
+            kwargs_dolor.append(0)
+            kwargs_dolor.append(1)
+            kwargs_dolor.append(2)
+        elif sel == 'Entre 3 y 5':
+            kwargs_dolor.append(3)
+            kwargs_dolor.append(4)
+            kwargs_dolor.append(5)
+        elif sel == 'Entre 6 y 8':
+            kwargs_dolor.append(6)
+            kwargs_dolor.append(7)
+            kwargs_dolor.append(8)
+        elif sel == 'Mas de 8':
+            kwargs_dolor.append(9)
+            kwargs_dolor.append(10)
+
+    vals = []
+    if terapeuta.idioma.code == 'en':
+        paciente = Patients.objects.get(id = idPaciente)
+        if len(dolores) != 0:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        else:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente)
+    else:
+        paciente = Pacientes.objects.get(id = idPaciente)
+        if len(dolores) != 0:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        else:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente)
+
+    if len(fechas) != 0:
+        for fecha in fechas:
+            for valoracion in valoraciones:
+                if valoracion.fecha == fecha:
+                    vals.append(valoracion)
+    else:
+        vals = valoraciones
+    
+    if len(dolores) == 0 and len(fechas) == 0:
+        return redirect('Informes',sesionId)
+
+    days = getDays(sesionId,paciente)
+
+    notinform = False
+    context = {
+        "valoracion": vals, 
+        "idioma":idioma, 
+        "notinform":notinform,
+        "sesion":s, 
+        "paciente":paciente,
+        "dias":days,
+    }
+    return render(request, "accesoTerapeutas/informes.html", context)
 
 
 def get_join_pdf_file_name(file_name):
@@ -1609,7 +1881,7 @@ def join_pdf(pdf, final_name):
     return ""
 
 from django.http import HttpResponse
-def generarPDF (request,sesionId):
+def generarPDF (request, sesionId):
     terapeuta = Terapeutas.objects.get(usuario = request.user)
     
     if terapeuta.idioma.code == 'en':
@@ -1640,18 +1912,15 @@ def generarPDF (request,sesionId):
         paciente = Pacientes.objects.get(id = pacienteId)
 
         context = {"valoracion": valoracion, "idioma":idioma,"paciente":paciente}
+        print(context)
         pdf_file = 'accesoTerapeutas/generacionPdf/genPdf.html'
         pdf = gen_pdf(pdf_file,context = context)
-        final_filename = paciente.nombre + "_" + paciente.apellidos + "_informe_sesion.pdf"
+        final_filename = paciente.nombre + "_" + paciente.apellidos + "_informe_sesion_" + str(sesionId) + ".pdf"
         f = join_pdf(pdf, final_filename)
         response = HttpResponse(f, content_type='application/pdf')
         attach = 'attachment; filename=' + final_filename
         response['Content-Disposition'] = attach
         return response
-
-
-
-
 
 
 

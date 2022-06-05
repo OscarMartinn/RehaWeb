@@ -1,14 +1,14 @@
 Fecha de inicio: 2022-01-01
 Fecha de finalizacion: 2022-01-01
-Codigo: A08
+Codigo: A07
 Ejercicio: Sentadilla
 Repeticiones: 1
-Codigo: A09
+Codigo: A08
 Ejercicio: Flexion
 Repeticiones: 1
-Codigo: A07
+Codigo: A09
 Ejercicio: Burpee
 Repeticiones: 1
-Periodicidad: 2
-Sesion: 4
+Periodicidad: 1
+Sesion: 2
 Paciente Id: 1

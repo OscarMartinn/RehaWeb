@@ -155,8 +155,7 @@
                         <a href="{% url 'OcultarSesion' sesion.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
                         {% else %}
                         <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black; ">{% trans "Sesión Enviada  "%}&#9989;</a>
-                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;"
-                                href="{% url 'Informes' sesion.id %}">{% trans "Ver Informe" %}</a>
+                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;" href="{% url 'Informes' sesion.id  %}">{% trans "Ver Informe" %}</a>
 
                         <a href="{% url 'OcultarSesion' sesion.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
                         {% endif %}

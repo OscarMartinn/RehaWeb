@@ -51,6 +51,7 @@
 			<td class="center" colspan="2">Nada util</td>
             {% endif %}
 
+			{% comment %}
             {% if valoracion.valoracion4 == 5 %}
 			<td class="center" colspan="2">Muchisimo dolor</td>
             {% elif valoracion.valoracion4 == 4 %}
@@ -61,8 +62,12 @@
 			<td class="center" colspan="2">Poco dolor</td>
             {% elif valoracion.valoracion4 == 1 %}
 			<td class="center" colspan="2">Nada de dolor</td>
-            {% endif %}
+            {% else %}
+			<td class="center" colspan="2">{{valoracion.valoracion4}}</td>
+			{% endif %}
+			{% endcomment %}
 
+			<td class="center" colspan="2">{{valoracion.valoracion4}}</td>
 			<td class="center" colspan="2">{{valoracion.valoracion5}}</td>
 			<td class="center" colspan="2">{{valoracion.fecha}}</td>
 		</tr>
