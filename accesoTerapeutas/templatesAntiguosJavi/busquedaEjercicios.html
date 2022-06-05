@@ -1,0 +1,170 @@
+{% extends "rehabilitacion_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Damos la bienvenida al terapeuta-->
+<br>
+<br>
+<br>
+<div style="position: fixed;">
+    <span class="navbar-toggler-awesome fas fa-bars" style="margin-left: 15px; margin-top: 45px;"></span><a id="abrir"
+        class="abrir" href="javascript:void(0)" onclick="mostrar()">Menu</a>
+</div>
+<div class="container" id="bienvenida" style="margin-left: 140px">
+    <div class="row">
+        <div class="usuario">
+            <h2
+                style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 15px;">
+                Bienvenid@
+                {{user.get_username}} &nbsp;&nbsp; - &nbsp;&nbsp; EJERCICIOS</h2>
+        </div>
+    </div>
+</div>
+<!--end container -->
+
+<!-- Creamos un container con los resultados de la busqueda-->
+<div class="container" id="resultados" style="margin-left: 10px">
+    <h3 style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 15px;">
+        Resultados de la búsqueda : "{{ request.GET.ejercicios }}"</h2>
+</div>
+
+
+<!-- Vamos a crear un menu lateral a la izquierda de la pagina -->
+<div id="sidebar" class="sidebar">
+
+    <ul class="menu">
+        <a id="cerrar" class="cerrar" href="#" onclick="ocultar()" style="background-color:transparent;"><span
+                class="navbar-toggler-awesome fas fa-times " style="margin-left: 190px;"></span></a>
+        <li><a href="https://www.rehabot.twyncare.com/admin/">Panel de administración</a></li>
+        <li><a href="{% url 'Acceso' %}">Página Principal</a></li>
+        <li><a href="{% url 'Pacientes' %}">Pacientes</a></li>
+        <li><a href="{% url 'Ejercicios' %}">Ejercicios</a></li>
+        <li><a href="{% url 'Sesiones' %}">Sesiones</a></li>
+    </ul>
+
+</div>
+
+<!-- end of lateralMenu -->
+
+<!-- MOSTRAMOS LOS EJERCICIOS A LOS TERAPEUTAS -->
+
+<div class="container" id="contenido" style="margin-left: 140px;">
+    <br>
+    {% if ejercicios %}
+    {% for ejercicio in ejercicios %}
+    <div class="row" style="margin: 5px 5px; margin-right: 50px; ">
+        <!-- Son aquellos a los que los terapeutas accederan para hacer consultas de informes, usuarios, sesiones-->
+        <!--de esta manera salen cuatro tarjetitas por cada fila -->
+
+        <!--########################################################################################## -->
+        <!--IMPORTANTE IDENTIFICAR CADA TARJETA CON SUS DATOS A TRAVES DEL HREF QUE INDICA EL OBJETIVO -->
+        <!--EJEMPLO:                    href="#v-pills-resumen-{{sesion.nombre}}"                      -->
+        <!--########################################################################################## -->
+
+        <div class="col-3" style="margin-left: -14px; background-color: #113448; border-radius: 5px;">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-resumen-tab" data-toggle="pill"
+                    href="#v-pills-resumen-{{ejercicio.nombre}}" role="tab" aria-controls="v-pills-resumen"
+                    aria-selected="true" style="text-decoration: none;">Resumen</a>
+                <a class="nav-link" id="v-pills-detallado-tab" data-toggle="pill"
+                    href="#v-pills-detallado-{{ejercicio.nombre}}" role="tab" aria-controls="v-pills-detallado"
+                    aria-selected="false" style="text-decoration: none;">Detallado</a>
+            </div>
+        </div>
+        <div class="col-6" style="background-color: #14bf98; border-radius: 5px;">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!-- RESUMEN -->
+                <div class="tab-pane fade show active" id="v-pills-resumen-{{ejercicio.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-resumen-tab" style="color: #113448;">
+                    <h5 class="text-center" style="color: #ffff; font-size: 15px; text-transform: uppercase;">
+                        <strong style="color: #ffff; text-transform: capitalize;">{{ejercicio.nombre}}</strong>
+                    </h5>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Descripción:&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{ejercicio.descripcion}}</strong>
+                    </p>
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                                style="text-decoration: none;" href="{% url 'admin:accesoTerapeutas_ejercicios_change' ejercicio.id  %}">
+                                Editar ejercicio</a></button>
+                    </div>
+                </div>
+                <!-- DETALLADO -->
+                <div class="tab-pane fade" id="v-pills-detallado-{{ejercicio.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-detallado-tab" style="color: #113448;">
+                    <h5 class="text-center" style="color: #ffff; font-size: 15px; text-transform: uppercase;">
+                        <strong style="color: #ffff; text-transform: capitalize;">{{ejercicio.nombre}}</strong>
+                    </h5>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Descripción:&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{ejercicio.descripcion}}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Rango de
+                            edad:&nbsp;</b>
+                        {% for e in ejercicio.edad.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{e.edad}}</strong>
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Extremidades:&nbsp;</b>
+                        {% for e in ejercicio.extremidades.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{e.extremidades}}</strong>
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Lateralidad:&nbsp;</b>
+                        <strong style="color: #ffff; text-transform: capitalize;">{{ejercicio.lateralidad}}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Posición:&nbsp;</b>
+                        {% for e in ejercicio.posicion.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{eposicion}}</strong>
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Objetivos
+                            Terapéuticos:&nbsp;</b>
+                        {% for e in ejercicio.objetivoTerapeutico.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{e.objetivoTerapeutico}}</strong>
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Diagnóstico:&nbsp;</b>
+                        {% for e in ejercicio.diagnostico.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{e.diagnostico}}</strong>
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Pci:&nbsp;</b>
+                        {% for e in ejercicio.pci.all %}
+                        <strong style="color: #ffff; text-transform: capitalize;">{{e.pci}}</strong>
+                        {% endfor %}
+                    </p>
+                    <!-- Editar Ejercicio -->
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        <button style="background-color: #113448; color: white; border-radius: 5px; "><a
+                                style="text-decoration: none;"  href="{% url 'admin:accesoTerapeutas_ejercicios_change' ejercicio.id  %}">
+                                Editar ejercicio</a></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--end row -->
+    {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="{% static 'rehabilitacion_app/js/menu3.js' %}"></script>
+{% endblock %}

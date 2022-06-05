@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+     {% load static %}
+     {% load i18n %}
+<head>
+
+	<title>RehaBOT</title>
+
+    <link rel="shortcut icon" href="{% static 'rehaWebApp/images/favicon.png' %}">
+	<!--
+
+    Template 2106 Soft Landing
+
+	http://www.tooplate.com/view/2106-soft-landing
+
+    -->
+         <!-- Estando en Lag 7 vamos a intentar subirlo a pre -->
+         
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="team" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.theme.default.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/font-awesome.min.css' %}">
+
+
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/style.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/flag-icon.css' %}">
+     
+	<link href="{% static 'rehaWebApp/css/magnific-popup.css' %}" rel="stylesheet">
+     
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/tooplate-style.css' %}">
+
+</head>
+
+<body>
+
+    
+     <!-- PRE LOADER -->
+     <section class="preloader">
+        <div class="spinner">
+
+             <span class="spinner-rotate"></span>
+             
+        </div>
+   </section>
+
+
+   <!-- MENU -->
+   <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+
+     <!--- <div class="floating-container">
+          <div class="floating-button">🔤</div>
+          <div class="element-container">
+                    <a href="{% url 'setLanguage' 1 2 %}"> <span class="float-element tooltip-left"><i class="flag-icon flag-icon-esp"></i></a></span>
+                    <a href="{% url 'setLanguage' 2 2 %}"> <span class="float-element tooltip-left"><i class="flag-icon flag-icon-eng"></i></a></span>  
+          </div>
+     </div> --->
+     
+        <div class="container">
+             <div class="navbar-header">
+                  <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                       <span class="icon icon-bar"></span>
+                       <span class="icon icon-bar"></span>
+                       <span class="icon icon-bar"></span>
+                  </button>
+
+                  <!-- lOGO TEXT HERE -->
+                  <a href="{% url 'Acceso' %}" class="navbar-brand">{% trans "Rehabilitación Bot"%}</a>
+                  <!--<a class="navbar-brand logo-image" href="index.html"><img src="images/chatbot.png" alt="alternative">Rehabilitación Bot</a>  -->
+             </div>
+
+             <!-- MENU LINKS -->
+             <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                       <li><a href="{% url 'Pacientes' %}" class="smoothScroll">{% trans "Pacientes"%}</a></li>
+                       <li><a href="{% url 'Ejercicios' %}" class="smoothScroll">{% trans "Ejercicios"%}</a></li>
+                       <li><a href="{% url 'Sesiones' %}"class="smoothScroll">{% trans "Sesiones"%}</a></li>
+                       <li><a href="#about" class="smoothScroll">{% trans "Bienvenido, "%}<strong>{{user.username}}</strong></a></li>
+                       <!--<li><a href="#pricing" class="smoothScroll">Pricing</a></li>-->
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                       <!-- <li><a href="#">Say hello - <span>info@soft.co</span></a></li> -->
+                       <a href="{% url 'logout' %}" class="section-btn pricing-btn" style="background-color:tomato;">{% trans "Salir"%}</a>
+                  </ul>
+             </div>
+
+        </div>
+   </section>
+
+<section style="min-height: 100vh;">
+
+    <div class="overlay"></div> <!-- COLOR DE FONDO -->
+
+    <div class="row justify-content-center" style="padding-top: 3em;" >
+        <div class="col-sm-12 text-center" > 
+            <div style="border-radius: 10px 10px 10px 10px; position: relative; justify-content: center;" > 
+                <form class="flexsearch--form" action="busquedaPacientes" method="get">
+                    {% csrf_token %} 
+                    <a href="{% url 'NuevoPaciente' %}" class="section-btn" style="background-color:whitesmoke; color: black; ">{% trans "Añadir paciente" %}</a>
+                    <a href="{% url 'PacientesNoVisibles' %}" class="section-btn" style="background-color: whitesmoke; color: black;">{% trans "Pacientes ocultos" %}</a>
+                    <input name = pacientes class="section-btn" style="background-color:whitesmoke; color: black; "type="search" placeholder="{% trans "Búsqueda" %}">
+                    <input class="section-btn" type="submit" value="&#128269;"/>
+                    <!--- <a href="{% url 'PacientesNoVisibles' %}" class="section-btn" style="margin-left: 100px;">Filtros</a> --->
+                </form>
+                <!---
+                <form class="flexsearch--form" method="GET" action="busquedaPacientes">
+                    {% csrf_token %}
+                    <input name = pacientes class="section-btn" style="background-color:whitesmoke; color: black; "type="search" placeholder="Búsqueda">
+                    <input class="section-btn" type="submit" value="&#128269;"/>
+                </form>--->
+            </div><br><br>
+        </div>
+   </div> <!-- FIN DE PRIMER APARTADO -->
+   
+
+    <div class="row justify-content-center" style="padding-top: 1em;" >
+
+        <div class="col-sm-5 text-center" style="padding-left: 0em;">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8 col-sm-12" style="background-color: rgb(255, 255, 255); border-radius: 10px 10px 10px 10px; ">
+                        <form class="flexsearch--form" id="miForm" method="POST" action="pacientes">
+                            <div class="flexsearch " style="padding: 15px 0 0 10px; text-align: center;">
+                                <h5 style="color: #113448; font-size: 20px; color: black;"><strong>{% trans "Filtrar por" %}</strong></h5>
+                                <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Diagnóstico" %}</strong></h5>
+                                <div class="flexsearch--wrapper " style="width: 183px;">
+                                {% csrf_token %}
+                
+                                {% for d in diagnosticos %}
+                                {% if seleccionados1 %}
+                                {% for key, value in seleccionados1.items %}
+                                {% if key == d.nombre and value == 'true' %}
+                
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == d.nombre and value == 'false' %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                                    {% if idioma == 'es' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                                    {% if idioma == 'es' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                    <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                </div>
+                                <h5 style="color: #113448; margin-left: -10px;"><strong>MACS</strong></h5>
+                                <div class="flexsearch--wrapper " style="width: 183px;">
+                                {% for m in macs %}
+                                {% if seleccionados2 %}
+                                {% for key, value in seleccionados2.items %}
+                                {% if key == m.autoAlias and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{m.nombre}}" name="{{m.nombre}}" type="checkbox" value="{{m.autoAlias}}" checked>
+                                    <label for="{{m.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{m.nombre}}</label>
+                                </div>
+                                {% elif key == m.autoAlias and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{m.nombre}}" name="{{m.nombre}}" type="checkbox" value="{{m.autoAlias}}">
+                                    <label for="{{m.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{m.nombre}}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{m.nombre}}" name="{{m.nombre}}" type="checkbox" value="{{m.autoAlias}}">
+                                    <label for="{{m.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{m.nombre}}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                </div>
+                                <h5 style="color: #113448; margin-left: -10px;"><strong>GMFCS</strong></h5>
+                                <div class="flexsearch--wrapper " style="width: 183px;">
+                                {% for g in gmfcs %}
+                                {% if seleccionados3 %}
+                                {% for key, value in seleccionados3.items %}
+                                {% if key == g.autoAlias and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{g.nombre}}" name="{{g.nombre}}" type="checkbox" value="{{g.autoAlias}}" checked>
+                                    <label for="{{g.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{g.nombre}}</label>
+                                </div>
+                                {% elif key == g.autoAlias and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{g.nombre}}" name="{{g.nombre}}" type="checkbox" value="{{g.autoAlias}}">
+                                    <label for="{{g.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{g.nombre}}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{g.nombre}}" name="{{g.nombre}}" type="checkbox" value="{{g.autoAlias}}">
+                                    <label for="{{g.nombre}}"
+                                        style="font-size: 14px; color: rgb(0, 0, 0);">{{g.nombre}}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                </div> <!-- FIN DE FILTROS -->
+
+                                <div><br><br> <!-- APLICAR Y RESET -->
+                                    <p>
+                                        <button  type="submit" class="section-btn" style="position: relative; margin-left: -5px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Aplicar" %}</button>
+                                        <a href="{% url 'Pacientes' %}" class="section-btn" style="position: relative; margin-top: -34px; margin-left: 65px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Limpiar" %}</a>
+                                    </p>
+                                </div><br> <!-- APLICAR Y RESET -->
+
+                            </div> <!-- FIN DE FLEXSEARCH -->
+                        </form> <!-- FIN DE FORM -->
+                    </div> <!-- FIN DE RECUADRO BLANCO -->
+                </div> <!-- FIN DE ROW -->
+            </div> <!-- FIN DE COL -->
+        </div> <!-- SEGUNDA COLUMNA -->
+
+        <div class="col-sm-6 text-left" style="padding-right: 0em;"> 
+            {% if pacientes %}
+            {% for paciente in pacientes %}
+            {% if paciente.visible == True %}
+                <div class="row">
+                    <div class="col-md-12" style="background-color: rgb(255, 255, 255); border-radius: 10px 10px 10px 10px; font-size: 110%;">
+                        <br> {% trans "Paciente: " %}<strong>{{paciente.nombre}} {{paciente.apellidos}}</strong>
+                        <br> {% trans "Edad: " %}<strong>{{paciente.calcula_edad}} {% trans "años" %}</strong>
+                        {% if idioma == 'es' %}
+                            <br> {% trans "Diagnóstico: " %}<strong>{{paciente.diagnostico}}</strong>
+                        {% elif idioma == 'en' %}
+                        <br> {% trans "Diagnóstico: " %}<strong>{{paciente.diagnostico}}</strong>
+                        {% endif %}
+                        <br> {% trans "Contacto: " %}<strong>{{paciente.telefono}}</strong>
+                        <br><br><br>
+                        <div class="text-center">
+                            <a href="{% url 'InfoPaciente' paciente.id %}" class="section-btn" style="background-color: rgb(71, 255, 154); color: black; ">{% trans "Más información" %}</a>&nbsp;
+                            <a href="{% url 'EditarPaciente' paciente.id %}" class="section-btn " style="background-color: rgb(71, 255, 154); color: black;">{% trans "Editar" %}</a>&nbsp;
+                            <a href="{% url 'Ocultar' paciente.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar" %}</a>
+                        </div><br><br>
+                    </div>
+                </div> <br><br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div> <!-- PRIMERA COLUMNA -->
+
+
+    </div> <!-- FIN DE SEGUNDO APARTADO -->
+
+</section>
+
+
+
+
+   <!-- SCRIPTS -->
+   <script src="{% static 'rehaWebApp/js/jquery.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/bootstrap.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/jquery.stellar.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/owl.carousel.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/smoothscroll.js' %} "></script>
+   <script src="{% static 'rehaWebApp/js/custom.js' %}"></script>
+
+   <!-- Scripts -->
+  <script src="{% static 'rehaWebApp/js2/jquery.min.js' %}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+  <script src="{% static 'rehaWebApp/js2/popper.min.js' %}"></script> <!-- Popper tooltip library for Bootstrap -->
+  <script src="{% static 'rehaWebApp/js2/bootstrap.min.js' %}"></script> <!-- Bootstrap framework -->
+  <script src="{% static 'rehaWebApp/js2/jquery.easing.min.js' %}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+  <script src="{% static 'rehaWebApp/js2/swiper.min.js' %}"></script> <!-- Swiper for image and text sliders -->
+  <script src="{% static 'rehaWebApp/js2/jquery.magnific-popup.js' %}"></script> <!-- Magnific Popup for lightboxes -->
+  <script src="{% static 'rehaWebApp/js2/validator.min.js' %}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+  <script src="{% static 'rehaWebApp/js2/scripts.js' %}"></script> <!-- Custom scripts -->
+
+</body>
+</html>

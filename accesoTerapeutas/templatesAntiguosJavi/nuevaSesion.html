@@ -1,0 +1,80 @@
+{% extends "rehabilitacion_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Damos la bienvenida al terapeuta-->
+<br>
+<br>
+<br>
+<div style="position: fixed;">
+    <span class="navbar-toggler-awesome fas fa-bars" style="margin-left: 15px; margin-top: 45px;"></span><a id="abrir" class="abrir" href="javascript:void(0)" onclick="mostrar()">Menu</a>
+</div>
+<div class="container" id="bienvenida" style="margin-left: 140px">
+    <div class="row">
+        <div class="usuario">
+            <h2
+                style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 0px;">
+                Bienvenid@
+                {{user.get_username}} &nbsp;&nbsp; - &nbsp;&nbsp; SESIONES </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="usuario">
+            <h4 style="color: #14bf98;margin-top: 15px; text-align: center; text-transform: capitalize; padding-left: 0px;">
+                Añadir Sesion
+            </h4>
+        </div>
+    </div>
+</div>
+<!--end container -->
+
+
+<!-- Vamos a crear un menu lateral a la izquierda de la pagina -->
+<div id="sidebar" class="sidebar" >
+
+    <ul class="menu">
+        <a id="cerrar" class="cerrar" href="#" onclick="ocultar()" style="background-color:transparent;">
+            <span class="navbar-toggler-awesome fas fa-times " style="margin-left: 190px;"></span></a>
+        <li><a href="https://www.rehabot.twyncare.com/admin/">Panel de administración</a></li>
+        <li><a href="{% url 'Acceso' %}">Página Principal</a></li>
+        <li><a href="{% url 'Pacientes' %}">Pacientes</a></li>
+        <li><a href="{% url 'Ejercicios' %}">Ejercicios</a></li>
+        <li><a href="{% url 'Sesiones' %}">Sesiones</a></li>
+    </ul>
+
+</div>
+
+<!-- end of lateralMenu -->
+
+<!-- MOSTRAMOS EL FORMULARIO -->
+
+<div id="contenido" class="form-2" style="margin-left: 140px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <form action="" method="post" data-toggle="validator">
+                        {% csrf_token %}
+                        <table style="color: #113448; ">{{form.as_table}}</table>
+                        
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="form-control-submit-button disabled">Guardar</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="cmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of form-2 -->
+<!-- end of contact -->
+
+<!-- Codigo en js que controla en menu que se desliza en la parte izquierda -->
+<script type="text/javascript" src="{% static 'rehabilitacion_app/js/menu.js' %}"></script>
+
+{% endblock %}

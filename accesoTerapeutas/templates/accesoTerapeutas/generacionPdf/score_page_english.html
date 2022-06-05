@@ -1,0 +1,77 @@
+
+<div class="">
+	<table class="result_table_end" style="padding:3px;border:1px solid #ebebeb;">
+		<tr>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="4">EXERCISE</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">CLARITY</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">DIFFICULTY</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">UTILITY</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">PAIN</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">REPEAT</td>
+			<td style="background-color: #315383; color:#fff;font-weight:600;text-align:center;padding-top:5px;border:1px solid #ebebeb !important;" colspan="2">DATE</td>
+		</tr>
+        {% for valoracion in valoracion %}
+		<tr>
+			<td class="center" colspan="4">{{valoracion.ejercicio}}</td>
+
+            {% if valoracion.valoracion1 == 4 %}
+			<td class="center" colspan="2">Very clear</td>
+            {% elif valoracion.valoracion1 == 5 %}
+			<td class="center" colspan="2">Too clear</td>
+            {% elif valoracion.valoracion1 == 3 %}
+			<td class="center" colspan="2">Clear</td>
+            {% elif valoracion.valoracion1 == 2 %}
+			<td class="center" colspan="2">Unclear</td>
+            {% elif valoracion.valoracion1 == 1 %}
+			<td class="center" colspan="2">Not clear</td>
+            {% endif %}
+
+
+            {% if valoracion.valoracion2 == 5 %}
+			<td class="center" colspan="2">Easy peasy</td>
+            {% elif valoracion.valoracion2 == 4 %}
+			<td class="center" colspan="2">Very easy</td>
+            {% elif valoracion.valoracion2 == 3 %}
+			<td class="center" colspan="2">Normal</td>
+            {% elif valoracion.valoracion2 == 2 %}
+			<td class="center" colspan="2">Little difficult</td>
+            {% elif valoracion.valoracion2 == 1 %}
+			<td class="center" colspan="2">Not difficult</td>
+            {% endif %}
+
+            {% if valoracion.valoracion3 == 5 %}
+			<td class="center" colspan="2">Super useful</td>
+            {% elif valoracion.valoracion3 == 4 %}
+			<td class="center" colspan="2">Very useful</td>
+            {% elif valoracion.valoracion3 == 3 %}
+			<td class="center" colspan="2">Useful</td>
+            {% elif valoracion.valoracion3 == 2 %}
+			<td class="center" colspan="2">Little useful</td>
+            {% elif valoracion.valoracion3 == 1 %}
+			<td class="center" colspan="2">Not useful</td>
+            {% endif %}
+
+            {% if valoracion.valoracion4 == 5 %}
+			<td class="center" colspan="2">A lot of pain</td>
+            {% elif valoracion.valoracion4 == 4 %}
+			<td class="center" colspan="2">A little bit of pain</td>
+            {% elif valoracion.valoracion4 == 3 %}
+			<td class="center" colspan="2">Normal</td>
+            {% elif valoracion.valoracion4 == 2 %}
+			<td class="center" colspan="2">Little pain</td>
+            {% elif valoracion.valoracion4 == 1 %}
+			<td class="center" colspan="2">No pain</td>
+            {% endif %}
+
+            {% if valoracion.valoracion5 == 'Si' %}
+			<td class="center" colspan="2">Yes</td>
+            {% elif valoracion.valoracion5 == 'No' %}
+			<td class="center" colspan="2">No</td>
+            {% endif %}
+
+			<td class="center" colspan="2">{{valoracion.fecha}}</td>
+		</tr>
+        {% endfor %}
+	</table>
+</div>
+

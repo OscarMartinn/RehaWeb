@@ -1,0 +1,36 @@
+{% load static %}
+{% load i18n %}
+<h1 class="title1"> 
+	Session report
+</h1>
+<h1 class="title1">
+	<!-- {{fi.form.header|safe}} -->
+</h1>
+{% comment %}
+<h1 class="title2">
+	{% trans "INFORME CONFIDENCIAL DEL COMITÉ DE EVALUACIÓN" %} 
+</h1>
+{% endcomment %}
+<br/>
+{% if paciente %}
+<div class="border">
+	<table class="gral-data">
+		<tr class="border-0">
+			<td class="right">Name:</td>
+            <td class="left">{{paciente.nombre}}</td> 
+			<td class="right">Lastnames:</td>
+            <td class="left">{{paciente.apellidos}}</td>
+		</tr>
+		<tr class="border-0">
+			<td class="right">Phone:</td>
+            <td class="left">{{paciente.telefono}}</td>
+			<td class="right">Therapist:</td>
+            <td class="left">{{paciente.terapeuta}}</td>
+		</tr>
+	</table>
+</div>
+{% endif %}
+<br/>
+<p class="big">
+	Table with patient records:
+</p>

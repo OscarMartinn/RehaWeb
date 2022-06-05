@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+     {% load static %}
+     {% load i18n %}
+<head>
+
+	<title>RehaBOT</title>
+
+    <link rel="shortcut icon" href="{% static 'rehaWebApp/images/favicon.png' %}">
+	<!--
+
+    Template 2106 Soft Landing
+
+	http://www.tooplate.com/view/2106-soft-landing
+
+    -->
+         <!-- Estando en Lag 7 vamos a intentar subirlo a pre -->
+         
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="team" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.theme.default.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/font-awesome.min.css' %}">
+
+
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/style.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/flag-icon.css' %}">
+     
+	<link href="{% static 'rehaWebApp/css/magnific-popup.css' %}" rel="stylesheet">
+     
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/tooplate-style.css' %}">
+
+</head>
+
+<body>
+
+    
+     <!-- PRE LOADER -->
+     <section class="preloader">
+        <div class="spinner">
+
+             <span class="spinner-rotate"></span>
+             
+        </div>
+   </section>
+
+
+   <!-- MENU -->
+   <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+
+    <!--- <div class="floating-container">
+          <div class="floating-button">🔤</div>
+          <div class="element-container">
+                    <a href="{% url 'setLanguage' 1 3 %}"> <span class="float-element tooltip-left"><i class="flag-icon flag-icon-esp"></i></a></span>
+                    <a href="{% url 'setLanguage' 2 3 %}"> <span class="float-element tooltip-left"><i class="flag-icon flag-icon-gbr"></i></a></span>  
+          </div>
+     </div> --->
+     
+        <div class="container">
+             <div class="navbar-header">
+                  <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                       <span class="icon icon-bar"></span>
+                       <span class="icon icon-bar"></span>
+                       <span class="icon icon-bar"></span>
+                  </button>
+
+                  <!-- lOGO TEXT HERE -->
+                  <a href="{% url 'Acceso' %}" class="navbar-brand">{% trans "Rehabilitación Bot"%}</a>
+                  <!--<a class="navbar-brand logo-image" href="index.html"><img src="images/chatbot.png" alt="alternative">Rehabilitación Bot</a>  -->
+             </div>
+
+             <!-- MENU LINKS -->
+             <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                       <li><a href="{% url 'Pacientes' %}" class="smoothScroll">{% trans "Pacientes"%}</a></li>
+                       <li><a href="{% url 'Ejercicios' %}" class="smoothScroll">{% trans "Ejercicios"%}</a></li>
+                       <li><a href="{% url 'Sesiones' %}"class="smoothScroll">{% trans "Sesiones"%}</a></li>
+                       <li><a href="#about" class="smoothScroll">{% trans "Bienvenido, "%}<strong>{{user.username}}</strong></a></li>
+                       <!--<li><a href="#pricing" class="smoothScroll">Pricing</a></li>-->
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                       <!-- <li><a href="#">Say hello - <span>info@soft.co</span></a></li> -->
+                       <a href="{% url 'logout' %}" class="section-btn pricing-btn" style="background-color:tomato;">{% trans "Salir"%}</a>
+                  </ul>
+             </div>
+
+        </div>
+   </section>
+
+<section style="min-height: 100vh;">
+
+    <div class="overlay"></div> <!-- COLOR DE FONDO -->
+
+    <div class="row justify-content-center" style="padding-top: 3em;" >
+        <div class="col-sm-12 text-center" > 
+            <div style="border-radius: 10px 10px 10px 10px; position: relative; justify-content: center;" > 
+                <form class="flexsearch--form" action="busquedaEjercicios" method="get">
+                    {% csrf_token %}
+                    <a href="{% url 'NuevoEjercicio' %}" class="section-btn" style="background-color:whitesmoke; color: black; ">{% trans "Añadir ejercicio"%}</a>
+                    <a href="{% url 'EjerciciosNoVisibles' %}" class="section-btn" style="background-color: whitesmoke; color: black;">{% trans "Ejericicios ocultos"%}</a>
+                    <input name = ejercicios class="section-btn" style="background-color:whitesmoke; color: black; "type="search" placeholder="{% trans "Búsqueda"%}">
+                    <input class="section-btn" type="submit" value="&#128269;"/>
+                    <!--- <a href="{% url 'PacientesNoVisibles' %}" class="section-btn" style="margin-left: 100px;">Filtros</a> --->
+                </form>
+                <!---
+                <form class="flexsearch--form" method="GET" action="busquedaPacientes">
+                    {% csrf_token %}
+                    <input name = pacientes class="section-btn" style="background-color:whitesmoke; color: black; "type="search" placeholder="Búsqueda">
+                    <input class="section-btn" type="submit" value="&#128269;"/>
+                </form>--->
+            </div><br><br>
+        </div>
+   </div> <!-- FIN DE PRIMER APARTADO -->
+
+   <div class="row justify-content-center" style="padding-top: 1em;" >
+
+    <div class="col-sm-5 text-center">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-sm-12" style="background-color: rgb(255, 255, 255); border-radius: 10px 10px 10px 10px; ">
+                    <form class="flexsearch--form" id="miForm" method="POST" action="ejercicios">
+                        <div class="flexsearch" style="padding: 15px 0 0 10px; text-align: center;">
+                            <h5 style="color: #113448; font-size: 20px; color: black;"><strong>{% trans "Filtrar por"%}</strong></h5>
+                                <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Edad"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                                {% csrf_token %}
+                                {% for edad in edades %}
+                                {% if seleccionados1 %}
+                                {% for key, value in seleccionados1.items %}
+                                {% if key == edad.autoAlias and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}"
+                                        checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}} </label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == edad.autoAlias and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{edad.nombre}}" style="font-size: 14px; color: rgb(0, 0, 0);">{{edad.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Extremidades"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                
+                                {% for e in extremidades %}
+                                {% if seleccionados2 %}
+                                {% for key, value in seleccionados2.items %}
+                                {% if key == e.nombre and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == e.nombre and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{e.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{e.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Lateralidad"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                
+                                {% for l in lateralidad %}
+                                {% if seleccionados3 %}
+                                {% for key, value in seleccionados3.items %}
+                                {% if key == l.nombre and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == l.nombre and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{l.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{l.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Posiciones"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                
+                                {% for p in posiciones %}
+                                {% if seleccionados4 %}
+                                {% for key, value in seleccionados4.items %}
+                                {% if key == p.nombre and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == p.nombre and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Objetivos Terapéuticos"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 400px;">
+                
+                                {% for o in objetivos %}
+                                {% if seleccionados5 %}
+                                {% for key, value in seleccionados5.items %}
+                                {% if key == o.autoAlias and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == o.autoAlias and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{o.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{o.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>{% trans "Diagnósticos"%}</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                
+                                {% for d in diagnosticos %}
+                                {% if seleccionados6 %}
+                                {% for key, value in seleccionados6.items %}
+                                {% if key == d.nombre and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == d.nombre and value == 'false' %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{d.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{d.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <h5 style="color: #113448; margin-left: -10px;"><strong>PCI</strong></h5>
+                            <div class="flexsearch--wrapper" style="width: 183px;">
+                
+                                {% for p in pci %}
+                                {% if seleccionados7 %}
+                                {% for key, value in seleccionados7.items %}
+                                {% if key == p.nombre and value == "true" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}" checked>
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% elif key == p.nombre and value == "false" %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <div style="text-align: left; margin-left: 10px; ">
+                                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                                    {% if idioma == 'es' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% elif idioma == 'en' %}
+                                        <label for="{{p.nombre}}" style=" font-size: 14px; color: rgb(0, 0, 0);">{{p.nombre}}</label>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <!-- Botones para aplicar filtros y para resetear filtros-->
+                            <div><br><br> <!-- APLICAR Y RESET -->
+                                <p>
+                                    <button  type="submit" class="section-btn" style="position: relative; margin-left: -5px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Aplicar"%}</button>
+                                    <a href="{% url 'Ejercicios' %}" class="section-btn" style="position: relative; margin-top: -34px; margin-left: 65px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Limpiar"%}</a>
+                                </p>
+                            </div><br> <!-- APLICAR Y RESET -->
+                        </div>
+                    </form>
+                </div> <!-- FIN DE RECUADRO BLANCO -->
+            </div> <!-- FIN DE ROW -->
+        </div> <!-- FIN DE COL -->
+    </div> <!-- SEGUNDA COLUMNA -->
+
+    <div class="col-sm-6 text-left" style="padding-left: 0em;"> 
+        {% if ejercicios %}
+        {% for ejercicio in ejercicios %}
+        {% if ejercicio.visible == True %}
+            <div class="row">
+                <div class="col-md-12" style="background-color: rgb(255, 255, 255); border-radius: 10px 10px 10px 10px; font-size: 110%;">
+                    <br> {% trans "Código: " %}<strong>{{ejercicio.codigo}}</strong>
+                    <br> {% trans "Ejercicio: " %}<strong>
+                        {% if idioma == 'es' %}
+                            {{ejercicio.nombre}}</strong>
+                        {% elif idioma == 'en' %}
+                            {{ejercicio.nombre}}</strong>
+                        {% endif %}
+                    <br> {% trans "Rangos de edad: " %}
+                    <strong> 
+                        {% for e in ejercicio.edad.all %}
+                            {% if not forloop.last %}
+                                {% if idioma == 'es' %}
+                                    {{e}},
+                                {% elif idioma == 'en' %}
+                                    {{e.nombre}},
+                                {% endif %}
+                            {% else %}
+                                {% if idioma == 'es' %}
+                                    {{e}}
+                                {% elif idioma == 'en' %}
+                                    {{e.nombre}}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </strong>
+                    <br> {% trans "Descripción: " %}<strong>
+                        {% if not ejercicio.descripcion %}
+                                {% trans "No existe descripción para este ejercicio" %}
+                        {% else %}
+                            {% if idioma == 'es' %}
+                                {{ejercicio.descripcion}}</strong>
+                            {% elif idioma == 'en' %}
+                                {{ejercicio.descripcion}}</strong>
+                            {% endif %}
+                        {% endif %}
+                    <br><br><br>
+                    <div class="text-center">
+                        {% if not ejercicio.video %}
+                        <a href="{% url 'subirVideo' ejercicio.id %}" class="section-btn " style="color: white;">{% trans "Cargar video"%}</a>&nbsp;
+                        {% endif %}
+                        <a href="{% url 'InfoEjercicio' ejercicio.id %}" class="section-btn " style="background-color: rgb(71, 255, 154); color: black;">{% trans "Detalles"%}</a>&nbsp;
+                        <a href="{% url 'EditarEjercicio' ejercicio.id %}" class="section-btn " style="background-color: rgb(71, 255, 154); color: black;">{% trans "Editar"%}</a>&nbsp;
+                        <a href="{% url 'OcultarEjercicio' ejercicio.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
+                    
+                    </div><br><br>
+                </div>
+            </div> <br><br>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div> <!-- PRIMERA COLUMNA -->
+
+    
+
+    
+
+</div> <!-- FIN DE SEGUNDO APARTADO -->
+
+
+</section>
+
+ 
+   <!-- SCRIPTS -->
+   <script src="{% static 'rehaWebApp/js/jquery.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/bootstrap.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/jquery.stellar.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/owl.carousel.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/smoothscroll.js' %} "></script>
+   <script src="{% static 'rehaWebApp/js/custom.js' %}"></script>
+
+   <!-- Scripts -->
+  <script src="{% static 'rehaWebApp/js2/jquery.min.js' %}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+  <script src="{% static 'rehaWebApp/js2/popper.min.js' %}"></script> <!-- Popper tooltip library for Bootstrap -->
+  <script src="{% static 'rehaWebApp/js2/bootstrap.min.js' %}"></script> <!-- Bootstrap framework -->
+  <script src="{% static 'rehaWebApp/js2/jquery.easing.min.js' %}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+  <script src="{% static 'rehaWebApp/js2/swiper.min.js' %}"></script> <!-- Swiper for image and text sliders -->
+  <script src="{% static 'rehaWebApp/js2/jquery.magnific-popup.js' %}"></script> <!-- Magnific Popup for lightboxes -->
+  <script src="{% static 'rehaWebApp/js2/validator.min.js' %}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+  <script src="{% static 'rehaWebApp/js2/scripts.js' %}"></script> <!-- Custom scripts -->
+
+</body>
+</html>

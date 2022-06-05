@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+     {% load static %}
+<head>
+
+	<title>RehaBOT</title>
+
+    <link rel="shortcut icon" href="{% static 'rehaWebApp/images/favicon.png' %}">
+	<!--
+
+    Template 2106 Soft Landing
+
+	http://www.tooplate.com/view/2106-soft-landing
+
+    -->
+         <!-- Estando en Lag 7 vamos a intentar subirlo a pre -->
+         
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="team" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/owl.theme.default.min.css' %}">
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/font-awesome.min.css' %}">
+     
+	<link href="{% static 'rehaWebApp/css/magnific-popup.css' %}" rel="stylesheet">
+     
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'rehaWebApp/css/tooplate-style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- CONTENIDO VARIABLE -->
+    {% block content %}
+
+
+    {% endblock %}
+    
+     <!-- FOOTER -->
+     <footer id="footer" data-stellar-background-ratio="0.5">
+        <div class="container">
+             <div class="row">
+
+                  <div class="copyright-text col-md-12 col-sm-12">
+                       <div class="col-md-6 col-sm-6">
+                            <!-- <p>Copyright &copy; 2018 Company Name - Design: Tooplate</p> -->
+                            <h2>Nuestro proyecto en pocas palabras</h2>
+                            <p>Buscamos tener éxito en el reto de crear un sistema de telerehabilitación que complete las terapias presenciales. Terapeutas, investigadores y desarrolladores unidos en la búsqueda de un sistema dinámico que esté al alcance de todos.</p>
+                       </div>
+
+                       <div class="col-md-6 col-sm-6">
+                            <ul class="social-icon">
+                                 <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                 <li><a href="#" class="fa fa-twitter"></a></li>
+                                 <li><a href="#" class="fa fa-instagram"></a></li>
+                            </ul>
+                       </div>
+                  </div>
+
+             </div>
+        </div>
+   </footer>
+
+
+   <!-- SCRIPTS -->
+   <script src="{% static 'rehaWebApp/js/jquery.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/bootstrap.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/jquery.stellar.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/owl.carousel.min.js' %}"></script>
+   <script src="{% static 'rehaWebApp/js/smoothscroll.js' %} "></script>
+   <script src="{% static 'rehaWebApp/js/custom.js' %}"></script>
+
+   <!-- Scripts -->
+  <script src="{% static 'rehaWebApp/js2/jquery.min.js' %}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+  <script src="{% static 'rehaWebApp/js2/popper.min.js' %}"></script> <!-- Popper tooltip library for Bootstrap -->
+  <script src="{% static 'rehaWebApp/js2/bootstrap.min.js' %}"></script> <!-- Bootstrap framework -->
+  <script src="{% static 'rehaWebApp/js2/jquery.easing.min.js' %}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+  <script src="{% static 'rehaWebApp/js2/swiper.min.js' %}"></script> <!-- Swiper for image and text sliders -->
+  <script src="{% static 'rehaWebApp/js2/jquery.magnific-popup.js' %}"></script> <!-- Magnific Popup for lightboxes -->
+  <script src="{% static 'rehaWebApp/js2/validator.min.js' %}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+  <script src="{% static 'rehaWebApp/js2/scripts.js' %}"></script> <!-- Custom scripts -->
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+{% load i18n %}
+<h1 class="title1"> 
+	{% trans "Informe de la sesion" %} 
+</h1>
+<h1 class="title1">
+	<!-- {{fi.form.header|safe}} -->
+</h1>
+{% comment %}
+<h1 class="title2">
+	{% trans "INFORME CONFIDENCIAL DEL COMITÉ DE EVALUACIÓN" %} 
+</h1>
+{% endcomment %}
+<br/>
+{% if paciente %}
+<div class="border">
+	<table class="gral-data">
+		<tr class="border-0">
+			<td class="right">Nombre:</td>
+            <td class="left">{{paciente.nombre}}</td> 
+			<td class="right">Apellidos:</td>
+            <td class="left">{{paciente.apellidos}}</td>
+		</tr>
+		<tr class="border-0">
+			<td class="right">Telefono:</td>
+            <td class="left">{{paciente.telefono}}</td>
+			<td class="right">Terapeuta:</td>
+            <td class="left">{{paciente.terapeuta}}</td>
+		</tr>
+        {% comment %}
+		<!--- <tr class="border-0">
+			<td class="right">Departamento / Área de conocimiento:</td>
+            <td class="left">{% get_answer fi "a01n1" "q07" "f01" %}</td>
+        </tr>
+		<tr class="border-0">
+			<td class="right">Periodo de Evaluación: </td>
+            <td class="left">Curso Inicial: {% get_answer fi "a01n1" "q09" "f01" %}</td>
+            <td class="left">Curso Final: {% get_answer fi "a01n1" "q09" "f02" %}</td>
+		</tr> --->
+
+        {% endcomment %}
+	</table>
+</div>
+{% endif %}
+<br/>
+<p class="big">
+	Tabla con los registros del paciente:
+</p>

@@ -1,0 +1,134 @@
+{% extends "rehabilitacion_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Damos la bienvenida al terapeuta-->
+<br>
+<br>
+<br>
+<div style="position: fixed;">
+    <span class="navbar-toggler-awesome fas fa-bars" style="margin-left: 15px; margin-top: 45px;"></span><a id="abrir"
+        class="abrir" href="javascript:void(0)" onclick="mostrar()">Menu</a>
+</div>
+<div class="container" id="bienvenida" style="margin-left: 140px">
+    <div class="row">
+        <div class="usuario">
+            <h2
+                style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 0px; ">
+                Bienvenid@ {{user.get_username}} &nbsp;&nbsp; - &nbsp;&nbsp; PACIENTES NO VISIBLES</h2>
+        </div>
+    </div>
+
+</div>
+
+<!--end container -->
+
+<!-- Vamos a crear un menu lateral a la izquierda de la pagina -->
+<div id="sidebar" class="sidebar">
+
+    <ul class="menu">
+        <a id="cerrar" class="cerrar" href="#" onclick="ocultar()" style="background-color:transparent;"><span
+                class="navbar-toggler-awesome fas fa-times " style="margin-left: 190px;"></span></a>
+        <li><a href="https://www.rehabot.twyncare.com/admin/">Panel de administración</a></li>
+        <li><a href="{% url 'Acceso' %}">Página Principal</a></li>
+        <li><a href="{% url 'Pacientes' %}">Pacientes</a></li>
+        <li><a href="{% url 'Ejercicios' %}">Ejercicios</a></li>
+        <li><a href="{% url 'Sesiones' %}">Sesiones</a></li>
+    </ul>
+
+</div>
+
+<!-- end of lateralMenu -->
+
+<!-- MOSTRAMOS LOS PACIENTES -->
+
+<div class="container pacientes" id="contenido" style="margin-left: 140px">
+    <br>
+    {% if pacientes %}
+    {% for paciente in pacientes %}
+    
+    {% if paciente.terapeuta.nombreUsuario == user.username %}
+    <div class="row" style="margin: 5px 5px; margin-right: 50px; ">
+
+        <!-- Son aquellos a los que los terapeutas accederan para hacer consultas de informes, usuarios, sesiones-->
+        <!--de esta manera salen cuatro tarjetitas por cada fila -->
+
+        <!--########################################################################################## -->
+        <!--IMPORTANTE IDENTIFICAR CADA TARJETA CON SUS DATOS A TRAVES DEL HREF QUE INDICA EL OBJETIVO -->
+        <!--EJEMPLO:                    href="#v-pills-resumen-{{sesion.nombre}}"                      -->
+        <!--########################################################################################## -->
+
+        <div class="col-9" style="background-color: #14bf98; border-radius: 5px;">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!-- RESUMEN -->
+                <div class="tab-pane fade show active" id="v-pills-resumen-{{paciente.nombre}}" role="tabpanel"
+                    aria-labelledby="v-pills-resumen-tab" style="color: #113448;">
+                    <h5 class="text-center" style="color: #ffff; font-size: 15px; text-transform: uppercase;">
+                        <strong style="color: #ffff; text-transform: capitalize;">{{paciente.nombre}}&nbsp;
+                            {{paciente.apellidos}}</strong>
+                    </h5>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Edad:&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{paciente.calcula_edad}}&nbsp;años</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Diagnóstico:&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{paciente.diagnostico}}</strong>
+                    </p>
+                </div>
+                <!-- Boton para ver la historia clinica del paciente -->
+                <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                    <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                            style="text-decoration: none;" href="{% url 'InfoPaciente' paciente.id %}">Ver
+                            más</a></button>
+                    <button style="background-color: #113448; color: white; border-radius: 5px;"><a 
+                            style="text-decoration: none;" href="{% url 'EditarPaciente' paciente.id %}">Editar
+                                paciente</a></button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    <!--end row -->
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <h3 style="color: #113448;"> No hay ningún paciente "no visible"</h3>
+    {% endif %}
+</div>
+
+<!-- Codigo en js que controla en menu que se desliza en la parte izquierda -->
+<script type="text/javascript" src="{% static 'rehabilitacion_app/js/menu.js' %}"></script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+{% endblock %}

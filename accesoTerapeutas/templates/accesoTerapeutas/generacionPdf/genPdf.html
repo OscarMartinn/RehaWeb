@@ -1,0 +1,214 @@
+
+
+<html>
+	
+	{% load static %}
+	{% load i18n %}
+	<head>
+		<style type="text/css">
+			.title1
+			{
+				text-align: center;
+				color: #444444;
+				margin: 0px;
+			}
+			.title2
+			{
+				text-align: center;
+				margin: 0px;
+			}
+			.dimension
+			{
+				font-size: 1.6em;
+				font-weight: bold;
+				color: #315383;
+			}
+			.subdimension
+			{
+				font-size: 1.4em;
+				font-weight: bold;
+			}
+			.question
+			{
+				font-size: 1.2em;
+				font-weight: bold;
+			}
+			.left
+			{
+				text-align: left;
+			}
+			.center
+			{
+				text-align: center;
+			}
+			.justify
+			{
+				text-align: justify;
+			}
+			.small
+			{
+				font-size: 0.8em;
+			}
+			.medium
+			{
+				font-size: 1.2em;
+			}
+			.big
+			{
+				font-size: 1.5em;
+			}
+			.bold
+			{
+				font-weight: bold;
+			}
+			.border
+			{
+				border: 1px solid black;
+			}
+			.border-0
+			{
+				border: 0px;
+			}
+			.grey
+			{
+				background: #cccccc;
+			}
+			.total_color
+			{
+				background: #e8d1ff;
+			}
+			.first_table
+			{
+				width: 100%;
+			}
+			.first_table td
+			{
+				padding: 3px;
+				padding-top: 6px;
+				font-size: 1.5em;
+			}
+			.result_table
+			{
+				width: 100%;
+			    border-collapse: collapse;
+			}
+			.result_table td
+			{
+				padding: 2px;
+				padding-top: 5px;
+				font-size: 1.2em;
+			}
+			.result_table_2
+			{
+				width: 100%;
+			    border-collapse: collapse;
+			}
+			.result_table_2 td
+			{
+				padding: 1px;
+				padding-top: 5px;
+				font-size: 1.3em;
+			}
+            .gral-data 
+            {
+                width:100%;
+                border:1px solid #999 !important;
+               border-collapse: collapse;
+               padding-top:5px;
+            }
+            td.right
+            {
+                text-align:right;
+                color: #315383;
+                font-size:12px;
+                font-weight:600;
+                padding-right:10px;
+            }
+            td.left
+            {
+                text-align:left;
+                font-size:12px;
+            }
+
+			.sixty
+			{
+				width: 60%;
+			}
+			.twenty
+			{
+				width: 20%;
+			}
+			.tdhead
+			{
+			}
+			.image
+			{
+				width: 800px;
+			}
+			@page 
+			{
+				size: a4;
+				margin: 2.5cm;
+				margin-top: 4cm;
+				margin-bottom: 1cm;
+				@frame header 
+				{
+					-pdf-frame-content: headerContent;
+					top: 1cm;
+					margin-left: 1cm;
+					margin-right: 1cm;
+					height: 4cm;
+				}
+				@frame footer_frame {
+					-pdf-frame-content: footer_content;
+					top: 28cm;
+					margin-left: 17cm;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="headerContent">
+			<div class="center">
+				    <img src="{% static "rehaWebApp/images/BeFunky-collage-3.png" %}" alt="logo ull" />
+			</div>
+		</div>
+		<br><br><br>
+		{% if idioma == 'en' %}
+
+			{% include "accesoTerapeutas/generacionPdf/first_page_english.html" %}
+			{% include "accesoTerapeutas/generacionPdf/score_page_english.html" %}
+
+		{% elif idioma == 'es' %}
+
+			{% include "accesoTerapeutas/generacionPdf/first_page.html" %}
+			{% include "accesoTerapeutas/generacionPdf/score_page.html" %}
+
+		{% endif %}
+
+
+		{% comment %}
+		<pdf:nextpage />
+		<p class="big bold">
+			{% get_answer fi "a01n1" "q01" "f01" %} {% get_answer fi "a01n1" "q01" "f02" %}
+			<br/>
+			{% get_answer fi "a01n1" "q02" "f01" %}
+			<br/>
+		</p>
+		{% include "docentia/score_page_df03.html" %}
+
+		{% if is_staff %}
+			<br><br>
+			<div class="dimension">ENCUESTA DE SATISFACCIÓN DEL ALUMNADO</div>
+			{% include "docentia/score_page_alumnado_df03.html" %}
+		{% endif %}
+
+		<pdf:nextpage />
+		{% include "docentia/last_page_df03.html" %}
+
+		<div id="footer_content">
+			<span style="font-size:1.2em">Página <pdf:pagenumber> de <pdf:pagecount></span>
+	    </div> 
+		{% endcomment %}
+	</body>
+</html>

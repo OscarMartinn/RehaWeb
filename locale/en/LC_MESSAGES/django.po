@@ -1,0 +1,788 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-16 14:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:77
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:76
+#: rehaWebApp/templates/registration/login.html:86
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:68
+#: rehaWebApp/templates/rehaWebApp/index.html:79
+msgid "Rehabilitación Bot"
+msgstr "Bot Rehabilitation"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:83
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:75
+msgid "Pacientes"
+msgstr "Patients"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:110
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:84
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:76
+msgid "Ejercicios"
+msgstr "Exercises"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:111
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:85
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:77
+msgid "Sesiones"
+msgstr "Sessions"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:87
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:86
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:78
+msgid "Bienvenido, "
+msgstr "Welcome, "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/baseTerapeutas.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:92
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:91
+#: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:83
+msgid "Salir"
+msgstr "Log out"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevoEjercicio.html:15
+msgid "Añadir ejercicio"
+msgstr "New exercise"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:108
+msgid "Ejericicios ocultos"
+msgstr "Hidden exercises"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:108
+msgid "Búsqueda"
+msgstr "Search"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:130
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:419
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:419
+msgid "Código: "
+msgstr "Code: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:420
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:420
+msgid "Ejercicio: "
+msgstr "Exercise: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:137
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:139
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:426
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:426
+msgid "Rangos de edad: "
+msgstr "Age ranges: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:155
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:127
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:444
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:444
+msgid "Descripción: "
+msgstr "Description: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:157
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:130
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:446
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:446
+msgid "No existe descripción para este ejercicio"
+msgstr "There is no description for this exercise"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:168
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:459
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:457
+msgid "Detalles"
+msgstr "Details"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:169
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:136
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:460
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:458
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:261
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:260
+msgid "Editar"
+msgstr "Edit"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaEjercicios.html:176
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:143
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:171
+msgid "No se han encontrado resultados"
+msgstr "No results found"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevoPaciente.html:16
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:107
+msgid "Añadir paciente"
+msgstr "New patient"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:108
+msgid "Pacientes ocultos"
+msgstr "Hidden patients"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:125
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:250
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:124
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:249
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:130
+msgid "Paciente: "
+msgstr "Patient: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:126
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:251
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:125
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:250
+msgid "Edad: "
+msgstr "Age: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:126
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:251
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:125
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:250
+msgid "años"
+msgstr "years"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:128
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:130
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:217
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:253
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:255
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:127
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:129
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:252
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:254
+msgid "Diagnóstico: "
+msgstr "Diagnostic: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:132
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:257
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:256
+msgid "Contacto: "
+msgstr "Contact: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:135
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:260
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:259
+msgid "Más información"
+msgstr "More info"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:137
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:159
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:461
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:262
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:155
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:161
+msgid "Ocultar"
+msgstr "Hide"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevaSesion.html:15
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:109
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:250
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:107
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:106
+msgid "Añadir sesión"
+msgstr "New session"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:108
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:107
+msgid "Sesiones ocultas"
+msgstr "Hidden sessions"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:133
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:135
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:208
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:210
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:133
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:135
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:132
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:134
+msgid "Fecha programada: "
+msgstr "Scheduled date: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:137
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:212
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:137
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:136
+msgid "Ejercicios: "
+msgstr "Exercises: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:146
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:221
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:146
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:145
+msgid "repeticiones"
+msgstr "repetitions"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:157
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:233
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:153
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:158
+msgid "Enviar Sesión"
+msgstr "Send Session"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:161
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:157
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:160
+msgid "Sesión Enviada  "
+msgstr "Session Sent "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:163
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:237
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:159
+#: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:162
+msgid "Ver Informe"
+msgstr "View Report"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/editarEjercicio.html:16
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:106
+msgid "Editar ejercicio"
+msgstr "Edit exercise"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/editarEjercicio.html:25
+#: accesoTerapeutas/templates/accesoTerapeutas/editarPaciente.html:25
+#: accesoTerapeutas/templates/accesoTerapeutas/editarSesion.html:25
+msgid "Actualizar"
+msgstr "Update"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/editarPaciente.html:16
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:107
+msgid "Editar paciente"
+msgstr "Edit patient"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/editarSesion.html:16
+msgid "Editar sesión"
+msgstr "Edit session"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:117
+msgid "Detalles del ejercicio"
+msgstr "Exercise details"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:120
+msgid "Codigo: "
+msgstr "Code: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:121
+msgid "Nombre: "
+msgstr "Name: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:157
+msgid "Extremidades: "
+msgstr "Extremities: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:175
+msgid "Lateralidad: "
+msgstr "Laterality: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:181
+msgid "Posición: "
+msgstr "Position: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:199
+msgid "Objetivo terapéutico: "
+msgstr "Therapeutic objectives: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:131
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:132
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:132
+msgid "Filtrar por"
+msgstr "Filter by"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:132
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:132
+msgid "Edad"
+msgstr "Age"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:171
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:171
+msgid "Extremidades"
+msgstr "Extremities"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:209
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:209
+msgid "Lateralidad"
+msgstr "Laterality"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:247
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:247
+msgid "Posiciones"
+msgstr "Positions"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:285
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:285
+msgid "Objetivos Terapéuticos"
+msgstr "Therapeutic Objectives"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:323
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:323
+msgid "Diagnósticos"
+msgstr "Diagnostics"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:402
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:402
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:232
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:232
+msgid "Aplicar"
+msgstr "Apply"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:403
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:403
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:233
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:233
+msgid "Limpiar"
+msgstr "Clean"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:457
+msgid "Cargar video"
+msgstr "Upload video"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosSesion.html:16
+msgid "Ejercicios de la sesión"
+msgstr "Session exercises"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosSesion.html:26
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevoEjercicio.html:24
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevoPaciente.html:25
+#: accesoTerapeutas/templates/accesoTerapeutas/subirVideo.html:25
+msgid "Guardar"
+msgstr "Save"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosSesion.html:27
+msgid "Terminar"
+msgstr "Finish"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/generacionPdf/first_page.html:4
+msgid "Informe de la sesion"
+msgstr "Session report"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:105
+msgid "Seleccione el panel al que quiere acceder"
+msgstr "Select the panel you want to access"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:114
+msgid "Generar pdf"
+msgstr "Generate pdf"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:123
+msgid "El paciente aún no ha realizado su sesión de ejercicios "
+msgstr "The patient has not yet completed their exercise session"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:133
+#, fuzzy
+#| msgid "Registro de los ejercicios"
+msgid "Registro de los ejercicios de "
+msgstr "Workout log"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:141
+msgid "Ejercicio "
+msgstr "Exercise"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:142
+msgid "Claridad"
+msgstr "Clarity"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:143
+msgid "Dificultad"
+msgstr "Difficulty"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:144
+msgid "Utilidad"
+msgstr "Utility"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:145
+msgid "Dolor"
+msgstr "Pain"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:146
+msgid "Repetir"
+msgstr "Repeat"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:147
+msgid "Fecha"
+msgstr "Date"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/nuevaSesion.html:24
+msgid "Siguiente"
+msgstr "Next"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:133
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:133
+msgid "Diagnóstico"
+msgstr "Diagnostic"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:121
+msgid "Detalles del paciente"
+msgstr "Patiend details"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:141
+msgid "Distancia caminada "
+msgstr "Distance walked "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:142
+msgid "Clasificación"
+msgstr "Classification"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:145
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:149
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:153
+msgid "metros"
+msgstr "meters"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:162
+msgid "Preferencias de entrenamiento"
+msgstr "Training preferences"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:165
+msgid "Días: "
+msgstr "Days: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:166
+msgid "Momento del día: "
+msgstr "Moment of the day: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:167
+msgid "Horario preferído: "
+msgstr "Preferred time: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:173
+msgid "Datos del Bot"
+msgstr "Bot datas"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:176
+msgid "Usuario: "
+msgstr "User: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:177
+msgid "Contraseña: "
+msgstr "Password: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:235
+msgid "Sesión Enviada"
+msgstr "Session Sent"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:247
+#, fuzzy
+#| msgid "El paciente no tiene ningún sesion por el momento. "
+msgid "El paciente no tiene ningúna sesion por el momento. "
+msgstr "The patient doesn't have any sessions at the moment."
+
+#: accesoTerapeutas/templates/accesoTerapeutas/subirVideo.html:16
+msgid "Subir video"
+msgstr "Upload video"
+
+#: rehaWebApp/templates/registration/login.html:94
+#: rehaWebApp/templates/rehaWebApp/index.html:86
+msgid "Inicio"
+msgstr "Home"
+
+#: rehaWebApp/templates/registration/login.html:95
+#: rehaWebApp/templates/rehaWebApp/index.html:87
+msgid "Presentación"
+msgstr "Presentation"
+
+#: rehaWebApp/templates/registration/login.html:97
+#: rehaWebApp/templates/rehaWebApp/index.html:89
+#: rehaWebApp/templates/rehaWebApp/index.html:248
+msgid "Sobre nosotros"
+msgstr "About us"
+
+#: rehaWebApp/templates/registration/login.html:98
+#: rehaWebApp/templates/rehaWebApp/index.html:91
+msgid "Contacto"
+msgstr "Contact"
+
+#: rehaWebApp/templates/registration/login.html:103
+msgid "Volver al inicio"
+msgstr "Back to homepage"
+
+#: rehaWebApp/templates/registration/login.html:119
+msgid "Introduzca sus datos"
+msgstr "Enter your credentials"
+
+#: rehaWebApp/templates/registration/login.html:129
+msgid "Usuario"
+msgstr "User"
+
+#: rehaWebApp/templates/registration/login.html:134
+msgid "Contraseña"
+msgstr "Password"
+
+#: rehaWebApp/templates/registration/login.html:138
+#: rehaWebApp/templates/rehaWebApp/index.html:95
+msgid "Iniciar sesión"
+msgstr "Log in"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:126
+msgid "Terapias complementarias"
+msgstr "Complementary Therapies"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:127
+msgid ""
+"La inclusión de un bot a las terapias convencionales es un valor añadido al "
+"alcance de los terapeutas"
+msgstr ""
+"The inclusion of a bot to conventional therapies is an added value available "
+"to therapists"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:147
+msgid "El complemento perfecto"
+msgstr "The perfect complement"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:153
+msgid "Donde quieras"
+msgstr "Where you want"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:155
+msgid "Sencillo"
+msgstr "Simple"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:157
+msgid "Soporte"
+msgstr "Support"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:163
+msgid "Rehabilitación en casa"
+msgstr "Rehabilitation at home"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:164
+msgid ""
+"Te permitirá realizar terapia en casa o en el lugar donde estés de una "
+"manera muy sencilla, dandote la libertad de horarios y de disponibilidad. "
+"<br>¡Decide tú donde y cuando hacer tus ejercicios!"
+msgstr ""
+"It will allow you to carry out therapy at home or wherever you are in a very "
+"simple way, giving you the freedom of schedules and availability. You decide "
+"where and when to do your exercises!"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:175
+msgid "Fácil de usar"
+msgstr "Easy to use"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:176
+msgid ""
+"Interfaz muy intuitiva facil de usar para cualquiera, simplemente dejate "
+"guiar por el bot durante la sesión."
+msgstr ""
+"Very intuitive interface easy to use for anyone, just let yourself be guided "
+"by the bot during the session."
+
+#: rehaWebApp/templates/rehaWebApp/index.html:186
+msgid "Compatibilidad"
+msgstr "Compatibility"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:187
+msgid ""
+"Al alcance de cualquiera en cualquier situación. Disponible en tu teléfono, "
+"tableta, ordenador... donde quieras. Simplemente basta con tener instalado "
+"telegram, él te dirá cómo hacer todo lo demás."
+msgstr ""
+"Available to anyone in any situation. Available on your phone, tablet, "
+"computer... wherever you want. Simply having telegram installed is enough, "
+"it will tell you how to do everything else."
+
+#: rehaWebApp/templates/rehaWebApp/index.html:257
+msgid "Universidad de Ciencias Aplicadas y Artes Suiza Occidental Valais"
+msgstr "University of Applied Sciences and Arts Western Switzerland Valais"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:258
+msgid ""
+"Es una Universidad Suiza de Ciencias Aplicadas y forma parte de la "
+"Universidad de Ciencias Aplicadas y Artes de Suiza Occidental."
+msgstr "It is a Swiss University of Applied Sciences and is part of the Western Swiss University of Applied Sciences and Arts."
+
+#: rehaWebApp/templates/rehaWebApp/index.html:268
+msgid "Universidad de Valladolid"
+msgstr "University of Valladolid"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:269
+msgid ""
+"Es una universidad pública española, situada en la ciudad de Valladolid. Fue "
+"fundada en el año 1241, lo que la convierte en la tercera universidad más "
+"antigua de España."
+msgstr ""
+"It is a Spanish public university, located in the city of Valladolid. It was "
+"founded in the year 1241, which makes it the third oldest university in "
+"Spain."
+
+#: rehaWebApp/templates/rehaWebApp/index.html:278
+msgid "Clínica"
+msgstr "Clinic"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:279
+msgid "Centro de rehabilitación"
+msgstr "Rehabilitation Center"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:280
+msgid ""
+"CIRON es el Centro Integral de Rehabilitación ON para personas con déficits "
+"motores, cognitivos o sociales, provocados por cualquier etiología, sea "
+"neurológica o no."
+msgstr ""
+"CIRON is the Integral Rehabilitation Center ON for people with motor, "
+"cognitive or social deficits, caused by any aetiology, whether neurological "
+"or not."
+
+#: rehaWebApp/templates/rehaWebApp/index.html:425
+msgid "Ponte en contacto con nosotros"
+msgstr "Get in contact with us"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:429
+msgid "Nombre completo"
+msgstr "Full name"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:432
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:435
+msgid "Enviar mensaje"
+msgstr "Send message"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:438
+msgid "Tu mensaje"
+msgstr "Your message"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:456
+msgid "Nuestro proyecto en pocas palabras"
+msgstr "Our project in a few words"
+
+#: rehaWebApp/templates/rehaWebApp/index.html:457
+msgid ""
+"Buscamos tener éxito en el reto de crear un sistema de telerehabilitación "
+"que complete las terapias presenciales. Terapeutas, investigadores y "
+"desarrolladores unidos en la búsqueda de un sistema dinámico que esté al "
+"alcance de todos."
+msgstr ""
+"We seek to succeed in the challenge of creating a telerehabilitation system "
+"that completes face-to-face therapies. Therapists, researchers and "
+"developers united in the search for a dynamic system that is available to "
+"everyone."
+
+#~ msgid "Escuela Técnica Superior de Ingenieros de Telecomunicación"
+#~ msgstr "Higher Technical School of Telecommunication Engineers"
+
+#~ msgid ""
+#~ "Su como misión es formar y preparar ingenieros capaces de atender las "
+#~ "demandas y ejercicios profesionales de la sociedad actual."
+#~ msgstr ""
+#~ "Its mission is to train and prepare engineers capable of meeting the "
+#~ "demands and professional exercises of today's society."
+
+#~ msgid ""
+#~ "Texto de prueba para rellenar este apartado, texto de prueba para "
+#~ "rellenar este apartado y texto de prueba para rellenar este apartado."
+#~ msgstr ""
+#~ "Test text to fill this section, test text to fill this section and test "
+#~ "text to fill this section."
+
+#~ msgid "Pagina de inicio"
+#~ msgstr "Homepage"
+
+#~ msgid "Nuestros profesionales"
+#~ msgstr "Our professionals"

@@ -1,0 +1,485 @@
+{% extends "rehabilitacion_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Damos la bienvenida al terapeuta-->
+<br>
+<br>
+<br>
+<div style="position: fixed;">
+    <span class="navbar-toggler-awesome fas fa-bars" style="margin-left: 15px; margin-top: 45px;"></span><a id="abrir"
+        class="abrir" href="javascript:void(0)" onclick="mostrar()">Menu</a>
+</div>
+<div class="container" id="bienvenida" style="margin-left: 140px">
+    <div class="row">
+        <div class="usuario">
+            <h2
+                style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 0px;">
+                Bienvenid@ {{user.get_username}} &nbsp;&nbsp; - &nbsp;&nbsp; Ejercicios </h2>
+        </div>
+        <div style="margin-left: 215px; margin-top: 35px;">
+            <button style="background-color: white; border-radius: 15px; border:3px solid #113448; box-shadow: none;"><a
+                    style="color: #14bf98 ; text-decoration: none;" href="{% url 'admin:accesoTerapeutas_ejercicios_add' %}">&#43; Añadir
+                    ejercicio</a></button>
+            <button style="background-color: white; border-radius: 15px; border:3px solid #113448; box-shadow: none;"><a
+                    style="color: #14bf98 ; text-decoration: none;" href="{% url 'EjerciciosNoVisibles' %}">&#43; Ver ejercicios ocultos</a>
+            </button>
+        </div>
+    </div>
+</div>
+<!--end container -->
+
+<!-- Vamos a crear un menu lateral a la izquierda de la pagina -->
+<div id="sidebar" class="sidebar">
+    <ul class="menu">
+        <a id="cerrar" class="cerrar" href="#" onclick="ocultar()" style="background-color:transparent;"><span
+                class="navbar-toggler-awesome fas fa-times" style="margin-left: 190px;"></span></a>
+        <li><a href="https://www.rehabot.twyncare.com/admin/">Panel de administración</a></li>
+        <li><a href="{% url 'Acceso' %}">Página Principal</a></li>
+        <li><a href="{% url 'Pacientes' %}">Pacientes</a></li>
+        <li><a href="{% url 'Ejercicios' %}">Ejercicios</a></li>
+        <li><a href="{% url 'Sesiones' %}">Sesiones</a></li>
+    </ul>
+</div>
+
+<!-- end of lateralMenu -->
+
+<!-- MOSTRAMOS LOS EJERCICIOS A LOS TERAPEUTAS -->
+
+<div class="container" id="contenido" style="margin-left: 140px">
+    <br>
+    {% for ejercicio in ejercicios %}
+    {% if ejercicio.visible == True %}
+    <div class="row" style="margin: 5px 5px; margin-right: 50px; ">
+        <!-- Son aquellos a los que los terapeutas accederan para hacer consultas de informes, usuarios, sesiones-->
+        <!--de esta manera salen cuatro tarjetitas por cada fila -->
+
+        <!--########################################################################################## -->
+        <!--IMPORTANTE IDENTIFICAR CADA TARJETA CON SUS DATOS A TRAVES DEL HREF QUE INDICA EL OBJETIVO -->
+        <!--EJEMPLO:                    href="#v-pills-resumen-{{sesion.nombre}}"                      -->
+        <!--########################################################################################## -->
+
+        <div class="col-3" style="margin-left: -14px; background-color: #113448; border-radius: 5px;">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-resumen-tab" data-toggle="pill"
+                    href="#v-pills-resumen-{{ejercicio.id}}" role="tab" aria-controls="v-pills-resumen"
+                    aria-selected="true" style="text-decoration: none;">Resumen</a>
+                <a class="nav-link" id="v-pills-detallado-tab" data-toggle="pill"
+                    href="#v-pills-detallado-{{ejercicio.id}}" role="tab" aria-controls="v-pills-detallado"
+                    aria-selected="false" style="text-decoration: none;">Detallado</a>
+            </div>
+        </div>
+        <div class="col-6" style="background-color: #14bf98; border-radius: 5px;">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!-- RESUMEN -->
+                <div class="tab-pane fade show active" id="v-pills-resumen-{{ejercicio.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-resumen-tab" style="color: #113448;">
+                    <h5 class="text-center" style="color: #ffff; font-size: 15px; text-transform: uppercase;">
+                        <strong style="color: #ffff;">{{ejercicio.nombre}}</strong>
+                    </h5>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                        style="color: #113448; font-size: 13px; text-transform: uppercase;">Descripción:&nbsp;</b>
+                        {% if not ejercicio.descripcion %}
+                        <strong style="color: #ffff;  text-transform: none;">"No existe descripción para este ejercicio"</strong>
+                        {% else %}
+                        <strong style="color: #ffff;  text-transform: none;">{{ejercicio.descripcion}}</strong>
+                        {% endif %}
+                    </p>
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                                style="text-decoration: none;" href="{% url 'admin:accesoTerapeutas_ejercicios_change' ejercicio.id %}"> Editar
+                                ejercicio</a></button>
+                    </div>
+                </div>
+                <!-- DETALLADO -->
+                <div class="tab-pane fade" id="v-pills-detallado-{{ejercicio.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-detallado-tab" style="color: #113448;">
+                    <h5 class="text-center" style="color: #ffff; font-size: 15px; text-transform: uppercase;">
+                        <strong style="color: #ffff;">{{ejercicio.nombre}}</strong>
+                    </h5>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Descripción:&nbsp;</b>
+                            {% if not ejercicio.descripcion %}
+                            <strong style="color: #ffff; text-transform: none;">"No existe descripción para este ejercicio"</strong>
+                            {% else %}
+                            <strong style="color: #ffff; text-transform: none;">{{ejercicio.descripcion}}</strong>
+                            {% endif %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Rango de edad:&nbsp;</b>
+                        {% for e in ejercicio.edad.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Extremidades:&nbsp;</b>
+                        {% for e in ejercicio.extremidades.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Lateralidad:&nbsp;</b>
+                        <strong style="color: #ffff; text-transform: none;">{{ejercicio.lateralidad}}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Posición:&nbsp;</b>
+                        {% for e in ejercicio.posicion.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff;text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Objetivos
+                            Terapéuticos:&nbsp;</b>
+                        {% for e in ejercicio.objetivoTerapeutico.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff;text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Diagnóstico:&nbsp;</b>
+                        {% for e in ejercicio.diagnostico.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff;text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Pci:&nbsp;</b>
+                        {% for e in ejercicio.pci.all %}
+                        {% if not forloop.last %}
+                        <strong style="color: #ffff; text-transform: none;">{{e}},</strong>
+                        {% else %}
+                        <strong style="color: #ffff;text-transform: none;">{{e}}</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <!-- Editar Ejercicio -->
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        <button style="background-color: #113448; color: white; border-radius: 5px; "><a
+                                style="text-decoration: none;" href="{% url 'admin:accesoTerapeutas_ejercicios_change' ejercicio.id  %}"> Editar
+                                ejercicio</a></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    {% endif %}
+    <!--end row -->
+    {% endfor %}
+</div>
+
+<!-- Vamos a crear un menu lateral a la derecha de la pagina para crear filtros -->
+<div class="barraFiltrado1">
+    <!-- Barra de busqueda -->
+    <div class="flexsearch" style="padding: 15px 0 0 15px; text-align: center;">
+        <h5 style="color: #113448;  margin-bottom: -5px; margin-left: -10px;">Buscar</h5>
+        <div class="flexsearch--wrapper" style="width: 240px;">
+            <form class="flexsearch--form" method="GET" action="busquedaEjercicios">
+                {% csrf_token %}
+                <div class="flexsearch--input-wrapper"
+                    style="margin-top: -10px; padding: 0 76px 0 0; margin-left: 20px;">
+                    <input name="ejercicios" class="flexsearch--input" type="search" value="">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Filtro pos categorias -->
+    <form class="flexsearch--form" id="miForm" method="POST" action="ejercicios">
+        <div class="flexsearch" style="padding: 15px 0 0 10px; text-align: center;">
+            <h5 style="color: #113448; margin-left: -10px;">Edad</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+                {% csrf_token %}
+                {% for edad in edades %}
+                {% if seleccionados1 %}
+                {% for key, value in seleccionados1.items %}
+                {% if key == edad.autoAlias and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}"
+                        checked>
+                    <label for="{{edad.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{edad.nombre}}</label>
+                </div>
+                {% elif key == edad.autoAlias and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}">
+                    <label for="{{edad.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{edad.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{edad.nombre}}" name="{{edad.nombre}}" type="checkbox" value="{{edad.autoAlias}}">
+                    <label for="{{edad.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{edad.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">Extremidades</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+
+                {% for e in extremidades %}
+                {% if seleccionados2 %}
+                {% for key, value in seleccionados2.items %}
+                {% if key == e.nombre and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}" checked>
+                    <label for="{{e.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{e.nombre}}</label>
+                </div>
+                {% elif key == e.nombre and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}">
+                    <label for="{{e.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{e.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{e.nombre}}" name="{{e.nombre}}" type="checkbox" value="{{e.nombre}}">
+                    <label for="{{e.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{e.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">Lateralidad</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+
+                {% for l in lateralidad %}
+                {% if seleccionados3 %}
+                {% for key, value in seleccionados3.items %}
+                {% if key == l.nombre and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}" checked>
+                    <label for="{{l.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{l.nombre}}</label>
+                </div>
+                {% elif key == l.nombre and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}">
+                    <label for="{{l.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{l.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{l.nombre}}" name="{{l.nombre}}" type="checkbox" value="{{l.nombre}}">
+                    <label for="{{l.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{l.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">Posiciones</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+
+                {% for p in posiciones %}
+                {% if seleccionados4 %}
+                {% for key, value in seleccionados4.items %}
+                {% if key == p.nombre and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}" checked>
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% elif key == p.nombre and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">Objetivos Terapéuticos</h5>
+            <div class="flexsearch--wrapper" style="width: 400px;">
+
+                {% for o in objetivos %}
+                {% if seleccionados5 %}
+                {% for key, value in seleccionados5.items %}
+                {% if key == o.autoAlias and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}" checked>
+                    <label for="{{o.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{o.nombre}}</label>
+                </div>
+                {% elif key == o.autoAlias and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}">
+                    <label for="{{o.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{o.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{o.nombre}}" name="{{o.nombre}}" type="checkbox" value="{{o.autoAlias}}">
+                    <label for="{{o.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{o.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">Diagnósticos</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+
+                {% for d in diagnosticos %}
+                {% if seleccionados6 %}
+                {% for key, value in seleccionados6.items %}
+                {% if key == d.nombre and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}" checked>
+                    <label for="{{d.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{d.nombre}}</label>
+                </div>
+                {% elif key == d.nombre and value == 'false' %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                    <label for="{{d.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{d.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{d.nombre}}" name="{{d.nombre}}" type="checkbox" value="{{d.nombre}}">
+                    <label for="{{d.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{d.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h5 style="color: #113448; margin-left: -10px;">PCI</h5>
+            <div class="flexsearch--wrapper" style="width: 183px;">
+
+                {% for p in pci %}
+                {% if seleccionados7 %}
+                {% for key, value in seleccionados7.items %}
+                {% if key == p.nombre and value == "true" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}" checked>
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% elif key == p.nombre and value == "false" %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="text-align: left; margin-left: 10px; ">
+                    <input id="{{p.nombre}}" name="{{p.nombre}}" type="checkbox" value="{{p.nombre}}">
+                    <label for="{{p.nombre}}"
+                        style="text-transform: uppercase; font-size: 14px; color: white;">{{p.nombre}}</label>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Botones para aplicar filtros y para resetear filtros-->
+            <div>
+                <p><button class="flexsearch--submit" type="submit"
+                        style="position: relative; margin-left: -5px;">Aplicar</button>
+                    <button class="flexsearch--submit" onclick="limpiarFormulario()"
+                        style="position: relative; margin-top: -34px; margin-left: 65px;">Reset</button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div> <!-- Finaliza la barra de filtros -->
+<!-- Codigo en js que controla en menu que se desliza en la parte izquierda -->
+<script type="text/javascript" src="{% static 'rehabilitacion_app/js/menu.js' %}"></script>
+<script>
+    function limpiarFormulario() {
+        document.getElementById("miForm").reset();
+    }
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,273 @@
+{% extends "rehabilitacion_app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Damos la bienvenida al terapeuta-->
+<br>
+<br>
+<br>
+<div style="position: fixed;">
+    <span class="navbar-toggler-awesome fas fa-bars" style="margin-left: 15px; margin-top: 45px;"></span><a id="abrir"
+        class="abrir" href="javascript:void(0)" onclick="mostrar()">Menu</a>
+</div>
+<div class="container" id="bienvenida" style="margin-left: 140px">
+    <div class="row">
+        <div class="usuario">
+            <h2
+                style="color: #113448;margin-top: 35px; text-align: center; text-transform: capitalize; padding-left: 0px;">
+                Bienvenid@ {{user.get_username}} &nbsp;&nbsp; - &nbsp;&nbsp; SESIONES </h2>
+        </div>
+        <div style="margin-left: 215px; margin-top: 35px;">
+            {% if user.is_authenticated %}
+            <button style="background-color: white; border-radius: 15px; border:3px solid #113448; box-shadow: none;"><a
+                    style="color: #14bf98 ; text-decoration: none;"
+                    href="{% url 'admin:accesoTerapeutas_sesiones_add' %}">&#43; Añadir
+                    sesión</a></button>
+            {% endif %}
+            <button style="background-color: white; border-radius: 15px; border:3px solid #113448; box-shadow: none;"><a
+                    style="color: #14bf98 ; text-decoration: none;" href="{% url 'SesionesNoVisibles' %}">&#43; Ver sesiones ocultas</a>
+            </button>
+
+        </div>
+    </div>
+</div>
+<!--end container -->
+
+<!-- Vamos a crear un menu lateral a la izquierda de la pagina -->
+<div id="sidebar" class="sidebar">
+    <ul class="menu">
+        <a id="cerrar" class="cerrar" href="#" onclick="ocultar()" style="background-color:transparent;"><span
+                class="navbar-toggler-awesome fas fa-times " style="margin-left: 190px;"></span></a>
+        <li><a href="https://www.rehabot.twyncare.com/admin/">Panel de administración</a></li>
+        <li><a href="{% url 'Acceso' %}">Página Principal</a></li>
+        <li><a href="{% url 'Pacientes' %}">Pacientes</a></li>
+        <li><a href="{% url 'Ejercicios' %}">Ejercicios</a></li>
+        <li><a href="{% url 'Sesiones' %}">Sesiones</a></li>
+    </ul>
+
+</div>
+
+<!-- end of lateralMenu -->
+
+<!-- MOSTRAMOS LAS SESIONES -->
+
+<div class="container" id="contenido" style="margin-left: 140px">
+    <br>
+    {% for sesion in sesiones %}
+    {% if sesion.visible == True%}
+    {% if sesion.terapeuta.nombreUsuario == user.username %}
+    <div class="row" style="margin: 5px 5px; margin-right: 50px; ">
+
+        <!-- Son aquellos a los que los terapeutas accederan para hacer consultas de informes, usuarios, sesiones-->
+        <!--de esta manera salen cuatro tarjetitas por cada fila -->
+
+        <!--########################################################################################## -->
+        <!--IMPORTANTE IDENTIFICAR CADA TARJETA CON SUS DATOS A TRAVES DEL HREF QUE INDICA EL OBJETIVO -->
+        <!--EJEMPLO:                    href="#v-pills-resumen-{{sesion.id}}"                          -->
+        <!--########################################################################################## -->
+
+        <div class="col-3" style="margin-left: -14px; background-color: #113448; border-radius: 5px;">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-resumen-tab" data-toggle="pill"
+                    href="#v-pills-resumen-{{sesion.id}}" role="tab" aria-controls="v-pills-resumen"
+                    aria-selected="true" style="text-decoration: none;">Resumen</a>
+                <a class="nav-link " id="v-pills-detallado-tab" data-toggle="pill"
+                    href="#v-pills-detallado-{{sesion.id}}" role="tab" aria-controls="v-pills-detallado"
+                    aria-selected="false" style="text-decoration: none;">Detallado</a>
+                <a class="nav-link " id="v-pills-informe-tab" data-toggle="pill" href="#v-pills-informe-{{sesion.id}}"
+                    role="tab" aria-controls="v-pills-informe" aria-selected="false"
+                    style="text-decoration: none;">Informe</a>
+            </div>
+        </div>
+        <div class="col-7" style="background-color: #14bf98; border-radius: 5px;">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!-- RESUMEN -->
+                <div class="tab-pane fade show active" id="v-pills-resumen-{{sesion.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-resumen-tab" style="color: #113448;">
+                    <p style=" font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Paciente:&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{sesion.paciente}}&nbsp;{{sesion.paciente.apellidos}}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Fecha
+                            Programada&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{sesion.fechaInicial|date:"SHORT_DATE_FORMAT"}} -
+                            {{sesion.fechaFinal|date:"SHORT_DATE_FORMAT" }}</strong>
+                    </p>
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        {% if sesion.enviado == False %}
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                                style="text-decoration: none;"
+                                href="{% url 'admin:accesoTerapeutas_sesiones_change' sesion.id %}">Editar Sesión</a></button>
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                                    style="text-decoration: none;"
+                                    href="{% url 'SesionEnviada' sesion.id %}">Enviar Sesión</a></button> 
+                        {% elif sesion.enviado == True %} 
+                        {% now "Y-m-d" as fechaActual %}
+                        {% if sesion.fechaFinal|date:"Y-m-d" > fechaActual %} <!-- Sesion Activa-->
+                        <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Sesión Enviada &#10004;</a></button>
+                        <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Activa</a></button>
+                        {% elif fechaActual > sesion.fechaFinal|date:"Y-m-d" %} <!-- Sesion No Activa-->
+                        <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Sesión Enviada &#10004;</a></button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- DETALLADO -->
+                <div class="tab-pane fade" id="v-pills-detallado-{{sesion.id}}" role="tabpanel"
+                    aria-labelledby="v-pills-detallado-tab" style="color: #113448;">
+                    <p style="font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Paciente:&nbsp;</b>
+                        <strong style="color: #ffff; text-transform: capitalize;">{{sesion.paciente}}&nbsp;{{sesion.paciente.apellidos}}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Fecha
+                            Programada&nbsp;</b><strong
+                            style="color: #ffff; text-transform: capitalize;">{{sesion.fechaInicial|date:"SHORT_DATE_FORMAT"}} -
+                            {{sesion.fechaFinal|date:"SHORT_DATE_FORMAT" }}</strong>
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Ejercicios:&nbsp;</b>
+                        {% for ejercicio in sesionesEjercicios %}
+                        {% if sesion.id == ejercicio.sesiones.id %}
+                        <strong
+                            style="color: #ffff;text-transform: none;">{{ejercicio.ejercicios.nombre}}/{{ejercicio.repeticiones}}rep.</strong>
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
+                            style="color: #113448; font-size: 13px; text-transform: uppercase;">Repeticiones/sesión
+                            recomendadas
+                            &nbsp;</b>
+                        {% if sesion.periodicidad > 1 %}
+                        <strong style="color: #ffff;">{{sesion.periodicidad}} veces</strong>
+                        {% else %}
+                        <strong style="color: #ffff;">{{sesion.periodicidad}} vez</strong>
+                        {% endif %}
+                    </p>
+                    <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
+                        {% if sesion.enviado == False %}
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a
+                            style="text-decoration: none;"
+                            href="{% url 'admin:accesoTerapeutas_sesiones_change' sesion.id %}">Editar
+                            Sesión</a></button>
+                        <button style="background-color: #113448; color: white; border-radius: 5px;"><a style="text-decoration: none;"
+                            href="{% url 'SesionEnviada' sesion.id %}">Enviar Sesión</a></button>
+                        {% else %}
+                        <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Sesión Enviada &#10004;</a></button>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <!-- INFORME -->
+                <div class="tab-pane fade" id="v-pills-informe-{{sesion.id}}" role="tabpanel" aria-labelledby="v-pills-informe-tab" style="color: #113448;">
+                    {% for r in registro %}
+                    {% if sesion.id == r.sesion %}
+                    <p style="font-size: 12px; text-transform: uppercase;">
+                        <strong style="color: #ffff; "><b style="color: #113448;">Comienzo de la sesión:</b> {{r.fechaI}}</strong><br>
+                        <strong style="color: #ffff; "><b style="color: #113448;">Final de la sesión:</b> {{r.fechaF}}</strong>
+                    </p>
+                    {% endif %}
+                    {% endfor %}
+                    {% for re in realizados %}
+                    {% if sesion.id == re.sesion%}
+                    <p><strong style="font-size: 12px; color: #ffff;  text-transform: uppercase;"><b style="color: #113448; text-transform: uppercase;">Ejercicio: </b>{{re.ejercicio}} [{{re.fecha}}] </strong></p>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% for v in valoracion %}
+                    {% if sesion.id == v.sesion %}
+                    <table class="w3-table w3-centered" style="text-align: center;">
+                        <tr>
+                            <th colspan="2" style="color: #ffff; font-size: 16px; text-transform: uppercase;">Valoración de {{v.ejercicio}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" style="color: #113448; font-size: 13px; text-transform: uppercase;">Pregunta</th>
+                            <th scope="col" style="color: #113448; font-size: 13px; text-transform: uppercase;">Respuesta    [0 "poco" - 5 "mucho"]
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="color: #113448; font-size: 10px; text-transform: uppercase;">¿Te ha parecido claro el ejercicio?</td>
+                            <td style="color: white; font-size: 10px; text-transform: uppercase;"><strong
+                                    style="color: white;">{{v.valoracion1}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th style="color: #113448; font-size: 10px; text-transform: uppercase;">¿Te ha parecido difícil el ejercicio?</td>
+                            <td style="color: white; font-size: 10px; text-transform: uppercase;"><strong
+                                    style="color: white;">{{v.valoracion2}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th style="color: #113448; font-size: 10px; text-transform: uppercase;">¿Te ha parecido útil el ejercicio para tus objetivos?</td>
+                            <td style="color: white; font-size: 10px; text-transform: uppercase;"><strong
+                                    style="color: white;">{{v.valoracion3}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th style="color: #113448; font-size: 10px; text-transform: uppercase;">¿Has sentido algún tipo de dolor?</td>
+                            <td style="color: white; font-size: 10px; text-transform: uppercase;"><strong
+                                    style="color: white;">{{v.valoracion4}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th style="color: #113448; font-size: 10px; text-transform: uppercase;">¿Te gustaría repetir el ejercicio en un futuro?</td>
+                            <td style="color: white; font-size: 10px; text-transform: uppercase;"><strong
+                                    style="color: white;">{{v.valoracion5}}</strong></th>
+                        </tr>
+                    </table>
+                    {% endif %}
+                    {% endfor %}
+                    {% for r in registro %}
+                    {% if sesion.id == r.sesion %}
+                    <p style="font-size: 12px; text-transform: uppercase;">
+                        <strong style="color: #113448; text-transform: uppercase;">Comentarios: <b style="color: #ffff;">{{r.comentario}}</b></strong>
+                    </p>
+                    {% endif %}
+                    {% endfor %}
+
+                    
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    <!--end row -->
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</div>
+<!-- Vamos a crear un menu lateral a la derecha de la pagina para crear filtros -->
+<div class="barraFiltrado" style="height:100px;">
+    <!-- Barra de busqueda -->
+    <div class="flexsearch" style="padding: 15px 0 0 10px; text-align: center;">
+        <h5 style="color: #113448;  margin-bottom: -5px; margin-left: -10px;">Buscar</h5>
+        <div class="flexsearch--wrapper" style="width: 183px;">
+            <form class="flexsearch--form" method="GET" action="busquedaSesiones">
+                {% csrf_token %}
+                <div class="flexsearch--input-wrapper" style="margin-top: -10px;">
+                    <input name="sesiones" class="flexsearch--input" type="search" value="">
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- Finaliza la barra de filtros -->
+
+<!-- Codigo en js que controla en menu que se desliza en la parte izquierda -->
+<script type="text/javascript" src="{% static 'rehabilitacion_app/js/menu.js' %}"></script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

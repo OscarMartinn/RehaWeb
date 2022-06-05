@@ -1,0 +1,42 @@
+
+{% extends "rehaWebApp/baseTerapeutas.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<section style="min-height: 100vh;">
+    <div class="row justify-content-center" style="padding-top: 1em; padding-left: 20em; padding-right: 20em;" >
+
+        <div class="overlay"></div> <!-- COLOR DE FONDO -->
+        <div class="col-sm-12 text-left" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+            <br><div class="col-sm-12 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 140%;"> 
+                <strong>{% trans "Añadir ejercicio"%}</strong><br> 
+            </div><br>
+            <div class="col-sm-12" style="padding-left: 10em;">
+                <div class="form-group"><br>
+                    <form action="" method="post" data-toggle="validator">
+                        {% csrf_token %}
+                        <table style="color: #113448; ">{{form.as_table}}</table>
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="section-btn" style="background-color: rgb(71, 255, 154); color: black; margin-left: 13em;">{% trans "Guardar"%}</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="cmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                </div><br>
+
+            </div> <!-- end of col -->
+        </div> <!-- PRIMERA COLUMNA -->
+
+    </div>
+
+
+
+
+</section>
+
+{% endblock %}
