@@ -24,7 +24,7 @@ SECRET_KEY = '!l%l6n#*(eny7gy2-+m-(o*dzacscw2l01i+=u14&0w&bm@$5@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-workingOnServer = True
+workingOnServer = False
 
 ALLOWED_HOSTS = ['*','13.37.112.81']
 
@@ -87,22 +87,20 @@ WSGI_APPLICATION = 'rehaWeb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if workingOnServer == False:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-            'default': {
-                    'ENGINE':'django.db.backends.mysql',
-                    'OPTIONS': {
-                            'read_default_file':'/home/ubuntu/Web/auth/mysql.cnf',
-                    },
-            }
-    }
+}
+#DATABASES = {
+#        'default': {
+#                'ENGINE':'django.db.backends.mysql',
+#                'OPTIONS': {
+#                        'read_default_file':'/home/ubuntu/Web/auth/mysql.cnf',
+#                },
+#        }
+#}
 
 
 

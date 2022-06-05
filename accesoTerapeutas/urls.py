@@ -4,11 +4,14 @@ from . import views
 urlpatterns = [
 
     path('', views.acceso, name="Acceso"),
+    path('setLanguage/<int:idLanguage>/<int:idSeccion>', views.setLanguage, name = "setLanguage"),
+
+    # INFORMES
     path('informes', views.informes, name="Informes"),
     path('informes/<int:sesionId>', views.informes, name="Informes"),
+    path('informes/<int:sesionId>/<str:showFilters>', views.informes, name="Informes"),
     path('generarPDF/<int:sesionId>', views.generarPDF, name="generarPDF"),
-
-    path('setLanguage/<int:idLanguage>/<int:idSeccion>', views.setLanguage, name = "setLanguage"),
+    path('informes/filtrarInforme/<int:idPaciente>/<int:sesionId>', views.filtrarInforme, name="filtrarInforme"),
  
     # PACIENTES
     path('pacientes', views.pacientes, name="Pacientes"),

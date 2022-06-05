@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-16 14:22+0200\n"
+"POT-Creation-Date: 2022-06-05 12:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,15 +26,15 @@ msgstr ""
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:76
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:76
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:68
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:77
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:76
-#: rehaWebApp/templates/registration/login.html:86
+#: rehaWebApp/templates/registration/login.html:90
 #: rehaWebApp/templates/rehaWebApp/baseTerapeutas.html:68
-#: rehaWebApp/templates/rehaWebApp/index.html:79
+#: rehaWebApp/templates/rehaWebApp/index.html:83
 msgid "Rehabilitación Bot"
 msgstr "Bot Rehabilitation"
 
@@ -47,7 +47,7 @@ msgstr "Bot Rehabilitation"
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:83
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:83
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:109
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:83
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:75
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:83
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:84
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:83
@@ -66,7 +66,7 @@ msgstr "Patients"
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:84
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:84
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:110
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:84
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:76
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:84
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:85
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:84
@@ -85,7 +85,7 @@ msgstr "Exercises"
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:85
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:85
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:111
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:85
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:77
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:85
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:86
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:85
@@ -103,7 +103,7 @@ msgstr "Sessions"
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:86
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:86
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:86
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:86
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:78
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:86
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:87
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:86
@@ -121,7 +121,7 @@ msgstr "Welcome, "
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:91
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:91
 #: accesoTerapeutas/templates/accesoTerapeutas/indexTerapeutas.html:91
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:91
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:83
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:91
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:92
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:91
@@ -457,6 +457,34 @@ msgstr "Save"
 msgid "Terminar"
 msgstr "Finish"
 
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:7
+msgid "Filtrar por Dolor"
+msgstr "Filter by Pain"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:10
+msgid "Menor a 3"
+msgstr "Less than 4"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:11
+msgid "Entre 3 y 5"
+msgstr "Between 3 and 5"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:12
+msgid "Entre 6 y 8"
+msgstr "Between 6 and 8"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:13
+msgid "Más de 8"
+msgstr "More than 8"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:17
+msgid "Filtrar por Fecha"
+msgstr "Filter by Date"
+
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:27
+msgid "Filtrar"
+msgstr "Filter"
+
 #: accesoTerapeutas/templates/accesoTerapeutas/generacionPdf/first_page.html:4
 msgid "Informe de la sesion"
 msgstr "Session report"
@@ -465,45 +493,45 @@ msgstr "Session report"
 msgid "Seleccione el panel al que quiere acceder"
 msgstr "Select the panel you want to access"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:114
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:106
 msgid "Generar pdf"
 msgstr "Generate pdf"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:123
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:116
 msgid "El paciente aún no ha realizado su sesión de ejercicios "
 msgstr "The patient has not yet completed their exercise session"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:133
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:126
 #, fuzzy
 #| msgid "Registro de los ejercicios"
 msgid "Registro de los ejercicios de "
 msgstr "Workout log"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:141
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:134
 msgid "Ejercicio "
 msgstr "Exercise"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:142
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:135
 msgid "Claridad"
 msgstr "Clarity"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:143
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:136
 msgid "Dificultad"
 msgstr "Difficulty"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:144
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:137
 msgid "Utilidad"
 msgstr "Utility"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:145
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:138
 msgid "Dolor"
 msgstr "Pain"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:146
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:139
 msgid "Repetir"
 msgstr "Repeat"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:147
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:140
 msgid "Fecha"
 msgstr "Date"
 
@@ -576,53 +604,53 @@ msgstr "The patient doesn't have any sessions at the moment."
 msgid "Subir video"
 msgstr "Upload video"
 
-#: rehaWebApp/templates/registration/login.html:94
-#: rehaWebApp/templates/rehaWebApp/index.html:86
+#: rehaWebApp/templates/registration/login.html:98
+#: rehaWebApp/templates/rehaWebApp/index.html:90
 msgid "Inicio"
 msgstr "Home"
 
-#: rehaWebApp/templates/registration/login.html:95
-#: rehaWebApp/templates/rehaWebApp/index.html:87
+#: rehaWebApp/templates/registration/login.html:99
+#: rehaWebApp/templates/rehaWebApp/index.html:91
 msgid "Presentación"
 msgstr "Presentation"
 
-#: rehaWebApp/templates/registration/login.html:97
-#: rehaWebApp/templates/rehaWebApp/index.html:89
-#: rehaWebApp/templates/rehaWebApp/index.html:248
+#: rehaWebApp/templates/registration/login.html:101
+#: rehaWebApp/templates/rehaWebApp/index.html:93
+#: rehaWebApp/templates/rehaWebApp/index.html:252
 msgid "Sobre nosotros"
 msgstr "About us"
 
-#: rehaWebApp/templates/registration/login.html:98
-#: rehaWebApp/templates/rehaWebApp/index.html:91
+#: rehaWebApp/templates/registration/login.html:102
+#: rehaWebApp/templates/rehaWebApp/index.html:95
 msgid "Contacto"
 msgstr "Contact"
 
-#: rehaWebApp/templates/registration/login.html:103
+#: rehaWebApp/templates/registration/login.html:107
 msgid "Volver al inicio"
 msgstr "Back to homepage"
 
-#: rehaWebApp/templates/registration/login.html:119
+#: rehaWebApp/templates/registration/login.html:123
 msgid "Introduzca sus datos"
 msgstr "Enter your credentials"
 
-#: rehaWebApp/templates/registration/login.html:129
+#: rehaWebApp/templates/registration/login.html:133
 msgid "Usuario"
 msgstr "User"
 
-#: rehaWebApp/templates/registration/login.html:134
+#: rehaWebApp/templates/registration/login.html:138
 msgid "Contraseña"
 msgstr "Password"
 
-#: rehaWebApp/templates/registration/login.html:138
-#: rehaWebApp/templates/rehaWebApp/index.html:95
+#: rehaWebApp/templates/registration/login.html:142
+#: rehaWebApp/templates/rehaWebApp/index.html:99
 msgid "Iniciar sesión"
 msgstr "Log in"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:126
+#: rehaWebApp/templates/rehaWebApp/index.html:130
 msgid "Terapias complementarias"
 msgstr "Complementary Therapies"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:127
+#: rehaWebApp/templates/rehaWebApp/index.html:131
 msgid ""
 "La inclusión de un bot a las terapias convencionales es un valor añadido al "
 "alcance de los terapeutas"
@@ -630,27 +658,27 @@ msgstr ""
 "The inclusion of a bot to conventional therapies is an added value available "
 "to therapists"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:147
+#: rehaWebApp/templates/rehaWebApp/index.html:151
 msgid "El complemento perfecto"
 msgstr "The perfect complement"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:153
+#: rehaWebApp/templates/rehaWebApp/index.html:157
 msgid "Donde quieras"
 msgstr "Where you want"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:155
+#: rehaWebApp/templates/rehaWebApp/index.html:159
 msgid "Sencillo"
 msgstr "Simple"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:157
+#: rehaWebApp/templates/rehaWebApp/index.html:161
 msgid "Soporte"
 msgstr "Support"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:163
+#: rehaWebApp/templates/rehaWebApp/index.html:167
 msgid "Rehabilitación en casa"
 msgstr "Rehabilitation at home"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:164
+#: rehaWebApp/templates/rehaWebApp/index.html:168
 msgid ""
 "Te permitirá realizar terapia en casa o en el lugar donde estés de una "
 "manera muy sencilla, dandote la libertad de horarios y de disponibilidad. "
@@ -660,11 +688,11 @@ msgstr ""
 "simple way, giving you the freedom of schedules and availability. You decide "
 "where and when to do your exercises!"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:175
+#: rehaWebApp/templates/rehaWebApp/index.html:179
 msgid "Fácil de usar"
 msgstr "Easy to use"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:176
+#: rehaWebApp/templates/rehaWebApp/index.html:180
 msgid ""
 "Interfaz muy intuitiva facil de usar para cualquiera, simplemente dejate "
 "guiar por el bot durante la sesión."
@@ -672,11 +700,11 @@ msgstr ""
 "Very intuitive interface easy to use for anyone, just let yourself be guided "
 "by the bot during the session."
 
-#: rehaWebApp/templates/rehaWebApp/index.html:186
+#: rehaWebApp/templates/rehaWebApp/index.html:190
 msgid "Compatibilidad"
 msgstr "Compatibility"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:187
+#: rehaWebApp/templates/rehaWebApp/index.html:191
 msgid ""
 "Al alcance de cualquiera en cualquier situación. Disponible en tu teléfono, "
 "tableta, ordenador... donde quieras. Simplemente basta con tener instalado "
@@ -686,21 +714,23 @@ msgstr ""
 "computer... wherever you want. Simply having telegram installed is enough, "
 "it will tell you how to do everything else."
 
-#: rehaWebApp/templates/rehaWebApp/index.html:257
+#: rehaWebApp/templates/rehaWebApp/index.html:261
 msgid "Universidad de Ciencias Aplicadas y Artes Suiza Occidental Valais"
 msgstr "University of Applied Sciences and Arts Western Switzerland Valais"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:258
+#: rehaWebApp/templates/rehaWebApp/index.html:262
 msgid ""
 "Es una Universidad Suiza de Ciencias Aplicadas y forma parte de la "
 "Universidad de Ciencias Aplicadas y Artes de Suiza Occidental."
-msgstr "It is a Swiss University of Applied Sciences and is part of the Western Swiss University of Applied Sciences and Arts."
+msgstr ""
+"It is a Swiss University of Applied Sciences and is part of the Western "
+"Swiss University of Applied Sciences and Arts."
 
-#: rehaWebApp/templates/rehaWebApp/index.html:268
+#: rehaWebApp/templates/rehaWebApp/index.html:272
 msgid "Universidad de Valladolid"
 msgstr "University of Valladolid"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:269
+#: rehaWebApp/templates/rehaWebApp/index.html:273
 msgid ""
 "Es una universidad pública española, situada en la ciudad de Valladolid. Fue "
 "fundada en el año 1241, lo que la convierte en la tercera universidad más "
@@ -710,15 +740,15 @@ msgstr ""
 "founded in the year 1241, which makes it the third oldest university in "
 "Spain."
 
-#: rehaWebApp/templates/rehaWebApp/index.html:278
+#: rehaWebApp/templates/rehaWebApp/index.html:282
 msgid "Clínica"
 msgstr "Clinic"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:279
+#: rehaWebApp/templates/rehaWebApp/index.html:283
 msgid "Centro de rehabilitación"
 msgstr "Rehabilitation Center"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:280
+#: rehaWebApp/templates/rehaWebApp/index.html:284
 msgid ""
 "CIRON es el Centro Integral de Rehabilitación ON para personas con déficits "
 "motores, cognitivos o sociales, provocados por cualquier etiología, sea "
@@ -728,31 +758,31 @@ msgstr ""
 "cognitive or social deficits, caused by any aetiology, whether neurological "
 "or not."
 
-#: rehaWebApp/templates/rehaWebApp/index.html:425
+#: rehaWebApp/templates/rehaWebApp/index.html:429
 msgid "Ponte en contacto con nosotros"
 msgstr "Get in contact with us"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:429
+#: rehaWebApp/templates/rehaWebApp/index.html:433
 msgid "Nombre completo"
 msgstr "Full name"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:432
+#: rehaWebApp/templates/rehaWebApp/index.html:436
 msgid "Correo electrónico"
 msgstr "Email"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:435
+#: rehaWebApp/templates/rehaWebApp/index.html:439
 msgid "Enviar mensaje"
 msgstr "Send message"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:438
+#: rehaWebApp/templates/rehaWebApp/index.html:442
 msgid "Tu mensaje"
 msgstr "Your message"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:456
+#: rehaWebApp/templates/rehaWebApp/index.html:460
 msgid "Nuestro proyecto en pocas palabras"
 msgstr "Our project in a few words"
 
-#: rehaWebApp/templates/rehaWebApp/index.html:457
+#: rehaWebApp/templates/rehaWebApp/index.html:461
 msgid ""
 "Buscamos tener éxito en el reto de crear un sistema de telerehabilitación "
 "que complete las terapias presenciales. Terapeutas, investigadores y "

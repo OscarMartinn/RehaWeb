@@ -1,0 +1,45 @@
+{% load static %}{% load i18n %}
+
+<div class="row justify-content-center" style="padding-top: 1em;">
+    <div class="col-sm-11 text-center" style="padding-left: 35em;"> 
+        <div class="row" >
+            <div class="col-sm-7 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+
+                    <form action="{% url 'filtrarInforme' paciente.id sesion.id %}"   method="GET">
+                        {% csrf_token %}
+
+
+                        <div class="col-sm-4 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+                            <br><label for="multi-select" style="font-size: 100%;">{% trans "Filtrar por Dolor"%}</label>
+                            <div class="select select-multiple">
+                                <select id="multi-select" name="dolor"  multiple="multiple"  multiple>
+                                    <option name="0" id="0" value="Menor a 3">{% trans "Menor a 3"%}</option>
+                                    <option name="1" id="1" value="Entre 3 y 5">{% trans "Entre 3 y 5"%}</option>
+                                    <option name="2" id="2" value="Entre 6 y 8">{% trans "Entre 6 y 8"%}</option>
+                                    <option name="3" id="3" value="Mas de 8">{% trans "Más de 8"%}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+                            <br><label for="multi-select">{% trans "Filtrar por Fecha"%}</label>
+                            <div class="select select-multiple">
+                                <select id="multi-select" name="fechas"  multiple="multiple"  multiple>
+                                    {% for dia in dias %}
+                                        <option name="{{dia}}" id="{{dia}}" value="{{dia}}">{{dia}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+                        <button type="submit" value="submit" class="section-btn" style="background-color: black; color: white; ">{% trans "Aplicar" %}</button><br><br>
+                    </form>
+                        <a href="{% url 'Informes' sesion.id  %}" class="section-btn" style="background-color: black; color: white; ">{% trans "Limpiar" %}</a>
+                        <br><br><br>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
