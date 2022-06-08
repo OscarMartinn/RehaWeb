@@ -10,7 +10,18 @@
 
 
                         <div class="col-sm-4 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
-                            <br><label for="multi-select" style="font-size: 100%;">{% trans "Filtrar por Dolor"%}</label>
+                            <br><label for="multi-select">{% trans "Ejercicio"%}</label>
+                            <div class="select select-multiple">
+                                <select id="multi-select" name="ejercicios"  multiple="multiple"  multiple>
+                                    {% for ej in ejercicios %}
+                                        <option name="{{ej}}" id="{{ej}}" value="{{ej}}">{{ej}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+                            <br><label for="multi-select" style="font-size: 100%;">{% trans "Dolor"%}</label>
                             <div class="select select-multiple">
                                 <select id="multi-select" name="dolor"  multiple="multiple"  multiple>
                                     <option name="0" id="0" value="Menor a 3">{% trans "Menor a 3"%}</option>
@@ -22,7 +33,7 @@
                         </div>
 
                         <div class="col-sm-4 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
-                            <br><label for="multi-select">{% trans "Filtrar por Fecha"%}</label>
+                            <br><label for="multi-select">{% trans "Fecha"%}</label>
                             <div class="select select-multiple">
                                 <select id="multi-select" name="fechas"  multiple="multiple"  multiple>
                                     {% for dia in dias %}
@@ -32,11 +43,14 @@
                             </div>
                         </div>
 
-                        <br>
-                        <button type="submit" value="submit" class="section-btn" style="background-color: black; color: white; ">{% trans "Aplicar" %}</button><br><br>
+                        <br><br>
+                        <div class="text-center">
+                            <br><br><br><br>
+                            <br><button type="submit" value="submit" class="section-btn" style="background-color: black; color: white; ">{% trans "Aplicar" %}</button>&nbsp;
+                            <a href="{% url 'Informes' sesion.id  %}" class="section-btn" style="background-color: black; color: white; ">{% trans "Limpiar" %}</a>
+                        </div><br>
+
                     </form>
-                        <a href="{% url 'Informes' sesion.id  %}" class="section-btn" style="background-color: black; color: white; ">{% trans "Limpiar" %}</a>
-                        <br><br><br>
 
                 
             </div>

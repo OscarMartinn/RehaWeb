@@ -1546,14 +1546,20 @@ def ocultarSesion(request, idSesion):
 ########################################################################################## 
 #-------------------------------------- INFORMES ----------------------------------------#
 ########################################################################################## 
-def getDays(sesionId,paciente):
+def getEjercicios(sesionId,paciente):
+    ejercicios = []
+    valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, sesion = sesionId)
+    for valoracion in valoraciones:
+        if valoracion.ejercicio not in ejercicios:
+            ejercicios.append(valoracion.ejercicio)
+    return ejercicios
 
+def getDays(sesionId,paciente):
     days = []
     valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, sesion = sesionId)
     for valoracion in valoraciones:
         if valoracion.fecha not in days:
             days.append(valoracion.fecha)
-
     return days
 
 @login_required
@@ -1668,6 +1674,7 @@ def informes(request, sesionId,showFilters=False):
             valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
 
         days = getDays(sesionId[1],paciente)
+        ejercicios = getEjercicios(sesionId[1],paciente)
 
         notinform = False
         context = {
@@ -1677,6 +1684,7 @@ def informes(request, sesionId,showFilters=False):
             "sesion":s, 
             "paciente":paciente,
             "dias":days,
+            "ejercicios":ejercicios,
             "showFilters": showFilters,
         }
         
@@ -1685,141 +1693,6 @@ def informes(request, sesionId,showFilters=False):
         notinform = True
         return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
 
-
-
-''' 
-@login_required
-def informes(request, sesionId, showFilters=False):
-    print(sesionId)
-
-    terapeuta = Terapeutas.objects.get(usuario = request.user)
-    if terapeuta.idioma.code == 'en':
-        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
-        idioma = 'en'
-    else:
-        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
-        idioma = 'es'
-
-    if workingOnServer:
-        #aws s3 sync s3:://ficherosrehabot2/sesiones
-        pass
-
-    try:
-        pacienteId = s.paciente.id
-        if workingOnServer == True:
-            ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
-        else:
-            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
-        nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + ".csv"
-
-
-        import csv
-        with open(nombre) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=';')
-            ejs = []
-            val1 = []
-            val2 = []
-            val3 = []
-            val4 = []
-            val5 = []
-            fecha = []
-            sesionId = []
-
-            for row in csv_reader:
-                ejs.append(row[2])
-                val1.append(row[3])
-                val2.append(row[4])
-                val3.append(row[5])
-                val4.append(row[6])
-                val5.append(row[7])
-                fecha.append(row[8].split(" ")[0])
-                sesionId.append(row[9])
-        
-            ejercicios_readed = len(ejs)
-
-        if terapeuta.idioma.code == 'en':
-            exist = AssessmentPatiens.objects.filter(sesion = sesionId[1])
-            paciente = Patients.objects.get(id = pacienteId)
-            if len(exist) == 0:
-                for i in range(len(ejs)):
-                    v = AssessmentPatiens()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i]
-                    v.valoracion1 = val1[i]
-                    v.valoracion2 = val2[i]
-                    v.valoracion3 = val3[i]
-                    v.valoracion4 = val4[i]
-                    v.valoracion5 = val5[i]
-                    v.fecha = fecha[i]
-                    v.sesion = sesionId[i]
-                    v.save()
-            elif len(exist) > 0:
-                initial = len(exist)
-                for i in range(ejercicios_readed - initial):
-                    v = AssessmentPatiens()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i+initial]
-                    v.valoracion1 = val1[i+initial]
-                    v.valoracion2 = val2[i+initial]
-                    v.valoracion3 = val3[i+initial]
-                    v.valoracion4 = val4[i+initial]
-                    v.valoracion5 = val5[i+initial]
-                    v.fecha = fecha[i+initial]
-                    v.sesion = sesionId[i+initial]
-                    v.save()
-
-            valoracion = AssessmentPatiens.objects.filter(sesion = sesionId[1])  
-        else:
-            exist = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-            paciente = Pacientes.objects.get(id = pacienteId)
-            if len(exist) == 0:
-                for i in range(len(ejs)):
-                    v = ValoracionPacientes()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i]
-                    v.valoracion1 = val1[i]
-                    v.valoracion2 = val2[i]
-                    v.valoracion3 = val3[i]
-                    v.valoracion4 = val4[i]
-                    v.valoracion5 = val5[i]
-                    v.fecha = fecha[i]
-                    v.sesion = sesionId[i]
-                    v.save()
-            elif len(exist) > 0:
-                initial = len(exist)
-                for i in range(ejercicios_readed - initial):
-                    v = ValoracionPacientes()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i+initial]
-                    v.valoracion1 = val1[i+initial]
-                    v.valoracion2 = val2[i+initial]
-                    v.valoracion3 = val3[i+initial]
-                    v.valoracion4 = val4[i+initial]
-                    v.valoracion5 = val5[i+initial]
-                    v.fecha = fecha[i+initial]
-                    v.sesion = sesionId[i+initial]
-                    v.save()
-
-            valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-
-        days = getDays(sesionId[1],paciente)
-
-        notinform = False
-        context = {
-            "valoracion": valoracion, 
-            "idioma":idioma, 
-            "notinform":notinform,
-            "sesion":s, 
-            "paciente":paciente,
-            "dias":days,
-            "showFilters": showFilters,
-        }
-        
-        return render(request, "accesoTerapeutas/informes.html", context)
-    except:
-        notinform = True
-        return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
-'''
 
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
@@ -1835,6 +1708,7 @@ def filtrarInforme(request, idPaciente, sesionId):
 
     dolores = request.GET.getlist('dolor')
     fechas = request.GET.getlist('fechas')
+    ejercicios = request.GET.getlist('ejercicios')
 
     kwargs_dolor = []
     for sel in dolores:
@@ -1857,14 +1731,22 @@ def filtrarInforme(request, idPaciente, sesionId):
     vals = []
     if terapeuta.idioma.code == 'en':
         paciente = Patients.objects.get(id = idPaciente)
-        if len(dolores) != 0:
+        if len(dolores) > 0 and len(ejercicios) == 0:
             valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        elif len(dolores) == 0 and len(ejercicios) > 0:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, ejercicio__in = ejercicios)
+        elif len(dolores) > 0 and len(ejercicios) > 0:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, ejercicio__in = ejercicios, valoracion4__in = kwargs_dolor)
         else:
             valoraciones = AssessmentPatiens.objects.filter(usuario = paciente)
     else:
         paciente = Pacientes.objects.get(id = idPaciente)
-        if len(dolores) != 0:
+        if len(dolores) > 0 and len(ejercicios) == 0:
             valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        elif len(dolores) == 0 and len(ejercicios) > 0:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, ejercicio__in = ejercicios)
+        elif len(dolores) > 0 and len(ejercicios) > 0:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, ejercicio__in = ejercicios, valoracion4__in = kwargs_dolor)
         else:
             valoraciones = ValoracionPacientes.objects.filter(usuario = paciente)
 
@@ -1876,10 +1758,11 @@ def filtrarInforme(request, idPaciente, sesionId):
     else:
         vals = valoraciones
     
-    if len(dolores) == 0 and len(fechas) == 0:
+    if len(dolores) == 0 and len(fechas) == 0 and len(ejercicios) == 0:
         return redirect('Informes',sesionId)
 
     days = getDays(sesionId,paciente)
+    ejercicios = getEjercicios(sesionId,paciente)
 
     notinform = False
     context = {
@@ -1889,6 +1772,8 @@ def filtrarInforme(request, idPaciente, sesionId):
         "sesion":s, 
         "paciente":paciente,
         "dias":days,
+        "ejercicios":ejercicios,
+        
     }
     return render(request, "accesoTerapeutas/informes.html", context)
 
