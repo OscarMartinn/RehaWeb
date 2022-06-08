@@ -23,6 +23,7 @@ from englishAccess.forms import EnglishPacienteForm, EnglishEditarPacienteForm, 
 from django_xhtml2pdf.utils import generate_pdf as gen_pdf, render_to_pdf_response
 from rehaWeb import settings
 from rehaWeb.settings import workingOnServer
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -67,15 +68,23 @@ def setLanguage(request, idLanguage=None, idSeccion=None):
 def pacientes(request):
 
     terapeuta = Terapeutas.objects.get(usuario = request.user)
+    
+    grupoPermisos = Group.objects.get(user = request.user)
+    print(grupoPermisos)
+    if str(grupoPermisos) == 'clinica':
+        pacientes = Pacientes.objects.all()
+    else:
+        if terapeuta.idioma.code == 'en':
+            pacientes = Patients.objects.filter(terapeuta = terapeuta)
+        else:
+            pacientes = Pacientes.objects.filter(terapeuta = terapeuta)
 
     if terapeuta.idioma.code == 'en':
-        pacientes = Patients.objects.filter(terapeuta = terapeuta)
         diagnosticos = Diagnostics.objects.all()
         macs = MacsEnglish.objects.all()
         gmfcs = GmfcsEnglish.objects.all()
 
     else:
-        pacientes = Pacientes.objects.filter(terapeuta = terapeuta)
         diagnosticos = Diagnosticos.objects.all()
         macs = Macs.objects.all()
         gmfcs = Gmfcs.objects.all()
@@ -249,7 +258,7 @@ def nuevoPaciente(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EnglishPacienteForm(request.POST) # Bound form
             if form.is_valid():
-                pacientes = form.save(commit=False)
+                pacientes = form.save()
                 #pacientes.terapeuta = request.user
                 pacientes.creado = timezone.now()
                 pacientes.actualizado = timezone.now()
@@ -266,7 +275,7 @@ def nuevoPaciente(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = PacienteForm(request.POST) # Bound form
             if form.is_valid():
-                pacientes = form.save(commit=False)
+                pacientes = form.save()
                 #pacientes.terapeuta = request.user
                 pacientes.creado = timezone.now()
                 pacientes.actualizado = timezone.now()
@@ -784,7 +793,6 @@ def nuevoEjercicio(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EnglishEjercicioForm(request.POST) # Bound form
             if form.is_valid():
-                print("He entrado aqui")
                 ejercicios = form.save(commit=False)
                 ejercicios.creado = timezone.now()
                 ejercicios.actualizado = timezone.now()
@@ -800,7 +808,6 @@ def nuevoEjercicio(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EjercicioForm(request.POST) # Bound form
             if form.is_valid():
-                print("He entrado aqui")
                 ejercicios = form.save(commit=False)
                 ejercicios.creado = timezone.now()
                 ejercicios.actualizado = timezone.now()
@@ -1388,6 +1395,31 @@ def busquedaSesiones(request):
         sesiones = Sesiones.objects.filter(queries)
     return render(request, "accesoTerapeutas/busquedaSesiones.html", {"sesiones": sesiones, "ejercicios": ejercicios, "sesionesEjercicios": sesionesEjercicios, "valoracion": valoracion, "registro": registro, "realizados": realizados, "idioma":idioma})
 
+def eliminarFicheroSesion(request, sesionId, nombre):
+    if workingOnServer:
+        ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
+    else:
+        ruta = '/Users/oscarmartincasares/Desktop/rehaweb/datosEnviados/sesiones/'
+
+    contenido = os.listdir(ruta)
+    if nombre in contenido:
+        # Eliminamos el fichero si existe
+        os.remove(ruta+nombre)
+        contenido = os.listdir(ruta)
+
+
+def deshabilitarSesionesRedundantes(request,sesionId):
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        sesion = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    else:
+        sesion = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+
+    allSesiones = Sesiones.objects.all()
+    for s in allSesiones:
+        if s != sesion:
+            s.enviado = False
+            s.save()
 
 @login_required
 #Enviar sesion. Se usa para crear un fichero con todos los datos que va a tener la sesion y sera ese el fichero qeu se envia a la raspberry
@@ -1407,10 +1439,12 @@ def sesionEnviada(request, sesionId):
     if workingOnServer:
         ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
     else:
-        ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaweb/rehaweb/datosEnviados/sesiones/'
+        ruta = '/Users/oscarmartincasares/Desktop/rehaweb/datosEnviados/sesiones/'
     nombre = ruta + str(s.paciente.usuario) + ".txt"
     
-    
+    eliminarFicheroSesion(request, sesionId, str(s.paciente.usuario) + ".txt")
+    deshabilitarSesionesRedundantes(request,sesionId)
+
     with open(nombre, 'w') as f:
         myfile = File(f)
         myfile.write('Fecha de inicio: '+ str(s.fechaInicial))
@@ -1437,11 +1471,20 @@ def sesionEnviada(request, sesionId):
     #return render(request, "accesoTerapeutas/sesiones.html")
     return redirect('Sesiones')
 
-def safe_str(obj):
-    try: return str(obj)
-    except UnicodeEncodeError:
-        return obj.encode('ascii', 'ignore').decode('ascii')
-    return ""
+def cancelarEnvioSesion(request, sesionId):
+
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    else:
+        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    s.enviado = False
+    s.save()
+    fichero = str(s.paciente.usuario) + ".txt"
+    eliminarFicheroSesion(request, sesionId, fichero)
+    
+    return redirect('Sesiones')
+
 
 #Esta vista mostrara un listado de los pacientes que tiene el TERAPEUTA en NO VISIBLE
 @login_required
@@ -1503,14 +1546,20 @@ def ocultarSesion(request, idSesion):
 ########################################################################################## 
 #-------------------------------------- INFORMES ----------------------------------------#
 ########################################################################################## 
-def getDays(sesionId,paciente):
+def getEjercicios(sesionId,paciente):
+    ejercicios = []
+    valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, sesion = sesionId)
+    for valoracion in valoraciones:
+        if valoracion.ejercicio not in ejercicios:
+            ejercicios.append(valoracion.ejercicio)
+    return ejercicios
 
+def getDays(sesionId,paciente):
     days = []
     valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, sesion = sesionId)
     for valoracion in valoraciones:
         if valoracion.fecha not in days:
             days.append(valoracion.fecha)
-
     return days
 
 @login_required
@@ -1532,7 +1581,7 @@ def informes(request, sesionId,showFilters=False):
         if workingOnServer == True:
             ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
         else:
-            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
+            ruta = '/Users/oscarmartincasares/Desktop/rehaWeb/datosRecibidos/valoracionIndividual/'
         nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + "_" + str(sesionId) + ".csv"  
 
         import csv
@@ -1625,6 +1674,7 @@ def informes(request, sesionId,showFilters=False):
             valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
 
         days = getDays(sesionId[1],paciente)
+        ejercicios = getEjercicios(sesionId[1],paciente)
 
         notinform = False
         context = {
@@ -1634,6 +1684,7 @@ def informes(request, sesionId,showFilters=False):
             "sesion":s, 
             "paciente":paciente,
             "dias":days,
+            "ejercicios":ejercicios,
             "showFilters": showFilters,
         }
         
@@ -1642,141 +1693,6 @@ def informes(request, sesionId,showFilters=False):
         notinform = True
         return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
 
-
-
-''' 
-@login_required
-def informes(request, sesionId, showFilters=False):
-    print(sesionId)
-
-    terapeuta = Terapeutas.objects.get(usuario = request.user)
-    if terapeuta.idioma.code == 'en':
-        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
-        idioma = 'en'
-    else:
-        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
-        idioma = 'es'
-
-    if workingOnServer:
-        #aws s3 sync s3:://ficherosrehabot2/sesiones
-        pass
-
-    try:
-        pacienteId = s.paciente.id
-        if workingOnServer == True:
-            ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
-        else:
-            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
-        nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + ".csv"
-
-
-        import csv
-        with open(nombre) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=';')
-            ejs = []
-            val1 = []
-            val2 = []
-            val3 = []
-            val4 = []
-            val5 = []
-            fecha = []
-            sesionId = []
-
-            for row in csv_reader:
-                ejs.append(row[2])
-                val1.append(row[3])
-                val2.append(row[4])
-                val3.append(row[5])
-                val4.append(row[6])
-                val5.append(row[7])
-                fecha.append(row[8].split(" ")[0])
-                sesionId.append(row[9])
-        
-            ejercicios_readed = len(ejs)
-
-        if terapeuta.idioma.code == 'en':
-            exist = AssessmentPatiens.objects.filter(sesion = sesionId[1])
-            paciente = Patients.objects.get(id = pacienteId)
-            if len(exist) == 0:
-                for i in range(len(ejs)):
-                    v = AssessmentPatiens()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i]
-                    v.valoracion1 = val1[i]
-                    v.valoracion2 = val2[i]
-                    v.valoracion3 = val3[i]
-                    v.valoracion4 = val4[i]
-                    v.valoracion5 = val5[i]
-                    v.fecha = fecha[i]
-                    v.sesion = sesionId[i]
-                    v.save()
-            elif len(exist) > 0:
-                initial = len(exist)
-                for i in range(ejercicios_readed - initial):
-                    v = AssessmentPatiens()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i+initial]
-                    v.valoracion1 = val1[i+initial]
-                    v.valoracion2 = val2[i+initial]
-                    v.valoracion3 = val3[i+initial]
-                    v.valoracion4 = val4[i+initial]
-                    v.valoracion5 = val5[i+initial]
-                    v.fecha = fecha[i+initial]
-                    v.sesion = sesionId[i+initial]
-                    v.save()
-
-            valoracion = AssessmentPatiens.objects.filter(sesion = sesionId[1])  
-        else:
-            exist = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-            paciente = Pacientes.objects.get(id = pacienteId)
-            if len(exist) == 0:
-                for i in range(len(ejs)):
-                    v = ValoracionPacientes()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i]
-                    v.valoracion1 = val1[i]
-                    v.valoracion2 = val2[i]
-                    v.valoracion3 = val3[i]
-                    v.valoracion4 = val4[i]
-                    v.valoracion5 = val5[i]
-                    v.fecha = fecha[i]
-                    v.sesion = sesionId[i]
-                    v.save()
-            elif len(exist) > 0:
-                initial = len(exist)
-                for i in range(ejercicios_readed - initial):
-                    v = ValoracionPacientes()
-                    v.usuario = paciente
-                    v.ejercicio = ejs[i+initial]
-                    v.valoracion1 = val1[i+initial]
-                    v.valoracion2 = val2[i+initial]
-                    v.valoracion3 = val3[i+initial]
-                    v.valoracion4 = val4[i+initial]
-                    v.valoracion5 = val5[i+initial]
-                    v.fecha = fecha[i+initial]
-                    v.sesion = sesionId[i+initial]
-                    v.save()
-
-            valoracion = ValoracionPacientes.objects.filter(sesion = sesionId[1])
-
-        days = getDays(sesionId[1],paciente)
-
-        notinform = False
-        context = {
-            "valoracion": valoracion, 
-            "idioma":idioma, 
-            "notinform":notinform,
-            "sesion":s, 
-            "paciente":paciente,
-            "dias":days,
-            "showFilters": showFilters,
-        }
-        
-        return render(request, "accesoTerapeutas/informes.html", context)
-    except:
-        notinform = True
-        return render(request, "accesoTerapeutas/informes.html", {"notinform":notinform,"sesion":s})
-'''
 
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
@@ -1792,6 +1708,7 @@ def filtrarInforme(request, idPaciente, sesionId):
 
     dolores = request.GET.getlist('dolor')
     fechas = request.GET.getlist('fechas')
+    ejercicios = request.GET.getlist('ejercicios')
 
     kwargs_dolor = []
     for sel in dolores:
@@ -1814,14 +1731,22 @@ def filtrarInforme(request, idPaciente, sesionId):
     vals = []
     if terapeuta.idioma.code == 'en':
         paciente = Patients.objects.get(id = idPaciente)
-        if len(dolores) != 0:
+        if len(dolores) > 0 and len(ejercicios) == 0:
             valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        elif len(dolores) == 0 and len(ejercicios) > 0:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, ejercicio__in = ejercicios)
+        elif len(dolores) > 0 and len(ejercicios) > 0:
+            valoraciones = AssessmentPatiens.objects.filter(usuario = paciente, ejercicio__in = ejercicios, valoracion4__in = kwargs_dolor)
         else:
             valoraciones = AssessmentPatiens.objects.filter(usuario = paciente)
     else:
         paciente = Pacientes.objects.get(id = idPaciente)
-        if len(dolores) != 0:
+        if len(dolores) > 0 and len(ejercicios) == 0:
             valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, valoracion4__in = kwargs_dolor)
+        elif len(dolores) == 0 and len(ejercicios) > 0:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, ejercicio__in = ejercicios)
+        elif len(dolores) > 0 and len(ejercicios) > 0:
+            valoraciones = ValoracionPacientes.objects.filter(usuario = paciente, ejercicio__in = ejercicios, valoracion4__in = kwargs_dolor)
         else:
             valoraciones = ValoracionPacientes.objects.filter(usuario = paciente)
 
@@ -1833,10 +1758,11 @@ def filtrarInforme(request, idPaciente, sesionId):
     else:
         vals = valoraciones
     
-    if len(dolores) == 0 and len(fechas) == 0:
+    if len(dolores) == 0 and len(fechas) == 0 and len(ejercicios) == 0:
         return redirect('Informes',sesionId)
 
     days = getDays(sesionId,paciente)
+    ejercicios = getEjercicios(sesionId,paciente)
 
     notinform = False
     context = {
@@ -1846,6 +1772,8 @@ def filtrarInforme(request, idPaciente, sesionId):
         "sesion":s, 
         "paciente":paciente,
         "dias":days,
+        "ejercicios":ejercicios,
+        
     }
     return render(request, "accesoTerapeutas/informes.html", context)
 

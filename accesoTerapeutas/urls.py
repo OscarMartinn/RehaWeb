@@ -43,7 +43,7 @@ urlpatterns = [
     path('sesionEnviada/<int:sesionId>', views.sesionEnviada, name="SesionEnviada"),
     path('nuevaSesion', views.nuevaSesion, name="NuevaSesion"),
     path('ocultarSesion/<int:idSesion>', views.ocultarSesion, name="OcultarSesion"),
-    #path('editarSesion/<int:idSesion>', views.editarSesion, name="EditarSesion"),
+    path('cancelarEnvioSesion/<int:sesionId>', views.cancelarEnvioSesion, name="cancelarEnvioSesion"),
 
     path('ejerciciosSesion/<int:idSesion>', views.ejerciciosSesion, name="ejerciciosSesion"),
 

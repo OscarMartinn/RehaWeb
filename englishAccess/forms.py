@@ -4,7 +4,7 @@ from django.forms import ModelForm, widgets, Select
 from django import forms
 from django.forms.models import inlineformset_factory
 
-from englishAccess.models import Ages, Diagnostics, Exercices, Extremities, Patients, PciEnglish, Position, Sessions, SessionsExercices, TherapeuticObjective
+from englishAccess.models import Ages, Diagnostics, Exercices, Extremities, Patients, PciEnglish, Position, Sessions, SessionsExercices, TherapeuticObjective, Therapists
 
 class EnglishPacienteForm(ModelForm):
     DOY = ('1964', '1965', '1966', '1967', '1968', '1969', '1970', '1971',
@@ -16,7 +16,7 @@ class EnglishPacienteForm(ModelForm):
        '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
        '2020','2021')
     birthDate = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
-    
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Therapists.objects.all())
     class Meta:
         model = Patients
         fields=('nombre','apellidos','birthDate','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)

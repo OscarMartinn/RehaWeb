@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-05 12:24+0200\n"
+"POT-Creation-Date: 2022-06-08 15:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,7 +274,7 @@ msgstr "More info"
 #: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:159
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:461
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:262
-#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:155
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:156
 #: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:161
 msgid "Ocultar"
 msgstr "Hide"
@@ -321,13 +321,12 @@ msgstr "repetitions"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:157
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:233
-#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:153
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:154
 #: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:158
 msgid "Enviar Sesión"
 msgstr "Send Session"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/busquedaSesiones.html:161
-#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:157
 #: accesoTerapeutas/templates/accesoTerapeutas/sesionesNoVisibles.html:160
 msgid "Sesión Enviada  "
 msgstr "Session Sent "
@@ -426,6 +425,7 @@ msgstr "Diagnostics"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:402
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:402
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:36
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:232
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:232
 msgid "Aplicar"
@@ -433,6 +433,7 @@ msgstr "Apply"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicios.html:403
 #: accesoTerapeutas/templates/accesoTerapeutas/ejerciciosNoVisibles.html:403
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:38
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:233
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesNoVisibles.html:233
 msgid "Limpiar"
@@ -457,33 +458,29 @@ msgstr "Save"
 msgid "Terminar"
 msgstr "Finish"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:7
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:13
 msgid "Filtrar por Dolor"
 msgstr "Filter by Pain"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:10
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:16
 msgid "Menor a 3"
 msgstr "Less than 4"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:11
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:17
 msgid "Entre 3 y 5"
 msgstr "Between 3 and 5"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:12
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:18
 msgid "Entre 6 y 8"
 msgstr "Between 6 and 8"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:13
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:19
 msgid "Más de 8"
 msgstr "More than 8"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:17
+#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:25
 msgid "Filtrar por Fecha"
 msgstr "Filter by Date"
-
-#: accesoTerapeutas/templates/accesoTerapeutas/filtrosInforme.html:27
-msgid "Filtrar"
-msgstr "Filter"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/generacionPdf/first_page.html:4
 msgid "Informe de la sesion"
@@ -493,45 +490,49 @@ msgstr "Session report"
 msgid "Seleccione el panel al que quiere acceder"
 msgstr "Select the panel you want to access"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:106
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:107
 msgid "Generar pdf"
 msgstr "Generate pdf"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:116
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:109
+msgid "Mostrar filtros"
+msgstr ""
+
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:123
 msgid "El paciente aún no ha realizado su sesión de ejercicios "
 msgstr "The patient has not yet completed their exercise session"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:126
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:133
 #, fuzzy
 #| msgid "Registro de los ejercicios"
 msgid "Registro de los ejercicios de "
 msgstr "Workout log"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:134
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:141
 msgid "Ejercicio "
 msgstr "Exercise"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:135
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:142
 msgid "Claridad"
 msgstr "Clarity"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:136
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:143
 msgid "Dificultad"
 msgstr "Difficulty"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:137
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:144
 msgid "Utilidad"
 msgstr "Utility"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:138
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:145
 msgid "Dolor"
 msgstr "Pain"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:139
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:146
 msgid "Repetir"
 msgstr "Repeat"
 
-#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:140
+#: accesoTerapeutas/templates/accesoTerapeutas/informes.html:147
 msgid "Fecha"
 msgstr "Date"
 
@@ -599,6 +600,21 @@ msgstr "Session Sent"
 #| msgid "El paciente no tiene ningún sesion por el momento. "
 msgid "El paciente no tiene ningúna sesion por el momento. "
 msgstr "The patient doesn't have any sessions at the moment."
+
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:154
+msgid ""
+"¿Está seguro de que desea enviar la sesión? \\nSi existen, el resto de "
+"sesiones enviadas se desharán."
+msgstr "Are you sure you want to sent the session? If they exist, the rest of the sent sessions will be rolled back."
+
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:158
+#, fuzzy
+msgid "Enviada  "
+msgstr "Sent "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/sesiones.html:160
+msgid "Deshacer"
+msgstr "Undo send"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/subirVideo.html:16
 msgid "Subir video"
@@ -793,6 +809,9 @@ msgstr ""
 "that completes face-to-face therapies. Therapists, researchers and "
 "developers united in the search for a dynamic system that is available to "
 "everyone."
+
+#~ msgid "Filtrar"
+#~ msgstr "Filter"
 
 #~ msgid "Escuela Técnica Superior de Ingenieros de Telecomunicación"
 #~ msgstr "Higher Technical School of Telecommunication Engineers"
