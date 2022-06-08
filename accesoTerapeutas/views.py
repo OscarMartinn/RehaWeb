@@ -23,6 +23,7 @@ from englishAccess.forms import EnglishPacienteForm, EnglishEditarPacienteForm, 
 from django_xhtml2pdf.utils import generate_pdf as gen_pdf, render_to_pdf_response
 from rehaWeb import settings
 from rehaWeb.settings import workingOnServer
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -67,15 +68,23 @@ def setLanguage(request, idLanguage=None, idSeccion=None):
 def pacientes(request):
 
     terapeuta = Terapeutas.objects.get(usuario = request.user)
+    
+    grupoPermisos = Group.objects.get(user = request.user)
+    print(grupoPermisos)
+    if str(grupoPermisos) == 'clinica':
+        pacientes = Pacientes.objects.all()
+    else:
+        if terapeuta.idioma.code == 'en':
+            pacientes = Patients.objects.filter(terapeuta = terapeuta)
+        else:
+            pacientes = Pacientes.objects.filter(terapeuta = terapeuta)
 
     if terapeuta.idioma.code == 'en':
-        pacientes = Patients.objects.filter(terapeuta = terapeuta)
         diagnosticos = Diagnostics.objects.all()
         macs = MacsEnglish.objects.all()
         gmfcs = GmfcsEnglish.objects.all()
 
     else:
-        pacientes = Pacientes.objects.filter(terapeuta = terapeuta)
         diagnosticos = Diagnosticos.objects.all()
         macs = Macs.objects.all()
         gmfcs = Gmfcs.objects.all()
@@ -249,7 +258,7 @@ def nuevoPaciente(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EnglishPacienteForm(request.POST) # Bound form
             if form.is_valid():
-                pacientes = form.save(commit=False)
+                pacientes = form.save()
                 #pacientes.terapeuta = request.user
                 pacientes.creado = timezone.now()
                 pacientes.actualizado = timezone.now()
@@ -266,7 +275,7 @@ def nuevoPaciente(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = PacienteForm(request.POST) # Bound form
             if form.is_valid():
-                pacientes = form.save(commit=False)
+                pacientes = form.save()
                 #pacientes.terapeuta = request.user
                 pacientes.creado = timezone.now()
                 pacientes.actualizado = timezone.now()
@@ -784,7 +793,6 @@ def nuevoEjercicio(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EnglishEjercicioForm(request.POST) # Bound form
             if form.is_valid():
-                print("He entrado aqui")
                 ejercicios = form.save(commit=False)
                 ejercicios.creado = timezone.now()
                 ejercicios.actualizado = timezone.now()
@@ -800,7 +808,6 @@ def nuevoEjercicio(request):
         if request.method == 'POST': # si el usuario está enviando el formulario con datos
             form = EjercicioForm(request.POST) # Bound form
             if form.is_valid():
-                print("He entrado aqui")
                 ejercicios = form.save(commit=False)
                 ejercicios.creado = timezone.now()
                 ejercicios.actualizado = timezone.now()

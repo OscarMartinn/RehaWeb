@@ -5,7 +5,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 
-from .models import Diagnosticos, Edad, Extremidades, ObjetivoTerapeutico, Pacientes, Ejercicios, Pci, Posicion, Sesiones, SesionesEjercicios
+from .models import Diagnosticos, Edad, Extremidades, ObjetivoTerapeutico, Pacientes, Ejercicios, Pci, Posicion, Sesiones, SesionesEjercicios, Terapeutas
 
 ##################################################################################################
 #------------------------------------------- Formularios ----------------------------------------#
@@ -22,6 +22,7 @@ class PacienteForm(ModelForm):
        '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
        '2020','2021')
     fechaNacimiento = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Terapeutas.objects.all())
     class Meta:
         model= Pacientes
         fields=('nombre','apellidos','fechaNacimiento','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
@@ -132,7 +133,7 @@ class SesionForm(ModelForm):
         fields=('paciente','periodicidad','fechaInicial', 'fechaFinal', 'terapeuta',  'visible')
         help_texts = {
             'paciente': (''),
-            'periodicidad': (''),
+            'periodicidad': ('Especifique las veces por semana que debe hacer los ejercicios.'),
             'fechaInicial': (''),
             'fechaFinal': (''),
             'terapeuta': (''),
