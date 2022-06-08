@@ -1395,6 +1395,31 @@ def busquedaSesiones(request):
         sesiones = Sesiones.objects.filter(queries)
     return render(request, "accesoTerapeutas/busquedaSesiones.html", {"sesiones": sesiones, "ejercicios": ejercicios, "sesionesEjercicios": sesionesEjercicios, "valoracion": valoracion, "registro": registro, "realizados": realizados, "idioma":idioma})
 
+def eliminarFicheroSesion(request, sesionId, nombre):
+    if workingOnServer:
+        ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
+    else:
+        ruta = '/Users/oscarmartincasares/Desktop/rehaweb/datosEnviados/sesiones/'
+
+    contenido = os.listdir(ruta)
+    if nombre in contenido:
+        # Eliminamos el fichero si existe
+        os.remove(ruta+nombre)
+        contenido = os.listdir(ruta)
+
+
+def deshabilitarSesionesRedundantes(request,sesionId):
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        sesion = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    else:
+        sesion = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+
+    allSesiones = Sesiones.objects.all()
+    for s in allSesiones:
+        if s != sesion:
+            s.enviado = False
+            s.save()
 
 @login_required
 #Enviar sesion. Se usa para crear un fichero con todos los datos que va a tener la sesion y sera ese el fichero qeu se envia a la raspberry
@@ -1414,10 +1439,12 @@ def sesionEnviada(request, sesionId):
     if workingOnServer:
         ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
     else:
-        ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaweb/rehaweb/datosEnviados/sesiones/'
+        ruta = '/Users/oscarmartincasares/Desktop/rehaweb/datosEnviados/sesiones/'
     nombre = ruta + str(s.paciente.usuario) + ".txt"
     
-    
+    eliminarFicheroSesion(request, sesionId, str(s.paciente.usuario) + ".txt")
+    deshabilitarSesionesRedundantes(request,sesionId)
+
     with open(nombre, 'w') as f:
         myfile = File(f)
         myfile.write('Fecha de inicio: '+ str(s.fechaInicial))
@@ -1444,11 +1471,20 @@ def sesionEnviada(request, sesionId):
     #return render(request, "accesoTerapeutas/sesiones.html")
     return redirect('Sesiones')
 
-def safe_str(obj):
-    try: return str(obj)
-    except UnicodeEncodeError:
-        return obj.encode('ascii', 'ignore').decode('ascii')
-    return ""
+def cancelarEnvioSesion(request, sesionId):
+
+    terapeuta = Terapeutas.objects.get(usuario = request.user)
+    if terapeuta.idioma.code == 'en':
+        s = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    else:
+        s = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
+    s.enviado = False
+    s.save()
+    fichero = str(s.paciente.usuario) + ".txt"
+    eliminarFicheroSesion(request, sesionId, fichero)
+    
+    return redirect('Sesiones')
+
 
 #Esta vista mostrara un listado de los pacientes que tiene el TERAPEUTA en NO VISIBLE
 @login_required
@@ -1539,7 +1575,7 @@ def informes(request, sesionId,showFilters=False):
         if workingOnServer == True:
             ruta = '/home/ubuntu/Web/django/rehaWeb/datosRecibidos/valoracionIndividual/'
         else:
-            ruta = '/Users/oscarmartincasares/Desktop/Working_www...com/rehaWeb/rehaWeb/datosRecibidos/valoracionIndividual/'
+            ruta = '/Users/oscarmartincasares/Desktop/rehaWeb/datosRecibidos/valoracionIndividual/'
         nombre = ruta + "valoracionIndividual" + str(s.paciente.usuario) + "_" + str(sesionId) + ".csv"  
 
         import csv

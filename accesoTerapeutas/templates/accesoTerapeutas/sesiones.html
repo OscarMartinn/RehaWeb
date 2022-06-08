@@ -150,13 +150,14 @@
 
                     <br><br><div style="text-align: center; margin-right: 10px; margin-bottom: 10px; padding-bottom: 10px;">
                         {% if sesion.enviado == False %}
-                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;" href="{% url 'SesionEnviada' sesion.id %}">{% trans "Enviar Sesión"%}</a>
+                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;" href="{% url 'SesionEnviada' sesion.id %}"
+                        onclick="return confirm('{% trans "¿Está seguro de que desea enviar la sesión? \nSi existen, el resto de sesiones enviadas se desharán."%}');">{% trans "Enviar Sesión"%}</a>
                         
                         <a href="{% url 'OcultarSesion' sesion.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
                         {% else %}
-                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black; ">{% trans "Sesión Enviada  "%}&#9989;</a>
+                        <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black; ">{% trans "Enviada  "%}&#9989;</a>
                         <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;" href="{% url 'Informes' sesion.id  %}">{% trans "Ver Informe" %}</a>
-
+                        <a class="section-btn" style="background-color: red;color: white;" href="{% url 'cancelarEnvioSesion' sesion.id  %}">{% trans "Deshacer" %}</a>
                         <a href="{% url 'OcultarSesion' sesion.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
                         {% endif %}
                         <br></div>
