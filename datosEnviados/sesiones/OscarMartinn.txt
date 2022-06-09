@@ -10,5 +10,5 @@ Codigo: A09
 Ejercicio: Burpee
 Repeticiones: 1
 Periodicidad: 1
-Sesion: 2
+Sesion: 3
 Paciente Id: 1
