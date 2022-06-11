@@ -11,18 +11,22 @@
 
         <div class="overlay"></div> <!-- COLOR DE FONDO -->
     
-        <div class="col-sm-12 text-left" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
+        <div class="col-sm-12" style="background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%; text-align: center;"> 
             <br><div class="col-sm-12 text-center" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 140%;"> 
                 <strong>{% trans "Subir video"%}</strong><br>
             </div><br>
-            <div class="col-sm-12" style="padding-left: 10em;">
-                <div class="form-group"><br>
+            <div class="col-sm-12 justify-content-center" style=" justify-content: center; text-align: center;">
+                <div class="form-group" style="justify-content: center; text-align: center;"><br>
+                    <strong>{% trans "¡Recuerde que el nombre del video debe ser idéntico al código que posee el ejercicio!"%}</strong><br><br>
                     <form action="" method="post" data-toggle="validator" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <table style="color: #113448; ">{{form.as_table}}</table>
+                        <div class="form-group">
+                            <table style="color: #113448; margin-left: 20em;">{{form.as_table}}</table>
+                        </div>
                         <br>
                         <div class="form-group">
-                            <button type="submit" class="section-btn" style="background-color: rgb(71, 255, 154); color: black; margin-left: 12em;" value="Update">{% trans "Guardar"%}</button>
+                            <button type="submit" class="section-btn" style="background-color: rgb(71, 255, 154); 
+                            color: black; justify-content: center;" value="Update">{% trans "Guardar"%}</button>
                         </div>
                         <div class="form-message">
                             <div id="cmsgSubmit" class="h3 text-center hidden"></div>

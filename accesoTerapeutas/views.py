@@ -1408,14 +1408,14 @@ def eliminarFicheroSesion(request, sesionId, nombre):
         contenido = os.listdir(ruta)
 
 
-def deshabilitarSesionesRedundantes(request,sesionId):
+def deshabilitarSesionesRedundantes(request, sesionId, pacienteId):
     terapeuta = Terapeutas.objects.get(usuario = request.user)
     if terapeuta.idioma.code == 'en':
         sesion = Sessions.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
     else:
         sesion = Sesiones.objects.get(pk=sesionId) #aqui tienen tu objeto de tipo Sesion
 
-    allSesiones = Sesiones.objects.all()
+    allSesiones = Sesiones.objects.filter(paciente_id= pacienteId)
     for s in allSesiones:
         if s != sesion:
             s.enviado = False
@@ -1443,7 +1443,7 @@ def sesionEnviada(request, sesionId):
     nombre = ruta + str(s.paciente.usuario) + ".txt"
     
     eliminarFicheroSesion(request, sesionId, str(s.paciente.usuario) + ".txt")
-    deshabilitarSesionesRedundantes(request,sesionId)
+    deshabilitarSesionesRedundantes(request, sesionId, pacienteId)
 
     with open(nombre, 'w') as f:
         myfile = File(f)
