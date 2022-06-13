@@ -70,7 +70,6 @@ def pacientes(request):
     terapeuta = Terapeutas.objects.get(usuario = request.user)
     
     grupoPermisos = Group.objects.get(user = request.user)
-    print(grupoPermisos)
     if str(grupoPermisos) == 'clinica':
         pacientes = Pacientes.objects.all()
     else:
@@ -1322,18 +1321,29 @@ def sesiones(request):
 
     if terapeuta.idioma.code == 'en':
         ejercicios = Exercices.objects.all()
-        sesiones = Sessions.objects.filter(terapeuta = terapeuta) 
         sesionesEjercicios = SessionsExercices.objects.all()
         realizados = ExercisesDone.objects.all()
         registro = RegistrationSession.objects.all()
         valoracion = AssessmentPatiens.objects.all()
     else:
         ejercicios = Ejercicios.objects.all()
-        sesiones = Sesiones.objects.filter(terapeuta = terapeuta) 
         sesionesEjercicios = SesionesEjercicios.objects.all()
         realizados = EjerciciosRealizados.objects.all()
         registro = RegistroSesiones.objects.all()
         valoracion = ValoracionPacientes.objects.all()
+
+    grupoPermisos = Group.objects.get(user = request.user)
+
+    if str(grupoPermisos) == 'clinica':
+        if terapeuta.idioma.code == 'en':
+            sesiones = Sessions.objects.all() 
+        else:
+            sesiones = Sesiones.objects.all() 
+    else:
+        if terapeuta.idioma.code == 'en':
+            sesiones = Sessions.objects.filter(terapeuta = terapeuta)
+        else:
+            sesiones = Sesiones.objects.filter(terapeuta = terapeuta) 
 
     fechaActual = datetime.now()
     actual = fechaActual.strftime("%d-%m-%Y")

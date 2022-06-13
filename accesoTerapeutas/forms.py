@@ -22,7 +22,7 @@ class PacienteForm(ModelForm):
        '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
        '2020','2021')
     fechaNacimiento = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
-    terapeuta = forms.ModelMultipleChoiceField(queryset=Terapeutas.objects.all())
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Terapeutas.objects.filter(usuario__groups__name__in=['terapeuta']))
     class Meta:
         model= Pacientes
         fields=('nombre','apellidos','fechaNacimiento','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
