@@ -252,8 +252,8 @@ class Sesiones(models.Model):
     #through nos indica que la tabla intermedia que se crea en ManyToMany es la que yo le indico porque quiero que tenga mas campos.
     ejercicios= models.ManyToManyField(Ejercicios, through='SesionesEjercicios', help_text="Seleccione los ejercicios para esta sesión.", verbose_name="Ejercicios")
     periodicidad = models.IntegerField(default=1, help_text="Indique las veces que puede realizar el paciente esta sesión a lo largo de la semana.", verbose_name="Periodicidad")
-    fechaInicial = models.DateField(verbose_name="Fecha de Inicio")
-    fechaFinal = models.DateField(verbose_name="Fecha de Final")
+    fecha_Inicial = models.DateField(verbose_name="Fecha de Inicio")
+    fecha_Final = models.DateField(verbose_name="Fecha de Final")
     terapeuta = models.ForeignKey(Terapeutas,on_delete=models.CASCADE, help_text="Seleccione el terapeuta de esta sesión.", verbose_name="Terapeuta")
     visible = models.BooleanField(default=True, help_text="Cuando quieras dejar oculto una Sesión, desmarca la casilla", verbose_name="Sin ocultar")
     enviado = models.BooleanField(default=False, help_text="Si la casilla no se encuentra marcada, las sesion no ha sido programada", verbose_name="Enviado")

@@ -28,9 +28,9 @@ class TherapistsAdmin(admin.ModelAdmin):
 class SessionsAdmin(admin.ModelAdmin):
 #    inlines = [SessionsExercicesInline,]
 
-    list_display = ("paciente", "initialDate", "finalDate", "enviado", "visible", "creado", "actualizado",)
+    list_display = ("paciente", "initial_Date", "final_Date", "enviado", "visible", "creado", "actualizado",)
     search_fields = ("paciente",)
-    list_filter = ("initialDate", "finalDate", "enviado", "creado", )
+    list_filter = ("initial_Date", "final_Date", "enviado", "creado", )
     date_hierarchy = "creado"
     readonly_fields = ('creado','actualizado')
 

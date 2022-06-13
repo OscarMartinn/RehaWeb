@@ -125,17 +125,17 @@ class EnglishSubirVideoForm(ModelForm):
 
 
 class EnglishSesionForm(ModelForm):
-    initialDate = forms.DateField(widget=forms.SelectDateWidget())
-    finalDate = forms.DateField(widget=forms.SelectDateWidget())
+    initial_Date = forms.DateField(widget=forms.SelectDateWidget())
+    final_Date = forms.DateField(widget=forms.SelectDateWidget())
     class Meta:
         model = Sessions
         exclude = ('ejercicios',)
-        fields=('paciente','periodicidad','initialDate', 'finalDate', 'terapeuta',  'visible')
+        fields=('paciente','periodicidad','initial_Date', 'final_Date', 'terapeuta',  'visible')
         help_texts = {
             'paciente': (''),
             'periodicidad': (''),
-            'initialDate': (''),
-            'finalDate': (''),
+            'initial_Date': (''),
+            'final_Date': (''),
             'terapeuta': (''),
             'visible': (''),
             }

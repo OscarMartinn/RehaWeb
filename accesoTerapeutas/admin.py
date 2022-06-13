@@ -99,9 +99,9 @@ class SesionesEjerciciosInline(admin.TabularInline):
 class SesionesAdmin(admin.ModelAdmin):
     inlines = [SesionesEjerciciosInline,]
 
-    list_display = ("paciente", "fechaInicial", "fechaFinal", "enviado", "visible", "creado", "actualizado",)
+    list_display = ("paciente", "fecha_Inicial", "fecha_Final", "enviado", "visible", "creado", "actualizado",)
     search_fields = ("paciente",)
-    list_filter = ("fechaInicial", "fechaInicial", "enviado", "creado", )
+    list_filter = ("fecha_Inicial", "fecha_Inicial", "enviado", "creado", )
     date_hierarchy = "creado"
     readonly_fields = ('creado','actualizado')
 

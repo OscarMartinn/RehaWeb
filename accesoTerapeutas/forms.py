@@ -122,20 +122,20 @@ class SubirVideoForm(ModelForm):
             }         
 
 class SesionForm(ModelForm):
-    fechaInicial = forms.DateField(widget=forms.SelectDateWidget())
-    fechaFinal = forms.DateField(widget=forms.SelectDateWidget())
+    fecha_Inicial = forms.DateField(widget=forms.SelectDateWidget())
+    fecha_Final = forms.DateField(widget=forms.SelectDateWidget())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all(),widget=forms.CheckboxSelectMultiple())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all())
     class Meta:
         model = Sesiones
         exclude = ('ejercicios',)
-        fields=('paciente','periodicidad','fechaInicial', 'fechaFinal', 'terapeuta',  'visible')
+        fields=('paciente','periodicidad','fecha_Inicial', 'fecha_Final', 'terapeuta',  'visible')
         help_texts = {
             'paciente': (''),
             'periodicidad': ('Especifique las veces por semana que debe hacer los ejercicios.'),
-            'fechaInicial': (''),
-            'fechaFinal': (''),
+            'fecha_Inicial': (''),
+            'fecha_Final': (''),
             'terapeuta': (''),
             'visible': (''),
             }
@@ -145,13 +145,13 @@ class EditarSesionForm(ModelForm):
     
     class Meta:
         model= Sesiones
-        fields=('paciente','periodicidad', 'fechaInicial', 'fechaFinal','ejercicios','terapeuta','visible')
+        fields=('paciente','periodicidad', 'fecha_Inicial', 'fecha_Final','ejercicios','terapeuta','visible')
         help_texts = {
             'paciente': (''),
             'ejercicios': (''),
             'periodicidad': (''),
-            'fechaInicial': (''),
-            'fechaFinal': (''),
+            'fecha_Inicial': (''),
+            'fecha_Final': (''),
             'terapeuta': (''),
             'visible': (''),
             }

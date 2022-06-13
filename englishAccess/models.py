@@ -255,8 +255,8 @@ class Sessions(models.Model):
     paciente = models.ForeignKey(Patients, on_delete=models.CASCADE, help_text="Selecciona al paciente asigando para esta sesión.", verbose_name="Patient")
     ejercicios = models.ManyToManyField(Exercices, through='SessionsExercices', help_text="Seleccione los ejercicios para esta sesión.", verbose_name="Exercises")
     periodicidad = models.IntegerField(default=1, help_text="Indique las veces que puede realizar el paciente esta sesión a lo largo de la semana.", verbose_name="Periodicity")
-    initialDate = models.DateField(verbose_name="Initial date",null=True, blank=True)
-    finalDate = models.DateField(verbose_name="Final date",null=True, blank=True)
+    initial_Date = models.DateField(verbose_name="Initial date",null=True, blank=True)
+    final_Date = models.DateField(verbose_name="Final date",null=True, blank=True)
     terapeuta = models.ForeignKey(Terapeutas,on_delete=models.CASCADE, help_text="Seleccione el terapeuta de esta sesión.", verbose_name="Therapist",null=True, blank=True)
     visible = models.BooleanField(default=True, help_text="Cuando quieras dejar oculto una Sesión, desmarca la casilla", verbose_name="Whithout hiding")
     enviado = models.BooleanField(default=False, help_text="Si la casilla no se encuentra marcada, las sesion no ha sido programada", verbose_name="Sended")
@@ -303,8 +303,8 @@ class ExercisesDone(models.Model):
         return self.exercise
 
 class RegistrationSession(models.Model):
-    initialDate = models.CharField(max_length=30, verbose_name="Fecha de inicio")
-    finalDate =models.CharField(max_length=30, verbose_name="Fecha de finalización")
+    initial_Date = models.CharField(max_length=30, verbose_name="Fecha de inicio")
+    final_Date =models.CharField(max_length=30, verbose_name="Fecha de finalización")
     session = models.IntegerField(default=0, verbose_name="ID Sesión")
     comment = models.CharField(max_length=100, verbose_name="Comentarios", default="sin comentario")
 
@@ -314,7 +314,7 @@ class RegistrationSession(models.Model):
         
     
     def __str__(self):
-        return self.initialDate
+        return self.initial_Date
 
 class PatientForm(models.Model):
     dia=models.CharField(max_length=100, verbose_name="Día preferido")

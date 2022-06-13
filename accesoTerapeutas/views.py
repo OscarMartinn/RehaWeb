@@ -1457,8 +1457,8 @@ def sesionEnviada(request, sesionId):
 
     with open(nombre, 'w') as f:
         myfile = File(f)
-        myfile.write('Fecha de inicio: '+ str(s.fechaInicial))
-        myfile.write('\nFecha de finalizacion: '+ str(s.fechaFinal))
+        myfile.write('Fecha de inicio: '+ str(s.fecha_Inicial))
+        myfile.write('\nFecha de finalizacion: '+ str(s.fecha_Final))
         for sesion in sEj:
             if sesion.sesiones.id == sesionId:
                 myfile.write('\nCodigo: ' + str(sesion.ejercicios.codigo))
