@@ -130,9 +130,9 @@
             <div class="col-sm-12 text-left" style=" background-color: white; border-radius: 10px 10px 10px 10px; font-size: 100%;"> 
                 <br> {% trans "Paciente: "%}<strong>{{sesion.paciente.nombre}} {{sesion.paciente.apellidos}}</strong>
                 {% if idioma == 'es' %}
-                <br> {% trans "Fecha programada: "%}&nbsp;</b><strong>{{sesion.fechaInicial|date:"SHORT_DATE_FORMAT"}} - {{sesion.fechaFinal|date:"SHORT_DATE_FORMAT" }}</strong>
+                <br> {% trans "Fecha programada: "%}&nbsp;</b><strong>{{sesion.fecha_Inicial|date:"SHORT_DATE_FORMAT"}} - {{sesion.fecha_Final|date:"SHORT_DATE_FORMAT" }}</strong>
                 {% elif idioma == 'en' %}
-                <br> {% trans "Fecha programada: "%}&nbsp;</b><strong>{{sesion.initialDate|date:"SHORT_DATE_FORMAT"}} - {{sesion.finalDate|date:"SHORT_DATE_FORMAT" }}</strong>
+                <br> {% trans "Fecha programada: "%}&nbsp;</b><strong>{{sesion.initial_Date|date:"SHORT_DATE_FORMAT"}} - {{sesion.final_Date|date:"SHORT_DATE_FORMAT" }}</strong>
                 {% endif %}
                 <br> {% trans "Ejercicios: "%}
                     {% for ejercicio in sesionesEjercicios %}
@@ -157,7 +157,7 @@
                         {% else %}
                         <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black; ">{% trans "Enviada  "%}&#9989;</a>
                         <a class="section-btn" style="background-color: rgb(71, 255, 154); color: black;" href="{% url 'Informes' sesion.id  %}">{% trans "Ver Informe" %}</a>
-                        <a class="section-btn" style="background-color: red;color: white;" href="{% url 'cancelarEnvioSesion' sesion.id  %}">{% trans "Deshacer" %}</a>
+                        <a class="section-btn" style="background-color:tomato; color: white;" href="{% url 'cancelarEnvioSesion' sesion.id  %}">{% trans "Deshacer" %}</a>
                         <a href="{% url 'OcultarSesion' sesion.id %}" class="section-btn " style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">{% trans "Ocultar"%}</a>
                         {% endif %}
                         <br></div>

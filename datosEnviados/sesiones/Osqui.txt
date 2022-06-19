@@ -1,8 +1,0 @@
-Fecha de inicio: 2022-01-01
-Fecha de finalizacion: 2022-01-01
-Codigo: A08
-Ejercicio: Flexion
-Repeticiones: 10000
-Periodicidad: 1
-Sesion: 8
-Paciente Id: 2

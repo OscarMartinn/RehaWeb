@@ -92,8 +92,8 @@
                     <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
                             style="color: #113448; font-size: 13px; text-transform: uppercase;">Fecha
                             Programada&nbsp;</b><strong
-                            style="color: #ffff; text-transform: capitalize;">{{sesion.fechaInicial|date:"SHORT_DATE_FORMAT"}} -
-                            {{sesion.fechaFinal|date:"SHORT_DATE_FORMAT" }}</strong>
+                            style="color: #ffff; text-transform: capitalize;">{{sesion.fecha_Inicial|date:"SHORT_DATE_FORMAT"}} -
+                            {{sesion.fecha_Final|date:"SHORT_DATE_FORMAT" }}</strong>
                     </p>
                     <div style="text-align: right; margin-right: 10px;margin-bottom: 10px; ">
                         {% if sesion.enviado == False %}
@@ -105,10 +105,10 @@
                                     href="{% url 'SesionEnviada' sesion.id %}">Enviar Sesión</a></button> 
                         {% elif sesion.enviado == True %} 
                         {% now "Y-m-d" as fechaActual %}
-                        {% if sesion.fechaFinal|date:"Y-m-d" > fechaActual %} <!-- Sesion Activa-->
+                        {% if sesion.fecha_Final|date:"Y-m-d" > fechaActual %} <!-- Sesion Activa-->
                         <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Sesión Enviada &#10004;</a></button>
                         <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Activa</a></button>
-                        {% elif fechaActual > sesion.fechaFinal|date:"Y-m-d" %} <!-- Sesion No Activa-->
+                        {% elif fechaActual > sesion.fecha_Final|date:"Y-m-d" %} <!-- Sesion No Activa-->
                         <button style="background-color: #41aceb; color: white; box-shadow: none; border: none;"><a style="text-decoration: none;">Sesión Enviada &#10004;</a></button>
                         {% endif %}
                         {% endif %}
@@ -124,8 +124,8 @@
                     <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
                             style="color: #113448; font-size: 13px; text-transform: uppercase;">Fecha
                             Programada&nbsp;</b><strong
-                            style="color: #ffff; text-transform: capitalize;">{{sesion.fechaInicial|date:"SHORT_DATE_FORMAT"}} -
-                            {{sesion.fechaFinal|date:"SHORT_DATE_FORMAT" }}</strong>
+                            style="color: #ffff; text-transform: capitalize;">{{sesion.fecha_Inicial|date:"SHORT_DATE_FORMAT"}} -
+                            {{sesion.fecha_Final|date:"SHORT_DATE_FORMAT" }}</strong>
                     </p>
                     <p style="color: #ffff; font-size: 15px; text-transform: uppercase;"><b
                             style="color: #113448; font-size: 13px; text-transform: uppercase;">Ejercicios:&nbsp;</b>

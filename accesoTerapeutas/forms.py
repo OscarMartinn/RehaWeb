@@ -5,7 +5,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 
-from .models import Diagnosticos, Edad, Extremidades, ObjetivoTerapeutico, Pacientes, Ejercicios, Pci, Posicion, Sesiones, SesionesEjercicios, Terapeutas
+from .models import Diagnosticos, Edad, Extremidades, Objetivo_Terapeutico, Pacientes, Ejercicios, Pci, Posicion, Sesiones, SesionesEjercicios, Terapeutas
 
 ##################################################################################################
 #------------------------------------------- Formularios ----------------------------------------#
@@ -21,15 +21,15 @@ class PacienteForm(ModelForm):
        '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011',
        '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
        '2020','2021')
-    fechaNacimiento = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
+    fecha_Nacimiento = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
     terapeuta = forms.ModelMultipleChoiceField(queryset=Terapeutas.objects.filter(usuario__groups__name__in=['terapeuta']))
     class Meta:
         model= Pacientes
-        fields=('nombre','apellidos','fechaNacimiento','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
+        fields=('nombre','apellidos','fecha_Nacimiento','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
         help_texts = {
             'nombre': (''),
             'apellidos': (''),
-            'fechaNacimiento': (''),
+            'fecha_Nacimiento': (''),
             'telefono': (''),
             'email': (''),
             'diagnostico': (''),
@@ -72,11 +72,11 @@ class EjercicioForm(ModelForm):
     posicion = forms.ModelMultipleChoiceField(queryset=Posicion.objects.all())
     extremidades = forms.ModelMultipleChoiceField(queryset=Extremidades.objects.all())
     edad = forms.ModelMultipleChoiceField(queryset=Edad.objects.all())
-    objetivoTerapeutico = forms.ModelMultipleChoiceField(queryset=ObjetivoTerapeutico.objects.all())
+    objetivo_Terapeutico = forms.ModelMultipleChoiceField(queryset=Objetivo_Terapeutico.objects.all())
     pci = forms.ModelMultipleChoiceField(queryset=Pci.objects.all())
     class Meta:
         model= Ejercicios
-        fields=('codigo','nombre', 'descripcion','edad', 'extremidades','lateralidad','posicion','objetivoTerapeutico','diagnostico','pci','visible')
+        fields=('codigo','nombre', 'descripcion','edad', 'extremidades','lateralidad','monitoreo_Sensores','posicion','objetivo_Terapeutico','diagnostico','pci','visible')
         help_texts = {
             'codigo':(''),
             'nombre': (''),
@@ -84,8 +84,9 @@ class EjercicioForm(ModelForm):
             'edad':(''),
             'extremidades':(''),
             'lateralidad':(''),
+            'monitoreo_Sensores':(''),
             'posicion':(''),
-            'objetivoTerapeutico':(''),
+            'objetivo_Terapeutico':(''),
             'diagnostico':(''),
             'pci':(''),
             'visible':(''),
@@ -95,7 +96,7 @@ class EditarEjercicioForm(ModelForm):
 
     class Meta:
         model= Ejercicios
-        fields=('codigo','nombre','descripcion','edad', 'extremidades','lateralidad','posicion','objetivoTerapeutico','diagnostico','pci', 'video','visible')
+        fields=('codigo','nombre','descripcion','edad', 'extremidades','lateralidad','monitoreo_Sensores','posicion','objetivo_Terapeutico','diagnostico','pci', 'video','visible')
         help_texts = {
             'codigo':(''),
             'nombre': (''),
@@ -103,8 +104,9 @@ class EditarEjercicioForm(ModelForm):
             'edad':(''),
             'extremidades':(''),
             'lateralidad':(''),
+            'monitoreo_Sensores':(''),
             'posicion':(''),
-            'objetivoTerapeutico':(''),
+            'objetivo_Terapeutico':(''),
             'diagnostico':(''),
             'pci':(''),
             'video':(''),
@@ -122,20 +124,21 @@ class SubirVideoForm(ModelForm):
             }         
 
 class SesionForm(ModelForm):
-    fechaInicial = forms.DateField(widget=forms.SelectDateWidget())
-    fechaFinal = forms.DateField(widget=forms.SelectDateWidget())
+    fecha_Inicial = forms.DateField(widget=forms.SelectDateWidget())
+    fecha_Final = forms.DateField(widget=forms.SelectDateWidget())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all(),widget=forms.CheckboxSelectMultiple())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all())
     #ejercicios = forms.ModelMultipleChoiceField(queryset=Ejercicios.objects.all())
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Terapeutas.objects.filter(usuario__groups__name__in=['terapeuta']))
     class Meta:
         model = Sesiones
         exclude = ('ejercicios',)
-        fields=('paciente','periodicidad','fechaInicial', 'fechaFinal', 'terapeuta',  'visible')
+        fields=('paciente','periodicidad','fecha_Inicial', 'fecha_Final', 'terapeuta',  'visible')
         help_texts = {
             'paciente': (''),
             'periodicidad': ('Especifique las veces por semana que debe hacer los ejercicios.'),
-            'fechaInicial': (''),
-            'fechaFinal': (''),
+            'fecha_Inicial': (''),
+            'fecha_Final': (''),
             'terapeuta': (''),
             'visible': (''),
             }
@@ -145,13 +148,13 @@ class EditarSesionForm(ModelForm):
     
     class Meta:
         model= Sesiones
-        fields=('paciente','periodicidad', 'fechaInicial', 'fechaFinal','ejercicios','terapeuta','visible')
+        fields=('paciente','periodicidad', 'fecha_Inicial', 'fecha_Final','ejercicios','terapeuta','visible')
         help_texts = {
             'paciente': (''),
             'ejercicios': (''),
             'periodicidad': (''),
-            'fechaInicial': (''),
-            'fechaFinal': (''),
+            'fecha_Inicial': (''),
+            'fecha_Final': (''),
             'terapeuta': (''),
             'visible': (''),
             }

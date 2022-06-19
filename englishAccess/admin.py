@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from englishAccess.models import Ages, Languages, AssessmentPatiens, Classifications, Diagnostics, Exercices, ExercisesDone, Extremities, GmfcsEnglish, Laterality, MacsEnglish, PatientForm, Patients, PciEnglish, Position, RegistrationSession, Sessions, SessionsExercices, TherapeuticObjective, Therapists
+from englishAccess.models import Ages, Languages, AssessmentPatiens, Classifications, Diagnostics, Exercices, ExercisesDone, Extremities, GmfcsEnglish, Laterality, MacsEnglish, PatientForm, Patients, PciEnglish, Position, RegistrationSession, Sessions, SessionsExercices, Therapeutic_Objective, Therapists
 
 # Register your models here.
 
@@ -28,9 +28,9 @@ class TherapistsAdmin(admin.ModelAdmin):
 class SessionsAdmin(admin.ModelAdmin):
 #    inlines = [SessionsExercicesInline,]
 
-    list_display = ("paciente", "initialDate", "finalDate", "enviado", "visible", "creado", "actualizado",)
+    list_display = ("paciente", "initial_Date", "final_Date", "enviado", "visible", "creado", "actualizado",)
     search_fields = ("paciente",)
-    list_filter = ("initialDate", "finalDate", "enviado", "creado", )
+    list_filter = ("initial_Date", "final_Date", "enviado", "creado", )
     date_hierarchy = "creado"
     readonly_fields = ('creado','actualizado')
 
@@ -40,7 +40,7 @@ admin.site.register(Therapists, TherapistsAdmin)
 admin.site.register(Diagnostics, DiagnosticsAdmin)
 admin.site.register(SessionsExercices)
 admin.site.register(Languages)
-admin.site.register(TherapeuticObjective)
+admin.site.register(Therapeutic_Objective)
 admin.site.register(MacsEnglish)
 admin.site.register(GmfcsEnglish)
 admin.site.register(Classifications)

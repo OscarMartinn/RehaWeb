@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 16:37+0200\n"
+"POT-Creation-Date: 2022-06-18 17:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,7 +247,7 @@ msgstr "years"
 
 #: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:128
 #: accesoTerapeutas/templates/accesoTerapeutas/busquedaPacientes.html:130
-#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:217
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:223
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:253
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientes.html:255
 #: accesoTerapeutas/templates/accesoTerapeutas/pacientesInfo.html:127
@@ -379,10 +379,14 @@ msgid "Lateralidad: "
 msgstr "Laterality: "
 
 #: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:181
+msgid "Monitoreo de sensores: "
+msgstr "Sensor monitoring: "
+
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:187
 msgid "Posición: "
 msgstr "Position: "
 
-#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:199
+#: accesoTerapeutas/templates/accesoTerapeutas/ejercicioInfo.html:205
 msgid "Objetivo terapéutico: "
 msgstr "Therapeutic objectives: "
 
@@ -626,7 +630,9 @@ msgstr "Upload video"
 msgid ""
 "¡Recuerde que el nombre del video debe ser idéntico al código que posee el "
 "ejercicio!"
-msgstr "Remember that the name of the video must be identical to the code that the exercise has!"
+msgstr ""
+"Remember that the name of the video must be identical to the code that the "
+"exercise has!"
 
 #: rehaWebApp/templates/registration/login.html:98
 #: rehaWebApp/templates/rehaWebApp/index.html:90

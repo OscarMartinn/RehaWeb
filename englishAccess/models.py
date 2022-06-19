@@ -48,7 +48,7 @@ class Therapists(models.Model):
         return self.name
 
 
-class TherapeuticObjective(models.Model):
+class Therapeutic_Objective(models.Model):
     nombre = models.CharField(max_length=40, help_text="Add a new therapeutic objective")
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now_add=True)
@@ -152,7 +152,19 @@ class Laterality(models.Model):
     
     def __str__ (self):
         return self.nombre
+        
+
+class Sensor_Monitoring(models.Model):
+    nombre = models.CharField(max_length=40, help_text="Add a new monitoring part.")
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now_add=True)
+
+    class Meta :
+        verbose_name = 'Sensor Monitoring'
+        verbose_name_plural = 'Sensor Monitoring'
     
+    def __str__ (self):
+        return self.nombre
     
 class Position(models.Model):
     nombre = models.CharField(max_length=40, help_text="Add a new position", null=True, blank=True)
@@ -185,8 +197,9 @@ class Exercices(models.Model):
     edad = models.ManyToManyField(Ages, help_text="Select the age ranges for this exercise.", verbose_name="Age ranges")
     extremidades = models.ManyToManyField(Extremities, help_text="Select the limbs involved in this exercise.", verbose_name="Extremities")
     lateralidad = models.ForeignKey(Laterality, on_delete=models.CASCADE, help_text="Select the laterality of this exercise.", verbose_name="Laterality")
+    monitoreo_Sensores = models.ForeignKey(Sensor_Monitoring, on_delete=models.CASCADE, help_text="Select the part to monitor.", verbose_name="Sensor Monitoring", null=True, blank=True)
     posicion = models.ManyToManyField(Position, help_text="Select the position associated with this exercise.", verbose_name="Position")
-    objetivoTerapeutico = models.ManyToManyField(TherapeuticObjective, help_text="Select the therapeutic objectives associated with this exercise.", verbose_name="Therapeutic Objectives") 
+    objetivo_Terapeutico = models.ManyToManyField(Therapeutic_Objective, help_text="Select the therapeutic objectives associated with this exercise.", verbose_name="Therapeutic Objectives") 
     diagnostico = models.ManyToManyField(Diagnostics, help_text="Select the diagnoses associated with this exercise.", verbose_name="Diagnostic") 
     pci = models.ManyToManyField(PciEnglish, verbose_name="PCI") 
     video = models.FileField(upload_to='ejercicios',help_text="Select the video you want to associate with the exercise. With the following format: code_exercise.mp4", null=True, blank=True, verbose_name="Video")
@@ -201,7 +214,7 @@ class Exercices(models.Model):
     def get_posiciones(self):
         return "\n".join([e.nombre for e in self.posicion.all()])
     def get_objetivos(self):
-        return "\n".join([e.nombre for e in self.objetivoTerapeutico.all()])
+        return "\n".join([e.nombre for e in self.objetivo_Terapeutico.all()])
     def get_diagnosticos(self):
         return "\n".join([e.nombre for e in self.diagnostico.all()])
     def get_pci(self):
@@ -220,7 +233,7 @@ class Patients(models.Model):
     #Lo que queramos que tenga nuestra tabla
     nombre = models.CharField(max_length=80, help_text="Indique el nombre completo del paciente.", verbose_name="Name")
     apellidos = models.CharField(max_length=60, help_text="Indique los apellidos del paciente.", verbose_name="Lastnames")
-    birthDate = models.DateField(verbose_name="Birth Date",null=True,blank=True)
+    birth_Date = models.DateField(verbose_name="Birth Date",null=True,blank=True)
     email = models.EmailField(max_length=30, help_text="Correo electróncio.", verbose_name="Email")
     telefono = models.CharField(max_length=10, help_text="Número de teléfono.", verbose_name="Phone")
     diagnostico = models.ForeignKey(Diagnostics,on_delete=models.CASCADE, help_text="Seleccione el diagnostico de este paciente.", verbose_name="Diagnostic")
@@ -237,7 +250,7 @@ class Patients(models.Model):
     actualizado = models.DateTimeField(auto_now_add=True)
 
     def calcula_edad(self):
-        fecha = self.birthDate
+        fecha = self.birth_Date
         edad = int(date.today().year) - int(fecha.year)
         return edad
 
@@ -255,8 +268,8 @@ class Sessions(models.Model):
     paciente = models.ForeignKey(Patients, on_delete=models.CASCADE, help_text="Selecciona al paciente asigando para esta sesión.", verbose_name="Patient")
     ejercicios = models.ManyToManyField(Exercices, through='SessionsExercices', help_text="Seleccione los ejercicios para esta sesión.", verbose_name="Exercises")
     periodicidad = models.IntegerField(default=1, help_text="Indique las veces que puede realizar el paciente esta sesión a lo largo de la semana.", verbose_name="Periodicity")
-    initialDate = models.DateField(verbose_name="Initial date",null=True, blank=True)
-    finalDate = models.DateField(verbose_name="Final date",null=True, blank=True)
+    initial_Date = models.DateField(verbose_name="Initial date",null=True, blank=True)
+    final_Date = models.DateField(verbose_name="Final date",null=True, blank=True)
     terapeuta = models.ForeignKey(Terapeutas,on_delete=models.CASCADE, help_text="Seleccione el terapeuta de esta sesión.", verbose_name="Therapist",null=True, blank=True)
     visible = models.BooleanField(default=True, help_text="Cuando quieras dejar oculto una Sesión, desmarca la casilla", verbose_name="Whithout hiding")
     enviado = models.BooleanField(default=False, help_text="Si la casilla no se encuentra marcada, las sesion no ha sido programada", verbose_name="Sended")
@@ -303,8 +316,8 @@ class ExercisesDone(models.Model):
         return self.exercise
 
 class RegistrationSession(models.Model):
-    initialDate = models.CharField(max_length=30, verbose_name="Fecha de inicio")
-    finalDate =models.CharField(max_length=30, verbose_name="Fecha de finalización")
+    initial_Date = models.CharField(max_length=30, verbose_name="Fecha de inicio")
+    final_Date =models.CharField(max_length=30, verbose_name="Fecha de finalización")
     session = models.IntegerField(default=0, verbose_name="ID Sesión")
     comment = models.CharField(max_length=100, verbose_name="Comentarios", default="sin comentario")
 
@@ -314,7 +327,7 @@ class RegistrationSession(models.Model):
         
     
     def __str__(self):
-        return self.initialDate
+        return self.initial_Date
 
 class PatientForm(models.Model):
     dia=models.CharField(max_length=100, verbose_name="Día preferido")
