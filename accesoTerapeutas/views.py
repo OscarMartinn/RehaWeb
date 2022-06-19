@@ -1485,7 +1485,7 @@ def sesionEnviada(request, sesionId):
         myfile.write('\nPeriodicidad: ' + str(s.periodicidad))
         myfile.write('\nSesion: ' + str(sesionId))
         myfile.write('\nPaciente Id: ' + str(pacienteId))
-
+    
     myfile.closed
     f.closed
     #Cambiamos el campo del modelo indicando que esa sesion ha sido ya enviada
@@ -1493,9 +1493,10 @@ def sesionEnviada(request, sesionId):
     s.save()
     print(ruta)
     #return render(request, "accesoTerapeutas/sesiones.html")
-    #if workingOnServer:
-        #os.system('aws s3 sync --delete --region eu-west-3 datosEnviados/sesiones/ s3://ficherosrehabot2/sesionesProgramadas/')
-        #os.system('sudo /usr/local/bin/aws s3 ls s3://ficherosrehabot2/sesionesProgramadas/')
+    if workingOnServer:
+        os.system('sudo /usr/local/bin/aws s3 sync --delete --region eu-west-3 /home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/ s3://ficherosrehabot2/sesionesProgramadas/')
+        os.system('sudo /usr/local/bin/aws s3 ls s3://ficherosrehabot2/sesionesProgramadas/')
+    print(os.system('aws s3 sync --delete --region eu-west-3 datosEnviados/sesiones/ s3://ficherosrehabot2/sesionesProgramadas/'))
 
     return redirect('Sesiones')
 
@@ -1852,8 +1853,11 @@ def generarPDF (request, sesionId):
     if terapeuta.idioma.code == 'en':
         valoracion = AssessmentPatiens.objects.filter(sesion = sesionId)  
         paciente = Patients.objects.get(id = pacienteId)
-
-        context = {"valoracion": valoracion, "idioma":idioma,"paciente":paciente}
+        if paciente:
+            terapeutas = []
+            for terapeuta in paciente.terapeuta.all():
+                terapeutas.append(terapeuta)
+        context = {"valoracion": valoracion, "idioma":idioma,"paciente":paciente,"terapeutas":terapeutas}
         pdf_file = 'accesoTerapeutas/generacionPdf/genPdf.html'
         pdf = gen_pdf(pdf_file,context = context)
         final_filename = paciente.nombre + "_" + paciente.apellidos + "_report_session.pdf"
@@ -1861,14 +1865,15 @@ def generarPDF (request, sesionId):
         response = HttpResponse(f, content_type='application/pdf')
         attach = 'attachment; filename=' + final_filename
         response['Content-Disposition'] = attach
-        return response
 
     else:
         valoracion = ValoracionPacientes.objects.filter(sesion = sesionId)
         paciente = Pacientes.objects.get(id = pacienteId)
-
-        context = {"valoracion": valoracion, "idioma":idioma,"paciente":paciente}
-        print(context)
+        if paciente:
+            terapeutas = []
+            for terapeuta in paciente.terapeuta.all():
+                terapeutas.append(terapeuta)
+        context = {"valoracion": valoracion, "idioma":idioma,"paciente":paciente,"terapeutas":terapeutas}
         pdf_file = 'accesoTerapeutas/generacionPdf/genPdf.html'
         pdf = gen_pdf(pdf_file,context = context)
         final_filename = paciente.nombre + "_" + paciente.apellidos + "_informe_sesion_" + str(sesionId) + ".pdf"
@@ -1876,7 +1881,8 @@ def generarPDF (request, sesionId):
         response = HttpResponse(f, content_type='application/pdf')
         attach = 'attachment; filename=' + final_filename
         response['Content-Disposition'] = attach
-        return response
+
+    return response
 
 
 

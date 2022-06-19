@@ -25,7 +25,14 @@
 			<td class="right">Telefono:</td>
             <td class="left">{{paciente.telefono}}</td>
 			<td class="right">Terapeuta:</td>
-            <td class="left">{{paciente.terapeuta}}</td>
+			{% for terapeuta in terapeutas %}
+				{% if not forloop.last %}
+					<td class="left">{{terapeuta.nombre}},</td>
+				{% else %}
+					<td class="left">{{terapeuta.nombre}}</td>
+				{% endif %}
+			{% endfor %}
+			
 		</tr>
         {% comment %}
 		<!--- <tr class="border-0">
