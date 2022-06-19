@@ -178,6 +178,12 @@
                 {% elif idioma == 'en' %}
                     {{ejercicio.lateralidad.nombre}}</strong>
                 {% endif %}
+            <br> {% trans "Monitoreo de sensores: " %}<strong> 
+                {% if idioma == 'es' %}
+                    {{ejercicio.monitoreo_Sensores}}</strong>
+                {% elif idioma == 'en' %}
+                    {{ejercicio.monitoreo_Sensores.nombre}}</strong>
+                {% endif %}
             <br> {% trans "Posición: " %}
                 <strong> 
                     {% for e in ejercicio.posicion.all %}
@@ -198,7 +204,7 @@
                 </strong>
             <br> {% trans "Objetivo terapéutico: " %}
                 <strong> 
-                    {% for e in ejercicio.objetivoTerapeutico.all %}
+                    {% for e in ejercicio.objetivo_Terapeutico.all %}
                         {% if not forloop.last %}
                             {% if idioma == 'es' %}
                                 {{e}},

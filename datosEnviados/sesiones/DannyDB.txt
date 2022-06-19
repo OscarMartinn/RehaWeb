@@ -1,0 +1,15 @@
+Fecha de inicio: 2022-01-01
+Fecha de finalizacion: 2022-01-01
+Codigo: A01
+Ejercicio: Pasar las anillas
+Repeticiones: 10
+Descripcion: El ejercicio consiste en pasar los aros por la pica, para ello hay que mantenerse a una distancia que nos permita realizar una extension completa con el brazo.
+Monitoreo: 1
+Codigo: A02
+Ejercicio: Golpear con la raqueta
+Repeticiones: 10
+Descripcion: El ejercicio consiste en dar 10 golpes con la raqueta a la pelota seguidos sin que esta se caiga.
+Monitoreo: 1
+Periodicidad: 1
+Sesion: 5
+Paciente Id: 5

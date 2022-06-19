@@ -1,7 +1,7 @@
 from gettext import gettext
 from multiprocessing import context
 from operator import index
-import os
+import os, stat, sys
 from posixpath import split
 from webbrowser import get
 from django.urls import resolve
@@ -9,7 +9,7 @@ import re
 from django.db.models.fields.related import ManyToManyField
 from django.shortcuts import render
 from rehaWeb.settings import MEDIA_ROOT
-from .models import Calificaciones, Diagnosticos, Extremidades, Gmfcs, Lateralidad, Macs, Edad, ObjetivoTerapeutico, Pci, Posicion, Sesiones, Ejercicios, Pacientes, SesionesEjercicios, Terapeutas, ValoracionPacientes, EjerciciosRealizados, RegistroSesiones, FormularioPacientes
+from .models import Calificaciones, Diagnosticos, Extremidades, Gmfcs, Lateralidad, Macs, Edad, Monitoreo_Sensores, Objetivo_Terapeutico, Pci, Posicion, Sesiones, Ejercicios, Pacientes, SesionesEjercicios, Terapeutas, ValoracionPacientes, EjerciciosRealizados, RegistroSesiones, FormularioPacientes
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import   EditarSesionForm, PacienteForm, EjercicioForm, EditarPacienteForm, EditarEjercicioForm, SesionEjerciciosForm, SesionForm, SubirVideoForm
@@ -18,7 +18,7 @@ from django.shortcuts import redirect
 from datetime import date, datetime
 from django.core.files import File
 from django.utils import translation
-from englishAccess.models import Ages, AssessmentPatiens, Exercices, ExercisesDone, Extremities, Laterality, Patients, Diagnostics, GmfcsEnglish, MacsEnglish, PciEnglish, Position, RegistrationSession, Sessions, PatientForm, SessionsExercices, Classifications, TherapeuticObjective, Therapists
+from englishAccess.models import Ages, AssessmentPatiens, Exercices, ExercisesDone, Extremities, Laterality, Patients, Diagnostics, GmfcsEnglish, MacsEnglish, PciEnglish, Position, RegistrationSession, Sensor_Monitoring, Sessions, PatientForm, SessionsExercices, Classifications, Therapeutic_Objective, Therapists
 from englishAccess.forms import EnglishPacienteForm, EnglishEditarPacienteForm, EnglishEjercicioForm, EnglishEditarEjercicioForm, EnglishSesionEjerciciosForm, EnglishSesionForm, EnglishSubirVideoForm
 from django_xhtml2pdf.utils import generate_pdf as gen_pdf, render_to_pdf_response
 from rehaWeb import settings
@@ -333,7 +333,7 @@ def editarPaciente(request, idPaciente):
                 
                 terapeuta = request.POST['terapeuta']
                 d = Terapeutas.objects.get(id=terapeuta)
-                p.terapeuta = d
+                p.terapeuta.add(d)
                 
                 p.visible = request.POST['visible']
                 if p.visible == "on":
@@ -392,7 +392,8 @@ def editarPaciente(request, idPaciente):
 
                 terapeuta = request.POST['terapeuta']
                 d = Terapeutas.objects.get(id=terapeuta)
-                p.terapeuta = d
+                p.terapeuta.add(d)
+
 
                 p.visible = request.POST['visible']
                 if p.visible == "on":
@@ -578,7 +579,7 @@ def ejercicios(request):
         extremidades = Extremities.objects.all()
         lateralidad = Laterality.objects.all()
         posiciones = Position.objects.all()
-        objetivos = TherapeuticObjective.objects.all()
+        objetivos = Therapeutic_Objective.objects.all()
         diagnosticos = Diagnostics.objects.all()
         pci = PciEnglish.objects.all()
     
@@ -588,7 +589,7 @@ def ejercicios(request):
         extremidades = Extremidades.objects.all()
         lateralidad = Lateralidad.objects.all()
         posiciones = Posicion.objects.all()
-        objetivos = ObjetivoTerapeutico.objects.all()
+        objetivos = Objetivo_Terapeutico.objects.all()
         diagnosticos = Diagnosticos.objects.all()
         pci = Pci.objects.all()
 
@@ -679,10 +680,10 @@ def ejercicios(request):
             if key != 'csrfmiddlewaretoken':
                 for e in objetivos:
                     if e.autoAlias() == value and queries is None:
-                        queries = Q(objetivoTerapeutico__nombre__icontains = key)
+                        queries = Q(objetivo_Terapeutico__nombre__icontains = key)
                         seleccionados5[e.autoAlias()] = 'true'
                     elif e.autoAlias() == value and queries is not None:
-                        queries |= Q(objetivoTerapeutico__nombre__icontains = key)
+                        queries |= Q(objetivo_Terapeutico__nombre__icontains = key)
                         seleccionados5[e.autoAlias()] = 'true'
 
         for key in request.POST:
@@ -849,13 +850,17 @@ def editarEjercicio(request, idEjercicio):
                 l = Laterality.objects.get(id=lateralidad)
                 l.lateralidad = l
 
+                monitoreo = request.POST['monitoreo_Sensores']
+                m = Sensor_Monitoring.objects.get(id=monitoreo)
+                m.monitoreo_Sensores = m
+
                 posicion = request.POST['posicion']
                 posicion1 = Position.objects.get(id=posicion)
                 e.posicion.add(posicion1)
 
-                objetivo = request.POST['objetivoTerapeutico']
-                objetivo1 = TherapeuticObjective.objects.get(id=objetivo)
-                e.objetivoTerapeutico.add(objetivo1)
+                objetivo = request.POST['objetivo_Terapeutico']
+                objetivo1 = Therapeutic_Objective.objects.get(id=objetivo)
+                e.objetivo_Terapeutico.add(objetivo1)
 
                 diagnostico = request.POST['diagnostico']
                 diagnostico1 = Diagnostics.objects.get(id=diagnostico)
@@ -901,13 +906,17 @@ def editarEjercicio(request, idEjercicio):
                 l = Lateralidad.objects.get(id=lateralidad)
                 l.lateralidad = l
 
+                monitoreo = request.POST['monitoreo_Sensores']
+                m = Monitoreo_Sensores.objects.get(id=monitoreo)
+                m.monitoreo_Sensores = m
+
                 posicion = request.POST['posicion']
                 posicion1 = Posicion.objects.get(id=posicion)
                 e.posicion.add(posicion1)
 
-                objetivo = request.POST['objetivoTerapeutico']
-                objetivo1 = ObjetivoTerapeutico.objects.get(id=objetivo)
-                e.objetivoTerapeutico.add(objetivo1)
+                objetivo = request.POST['objetivo_Terapeutico']
+                objetivo1 = Objetivo_Terapeutico.objects.get(id=objetivo)
+                e.objetivo_Terapeutico.add(objetivo1)
 
                 diagnostico = request.POST['diagnostico']
                 diagnostico1 = Diagnosticos.objects.get(id=diagnostico)
@@ -1008,7 +1017,7 @@ def ejerciciosNoVisibles(request):
         extremidades = Extremities.objects.all()
         lateralidad = Laterality.objects.all()
         posiciones = Position.objects.all()
-        objetivos = TherapeuticObjective.objects.all()
+        objetivos = Therapeutic_Objective.objects.all()
         diagnosticos = Diagnostics.objects.all()
         pci = PciEnglish.objects.all()
     else:
@@ -1017,7 +1026,7 @@ def ejerciciosNoVisibles(request):
         extremidades = Extremidades.objects.all()
         lateralidad = Lateralidad.objects.all()
         posiciones = Posicion.objects.all()
-        objetivos = ObjetivoTerapeutico.objects.all()
+        objetivos = Objetivo_Terapeutico.objects.all()
         diagnosticos = Diagnosticos.objects.all()
         pci = Pci.objects.all()
 
@@ -1107,10 +1116,10 @@ def ejerciciosNoVisibles(request):
             if key != 'csrfmiddlewaretoken':
                 for e in objetivos:
                     if e.autoAlias() == value and queries is None:
-                        queries = Q(objetivoTerapeutico__nombre__icontains = key)
+                        queries = Q(objetivo_Terapeutico__nombre__icontains = key)
                         seleccionados5[e.autoAlias()] = 'true'
                     elif e.autoAlias() == value and queries is not None:
-                        queries |= Q(objetivoTerapeutico__nombre__icontains = key)
+                        queries |= Q(objetivo_Terapeutico__nombre__icontains = key)
                         seleccionados5[e.autoAlias()] = 'true'
 
         for key in request.POST:
@@ -1450,6 +1459,7 @@ def sesionEnviada(request, sesionId):
         ruta = '/home/ubuntu/Web/django/rehaWeb/datosEnviados/sesiones/'
     else:
         ruta = '/Users/oscarmartincasares/Desktop/rehaweb/datosEnviados/sesiones/'
+    
     nombre = ruta + str(s.paciente.usuario) + ".txt"
     
     eliminarFicheroSesion(request, sesionId, str(s.paciente.usuario) + ".txt")
@@ -1466,12 +1476,16 @@ def sesionEnviada(request, sesionId):
                 myfile.write('\nEjercicio: ' + str(ejercicio))
                 repeticiones = sesion.repeticiones
                 myfile.write('\nRepeticiones: ' + str(repeticiones))
-#                if sesion.ejercicios.descripcion:
-#                    myfile.write('\nDescripcion: ' + unicode(sesion.ejercicios.descripcion).encode('utf-8))
+                if sesion.ejercicios.descripcion:
+                    myfile.write('\nDescripcion: ' + sesion.ejercicios.descripcion)
+                if str(sesion.ejercicios.monitoreo_Sensores.nombre) == "Parte de arriba":
+                    myfile.write('\nMonitoreo: ' + "1")
+                else:
+                    myfile.write('\nMonitoreo: ' + "0")
         myfile.write('\nPeriodicidad: ' + str(s.periodicidad))
         myfile.write('\nSesion: ' + str(sesionId))
         myfile.write('\nPaciente Id: ' + str(pacienteId))
-    
+
     myfile.closed
     f.closed
     #Cambiamos el campo del modelo indicando que esa sesion ha sido ya enviada
@@ -1479,6 +1493,10 @@ def sesionEnviada(request, sesionId):
     s.save()
     print(ruta)
     #return render(request, "accesoTerapeutas/sesiones.html")
+    #if workingOnServer:
+        #os.system('aws s3 sync --delete --region eu-west-3 datosEnviados/sesiones/ s3://ficherosrehabot2/sesionesProgramadas/')
+        #os.system('sudo /usr/local/bin/aws s3 ls s3://ficherosrehabot2/sesionesProgramadas/')
+
     return redirect('Sesiones')
 
 def cancelarEnvioSesion(request, sesionId):

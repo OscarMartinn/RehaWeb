@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from englishAccess.models import Ages, Languages, AssessmentPatiens, Classifications, Diagnostics, Exercices, ExercisesDone, Extremities, GmfcsEnglish, Laterality, MacsEnglish, PatientForm, Patients, PciEnglish, Position, RegistrationSession, Sessions, SessionsExercices, TherapeuticObjective, Therapists
+from englishAccess.models import Ages, Languages, AssessmentPatiens, Classifications, Diagnostics, Exercices, ExercisesDone, Extremities, GmfcsEnglish, Laterality, MacsEnglish, PatientForm, Patients, PciEnglish, Position, RegistrationSession, Sessions, SessionsExercices, Therapeutic_Objective, Therapists
 
 # Register your models here.
 
@@ -40,7 +40,7 @@ admin.site.register(Therapists, TherapistsAdmin)
 admin.site.register(Diagnostics, DiagnosticsAdmin)
 admin.site.register(SessionsExercices)
 admin.site.register(Languages)
-admin.site.register(TherapeuticObjective)
+admin.site.register(Therapeutic_Objective)
 admin.site.register(MacsEnglish)
 admin.site.register(GmfcsEnglish)
 admin.site.register(Classifications)

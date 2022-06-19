@@ -4,7 +4,7 @@ from django.forms import ModelForm, widgets, Select
 from django import forms
 from django.forms.models import inlineformset_factory
 
-from englishAccess.models import Ages, Diagnostics, Exercices, Extremities, Patients, PciEnglish, Position, Sessions, SessionsExercices, TherapeuticObjective, Therapists
+from englishAccess.models import Ages, Diagnostics, Exercices, Extremities, Patients, PciEnglish, Position, Sessions, SessionsExercices, Therapeutic_Objective, Therapists
 
 class EnglishPacienteForm(ModelForm):
     DOY = ('1964', '1965', '1966', '1967', '1968', '1969', '1970', '1971',
@@ -15,15 +15,15 @@ class EnglishPacienteForm(ModelForm):
        '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011',
        '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
        '2020','2021')
-    birthDate = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
-    terapeuta = forms.ModelMultipleChoiceField(queryset=Therapists.objects.all())
+    birth_Date = forms.DateField(widget=forms.SelectDateWidget(years = DOY))
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Therapists.objects.filter(user__groups__name__in=['terapeuta']))
     class Meta:
         model = Patients
-        fields=('nombre','apellidos','birthDate','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
+        fields=('nombre','apellidos','birth_Date','telefono','email','diagnostico','macs','gmfcs','calificacion5','calificacion50','calificacion500','usuario','contraseña', 'terapeuta','visible',)
         help_texts = {
             'nombre': (''),
             'apellidos': (''),
-            'birthDate': (''),
+            'birth_Date': (''),
             'telefono': (''),
             'email': (''),
             'diagnostico': (''),
@@ -73,7 +73,7 @@ class EnglishEjercicioForm(ModelForm):
     #pci = forms.ModelMultipleChoiceField(queryset=PciEnglish.objects.all())
     class Meta:
         model= Exercices
-        fields=('codigo','nombre', 'descripcion','edad', 'extremidades','lateralidad','posicion','objetivoTerapeutico','diagnostico','pci','visible')
+        fields=('codigo','nombre', 'descripcion','edad', 'extremidades','lateralidad','monitoreo_Sensores','posicion','objetivo_Terapeutico','diagnostico','pci','visible')
         help_texts = {
             'codigo':(''),
             'nombre': (''),
@@ -81,8 +81,9 @@ class EnglishEjercicioForm(ModelForm):
             'edad':(''),
             'extremidades':(''),
             'lateralidad':(''),
+            'monitoreo_Sensores':(''),
             'posicion':(''),
-            'objetivoTerapeutico':(''),
+            'objetivo_Terapeutico':(''),
             'diagnostico':(''),
             'pci':(''),
             'visible':(''),
@@ -95,7 +96,7 @@ class EnglishEditarEjercicioForm(ModelForm):
 
     class Meta:
         model = Exercices
-        fields=('codigo','nombre','descripcion','edad', 'extremidades','lateralidad','posicion','objetivoTerapeutico','diagnostico','pci', 'video','visible')
+        fields=('codigo','nombre','descripcion','edad', 'extremidades','lateralidad','monitoreo_Sensores','posicion','objetivo_Terapeutico','diagnostico','pci', 'video','visible')
         help_texts = {
             'codigo':(''),
             'nombre': (''),
@@ -103,8 +104,9 @@ class EnglishEditarEjercicioForm(ModelForm):
             'edad':(''),
             'extremidades':(''),
             'lateralidad':(''),
+            'monitoreo_Sensores':(''),
             'posicion':(''),
-            'objetivoTerapeutico':(''),
+            'objetivo_Terapeutico':(''),
             'diagnostico':(''),
             'pci':(''),
             'video':(''),
@@ -127,6 +129,7 @@ class EnglishSubirVideoForm(ModelForm):
 class EnglishSesionForm(ModelForm):
     initial_Date = forms.DateField(widget=forms.SelectDateWidget())
     final_Date = forms.DateField(widget=forms.SelectDateWidget())
+    terapeuta = forms.ModelMultipleChoiceField(queryset=Therapists.objects.filter(user__groups__name__in=['terapeuta']))
     class Meta:
         model = Sessions
         exclude = ('ejercicios',)
